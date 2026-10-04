@@ -3821,7 +3821,7 @@ body{
      data-title="Support">
 
     <div class="feature-icon">
-         <image src="https://assets-v2.lottiefiles.com/a/baa8edb8-1163-11ee-983a-5b72761e7098/mBKGBEXnIX.gif" class="feature-icon"></image>
+         <image src="https://cdn-icons-gif.flaticon.com/17576/17576972.gif" class="feature-icon"></image>
     </div>
 
     <div>
@@ -3926,12 +3926,12 @@ body{
 
               <div class="modern-input">
 
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user"><image src="https://cdn-icons-gif.flaticon.com/11255/11255995.gif" style="width: 70%"></i>
 
                 <input
                   type="text"
                   id="loginId"
-                  placeholder="JOS10001 / Mobile Number"
+                  placeholder="JANA10001 / Mobile Number"
                   autocomplete="username"
                   required>
 
@@ -3950,7 +3950,7 @@ body{
 
               <div class="modern-input">
 
-                <i class="fa-solid fa-key"></i>
+                <i class="fa-solid fa-key"><image src="https://cdn-icons-gif.flaticon.com/19027/19027984.gif" style="width: 70%"></image></i>
 
                 <input
                   type="password"
@@ -4517,6 +4517,91 @@ body{
         </p>
 
       </div>
+
+
+
+      <!-- FULL SCREEN IFRAME BUTTON -->
+<div style="width:100%; margin:15px 0;">
+
+  <button
+    type="button"
+    onclick="openMyIframePage()"
+    style="
+      width:100%;
+      padding:14px 18px;
+      border:none;
+      border-radius:12px;
+      background:#075985;
+      color:#fff;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    "
+  >
+    <i class="fa-solid fa-up-right-from-square"></i>
+    <b>SERVICE UPDATE</b>  (নতুন সার্ভিস ও আপডেট জানতে এখানে ক্লিক করুন )
+  </button>
+
+</div>
+
+<!-- FULL SCREEN IFRAME -->
+<div
+  id="myIframeViewer"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    background:#fff;
+    z-index:999999;
+  "
+>
+
+  <!-- CLOSE BUTTON -->
+  <button
+    type="button"
+    onclick="closeMyIframePage()"
+    style="
+      position:absolute;
+      top:10px;
+      right:10px;
+      z-index:1000000;
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:rgba(0,0,0,.75);
+      color:#fff;
+      font-size:25px;
+      line-height:42px;
+      cursor:pointer;
+    "
+    aria-label="Close"
+  >×</button>
+
+  <!-- IFRAME -->
+  <iframe
+    id="myIframeFrame"
+    src="about:blank"
+    style="
+      display:block;
+      width:100%;
+      height:100%;
+      border:0;
+      margin:0;
+      padding:0;
+    "
+    allow="camera; microphone; geolocation; payment"
+    allowfullscreen
+    loading="eager"
+  ></iframe>
+
+</div>
+
+
+
 
 
       <div class="common-service-toolbar">
@@ -8046,7 +8131,7 @@ const COMMON_ONLINE_SERVICES = [
 
 
   {
-    name:"Train Ticket Booking",
+    name:"Train Details Service",
     description:"IRCTC, PNR & Agent Interface",
     icon:"🚆",
 
@@ -8061,17 +8146,13 @@ const COMMON_ONLINE_SERVICES = [
         description:"Check PNR Status",
         url:"https://indianrail.gov.in/enquiry/PNR/PnrEnquiry.html"
       },
-      {
-        title:"IRCTC Agent",
-        description:"Agent Interface",
-        url:"https://www.operations.irctc.co.in/AgentInterface/mainpage.jsf"
-      }
+     
     ]
   },
 
 
   {
-    name:"Bus Ticket Booking",
+    name:"Bus Details Chacking",
     description:"Online & Intercity Bus Booking",
     icon:"🚌",
 
@@ -8110,25 +8191,7 @@ const COMMON_ONLINE_SERVICES = [
   },
 
 
-  {
-    name:"DTH Recharge",
-    description:"Tata Play & Dish TV Recharge",
-    icon:"📺",
-
-    links:[
-      {
-        title:"Tata Play",
-        description:"DTH Recharge",
-        url:"https://www.tataplay.com/"
-      },
-      {
-        title:"Dish TV",
-        description:"DTH Recharge",
-        url:"https://www.dishtv.in/"
-      }
-    ]
-  },
-
+  
 
   {
     name:"Electricity Bill Pay",
@@ -9265,6 +9328,60 @@ function closePopup(){
     document.body.style.overflow = "";
 
 }
+
+
+/* =====================================================
+  iframe update service
+===================================================== */
+
+
+function openMyIframePage(){
+
+  const viewer = document.getElementById("myIframeViewer");
+  const frame  = document.getElementById("myIframeFrame");
+
+  /* এখানে আপনার Page URL দিন */
+  const pageURL = "https://suman9907bit.github.io/updateservice-fjdgjfdsjgkjfgkjfkdgk/";
+
+  frame.src = pageURL;
+
+  viewer.style.display = "block";
+
+  /* Main page scroll বন্ধ */
+  document.body.style.overflow = "hidden";
+}
+
+
+function closeMyIframePage(){
+
+  const viewer = document.getElementById("myIframeViewer");
+  const frame  = document.getElementById("myIframeFrame");
+
+  viewer.style.display = "none";
+
+  /* iframe বন্ধ করে memory/data reset */
+  frame.src = "about:blank";
+
+  /* Main page scroll আবার চালু */
+  document.body.style.overflow = "";
+}
+
+
+/* ESC চাপলেও iframe বন্ধ হবে */
+document.addEventListener("keydown", function(event){
+
+  if(event.key === "Escape"){
+
+    const viewer = document.getElementById("myIframeViewer");
+
+    if(viewer && viewer.style.display === "block"){
+      closeMyIframePage();
+    }
+
+  }
+
+});
+
 
 </script>
 
