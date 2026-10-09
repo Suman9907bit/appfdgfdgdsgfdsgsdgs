@@ -1,3 +1,6 @@
+
+Suman Jana <sj637989@gmail.com>	Fri, Oct 9, 2026 at 2:48 AM
+To: Janaonline Service <janaonlineservice4@gmail.com>
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -51,7 +54,7 @@
   sizes="180x180"
   href="./icons/icon-180.png"
 >
-  
+ 
 <script>
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
@@ -499,6 +502,33 @@ button{
   animation-play-state:paused;
 }
 
+
+
+/* =====================================================
+   PROFESSIONAL USER DASHBOARD HEADER / MENU
+   UI ONLY - Existing IDs and system functions preserved
+===================================================== */
+#userDashboard .user-topbar{min-height:72px;padding:8px 22px;background:#0097a7;border-bottom:1px solid rgba(255,255,255,.18);box-shadow:0 5px 20px rgba(0,85,95,.18);gap:18px;}
+#userDashboard .user-brand-wrap{display:flex;align-items:center;gap:11px;min-width:230px;}
+#userDashboard .user-brand-mark{width:44px;height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:13px;font-weight:900;letter-spacing:.5px;box-shadow:0 5px 15px rgba(0,0,0,.12);}
+#userDashboard .user-brand-text{min-width:0;}
+#userDashboard .user-brand-text .brand{font-size:21px;line-height:1.15;white-space:nowrap;}
+#userDashboard .user-brand-text small{display:block;margin-top:3px;color:rgba(255,255,255,.78);font-size:10px;font-weight:600;letter-spacing:.25px;white-space:nowrap;}
+#userDashboard .user-nav{display:flex;align-items:center;justify-content:center;gap:3px;flex:1;min-width:0;}
+#userDashboard .user-nav-item{position:relative;border:0;background:transparent;color:rgba(255,255,255,.86);min-height:50px;padding:8px 11px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;font-weight:700;white-space:nowrap;transition:.2s ease;}
+#userDashboard .user-nav-item i{font-size:13px;}
+#userDashboard .user-nav-item:hover,#userDashboard .user-nav-item.active{color:#fff;background:rgba(255,255,255,.14);}
+#userDashboard .user-nav-item.active::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:3px;border-radius:10px;background:#ffeb3b;}
+#userDashboard .user-nav-item.user-nav-logout{display:none;color:#ffe4e4;}
+#userDashboard .user-menu-toggle{display:none;width:42px;height:42px;padding:9px;border:1px solid rgba(255,255,255,.28);border-radius:11px;background:rgba(255,255,255,.10);}
+#userDashboard .user-menu-toggle span{display:block;height:2px;margin:5px 0;border-radius:5px;background:#fff;transition:.2s;}
+#userDashboard .top-actions{gap:8px;flex-shrink:0;}
+#userDashboard .user-status-quick,#userDashboard .user-logout-quick{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;}
+#userDashboard .profile-btn{overflow:hidden;border:2px solid rgba(255,255,255,.65);box-shadow:0 4px 12px rgba(0,0,0,.14);}
+#userDashboard .profile-btn img,#userDashboard .profile-btn image{width:100%;height:100%;object-fit:cover;}
+@media(max-width:1100px){#userDashboard .user-topbar{padding:8px 14px;gap:10px;}#userDashboard .user-brand-wrap{min-width:210px;}#userDashboard .user-brand-text .brand{font-size:18px;}#userDashboard .user-nav-item{padding:8px 8px;font-size:11px;}#userDashboard .user-nav-item i{font-size:12px;}}
+@media(max-width:850px){#userDashboard .user-topbar{min-height:64px;padding:8px 12px;}#userDashboard .user-menu-toggle{display:block;flex:0 0 42px;}#userDashboard .user-brand-wrap{min-width:0;flex:1;}#userDashboard .user-brand-mark{width:40px;height:40px;flex-basis:40px;border-radius:10px;}#userDashboard .user-brand-text .brand{font-size:17px;}#userDashboard .user-brand-text small{font-size:9px;}#userDashboard .user-nav{position:absolute;top:100%;left:10px;right:10px;display:none;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:8px;background:#007f8d;border:1px solid rgba(255,255,255,.16);border-radius:0 0 15px 15px;box-shadow:0 15px 30px rgba(0,0,0,.20);z-index:50;}#userDashboard .user-nav.open{display:flex;}#userDashboard .user-nav-item{width:100%;min-height:44px;justify-content:flex-start;padding:10px 13px;border-radius:9px;font-size:13px;}#userDashboard .user-nav-item.active::after{left:auto;right:10px;bottom:50%;transform:translateY(50%);width:4px;height:22px;}#userDashboard .user-nav-item.user-nav-logout{display:flex;}#userDashboard .user-status-quick span,#userDashboard .user-logout-quick span{display:none;}#userDashboard .user-status-quick,#userDashboard .user-logout-quick{width:40px;height:40px;padding:0;justify-content:center;border-radius:10px;}#userDashboard .top-actions{gap:6px;}}
+@media(max-width:480px){#userDashboard .user-topbar{padding:7px 9px;}#userDashboard .user-brand-text .brand{font-size:15px;}#userDashboard .user-brand-text small{display:none;}#userDashboard .user-brand-mark{display:none;}#userDashboard .profile-btn{width:40px;height:40px;}#userDashboard .user-menu-toggle{width:40px;height:40px;flex-basis:40px;}#userDashboard .user-nav{left:7px;right:7px;}}
 
 /* =====================================================
    ADMIN
@@ -2539,7 +2569,7 @@ th{
     }
 
 
-    
+   
 
     .login-card-area {
         padding: 28px 20px 25px;
@@ -2564,7 +2594,7 @@ th{
 
 
 
-    
+   
 }
 
 
@@ -2796,7 +2826,9 @@ body{
 }
 
 .jos-popup.active{
-    display:flex;
+    display:flex !important;
+    visibility:visible;
+    opacity:1;
 }
 
 
@@ -3250,6 +3282,101 @@ body{
 .jos-btn:active{
 
     transform:scale(.97);
+}
+
+
+/* =====================================================
+   PREMIUM POPUP CONTENT
+===================================================== */
+
+.jos-premium-info{
+    margin-top:16px;
+}
+
+.jos-premium-price{
+    text-align:center;
+    padding:14px 15px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#e8fbfd,#f1fffb);
+    border:1px solid #c7edf0;
+    margin-bottom:13px;
+}
+
+.jos-premium-price span{
+    display:block;
+    color:#007987;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.8px;
+    margin-bottom:3px;
+}
+
+.jos-premium-price strong{
+    display:block;
+    color:#006b78;
+    font-size:34px;
+    line-height:1.05;
+    font-weight:900;
+}
+
+.jos-premium-price small{
+    display:block;
+    margin-top:4px;
+    color:#64777d;
+    font-size:12px;
+    font-weight:700;
+}
+
+.jos-premium-points{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:13px;
+}
+
+.jos-premium-points p{
+    margin:0;
+    padding:9px 10px;
+    background:#f7fafb;
+    border:1px solid #e6eef0;
+    border-radius:10px;
+    color:#52636a;
+    font-size:12px;
+    line-height:1.55;
+}
+
+.jos-premium-points strong{
+    color:#007987;
+}
+
+.jos-important-notice{
+    padding:11px 12px;
+    border-left:4px solid #d97706;
+    border-radius:10px;
+    background:#fff9e8;
+    margin-bottom:12px;
+}
+
+.jos-notice-title{
+    color:#986500;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.jos-important-notice p{
+    margin:0;
+    color:#66582f;
+    font-size:10.5px;
+    line-height:1.55;
+}
+
+.jos-thanks{
+    margin:0;
+    text-align:center;
+    color:#718087;
+    font-size:11px;
+    line-height:1.5;
 }
 
 
@@ -3806,7 +3933,7 @@ body{
      data-title="Fast Service">
 
     <div class="feature-icon">
-      <image src="https://cdn-icons-gif.flaticon.com/17644/17644504.gif" class="feature-icon"></image>   
+      <image src="https://cdn-icons-gif.flaticon.com/17644/17644504.gif" class="feature-icon"></image>  
     </div>
 
     <div>
@@ -4376,41 +4503,33 @@ body{
 >
 
 
-  <!-- TOP BAR -->
+  <!-- PROFESSIONAL USER TOP BAR + MENU -->
 
-  <div class="topbar">
-
-    <div class="brand">
-      Jana <span>Online Service</span>
+  <header class="topbar user-topbar">
+    <div class="user-brand-wrap">
+      <button type="button" class="user-menu-toggle" id="userMenuToggle" aria-label="Open dashboard menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="user-brand-mark">JOS</div>
+      <div class="user-brand-text">
+        <div class="brand">Jana <span>Online Service</span></div>
+        <small>Professional Service Dashboard</small>
+      </div>
     </div>
+
+    <nav class="user-nav" id="userNav" aria-label="User Dashboard Menu">
+      <button type="button" class="user-nav-item active" data-user-nav="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+      <button type="button" class="user-nav-item" data-user-nav="my-services"><i class="fa-solid fa-layer-group"></i><span>My Services</span></button>
+      <button type="button" class="user-nav-item" data-user-nav="online-services"><i class="fa-solid fa-globe"></i><span>Online Services</span></button>
+      <button type="button" class="user-nav-item" data-user-nav="profile"><i class="fa-solid fa-user"></i><span>My Profile</span></button>
+      <button type="button" class="user-nav-item" data-user-nav="status"><i class="fa-solid fa-circle-check"></i><span>Account Status</span></button>
+      <button type="button" class="user-nav-item user-nav-logout" data-user-nav="logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+    </nav>
 
     <div class="top-actions">
-
-      <button
-        class="btn btn-light"
-        id="statusCheckBtn"
-      >
-        🔄 Status
-      </button>
-
-      <button
-        class="profile-btn"
-        id="userProfileBtn"
-        title="Profile"
-      >
-       <image src="https://assets-v2.lottiefiles.com/a/d4f46ebe-1180-11ee-a47a-d34b68ca717c/X1wAcRAuX0.gif" class="profile-btn">
-      </button>
-
-      <button
-        class="btn btn-danger"
-        id="userLogoutBtn"
-      >
-        Logout
-      </button>
-
+      <button class="btn btn-light user-status-quick" id="statusCheckBtn" title="Account Status"><i class="fa-solid fa-rotate"></i><span>Status</span></button>
+      <button class="profile-btn" id="userProfileBtn" title="Profile"><image src="https://assets-v2.lottiefiles.com/a/d4f46ebe-1180-11ee-a47a-d34b68ca717c/X1wAcRAuX0.gif" class="profile-btn"></button>
+      <button class="btn btn-danger user-logout-quick" id="userLogoutBtn"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
     </div>
-
-  </div>
+  </header>
 
 
   <!-- USER BANNER -->
@@ -4446,6 +4565,10 @@ body{
 
       <div class="notice-track">
 
+ <span class="notice-item">
+⚠️ গুরুত্বপূর্ণ: Jana Online Service একটি ব্যক্তিগত Online Service Platform। এখানে সরকারি ও বেসরকারি পোর্টালের Direct Work Page-এ সহজে প্রবেশের সুবিধা দেওয়া হয়। এটি কোনো সরকারি website বা সরকারি সুবিধা প্রদানকারী প্রতিষ্ঠান নয়। আমাদের Premium Tools ও Special Services আমাদের নিজস্ব পরিষেবা।  </span>
+
+
         <span class="notice-item">
           🔔 Welcome to Jana Online Service
         </span>
@@ -4455,9 +4578,7 @@ body{
           <b>NEW</b>
         </span>
 
-        <span class="notice-item">
-          💻 All Digital Services Available Here
-        </span>
+     
 
         <span class="notice-item">
           📞 For any help, contact us
@@ -4485,7 +4606,7 @@ body{
 
   <!-- =================================================
        ADMIN ASSIGNED SERVICES
-  
+ 
   <!-- =================================================
        COMMON ONLINE SERVICES
        এই অংশ সব User-এর জন্য
@@ -4661,7 +4782,7 @@ body{
 
   <div class="dashboard-container">
 
-    
+   
 
     <div
       id="userServices"
@@ -4669,7 +4790,11 @@ body{
     ></div>
 
   </div>
-  
+
+
+
+ 
+ 
 
 <!-- =====================================================
      ADMIN PANEL
@@ -4847,7 +4972,7 @@ body{
     </div>
 
     <div class="modal-body">
-
+     <center> <image src="https://i.pinimg.com/originals/91/7c/06/917c06856035dd3d396b62916d082472.gif"style="width:50%"></center>
       <div
         id="profileContent"
         class="profile-grid"
@@ -5579,52 +5704,43 @@ body{
 
             <div class="jos-welcome">
 
-                <h2>
-                    স্বাগতম! 👋
-                </h2>
+    <h2>স্বাগতম! 👋</h2>
 
-                <p>
-                    আপনার প্রয়োজনীয় Online ও Digital
-                    Services এখন এক জায়গায়।
-                </p>
+    <p>
+        আপনার প্রয়োজনীয় <strong>Online ও Digital Services</strong>
+        এখন এক জায়গায়।
+    </p>
 
-            </div>
+</div>
 
-<p>
-  📢 <strong>গুরুত্বপূর্ণ আপডেট</strong>
-</p>
+<div class="jos-premium-info">
 
-<p>
-  আমাদের <strong>Website &amp; App</strong>-এর কাজ বর্তমানে চলছে।
-  খুব শীঘ্রই সম্পূর্ণ কাজ শেষ করে আপনাদের জন্য পরিষেবা চালু করা হবে। 🚀
-</p>
+    <div class="jos-premium-price">
+        <span>💎 PREMIUM ACCESS</span>
+        <strong>₹399</strong>
+        <small>Validity: 6 Months</small>
+    </div>
 
-<p>
-  📌 সর্বশেষ আপডেট ও বিস্তারিত তথ্যের জন্য
-  <strong>Admin-এর সঙ্গে যোগাযোগ করুন</strong>।
-</p>
+    <div class="jos-premium-points">
+        <p>🛠️ <strong>Online Work Websites &amp; Useful Tools</strong> এক জায়গায়।</p>
+        <p>🚀 সহজ, দ্রুত ও <strong>Professional Service Experience</strong>।</p>
+        <p>📌 Premium Access নিতে <strong>Admin-এর সঙ্গে যোগাযোগ করুন</strong>।</p>
+    </div>
 
-<p>
-  🌐 নিয়মিত <strong>Website Follow করুন</strong> এবং নতুন আপডেট পেতে
-  আমাদের সঙ্গে যুক্ত থাকুন।
-</p>
+    <div class="jos-important-notice">
+        <div class="jos-notice-title">⚠️ Important Notice</div>
+        <p>
+            Jana Online Service একটি ব্যক্তিগত/বেসরকারি online service platform।
+            এটি কোনো সরকারি দপ্তর বা সরকারি website নয়। সরকারি কাজের জন্য
+            সংশ্লিষ্ট official website ব্যবহার করুন।
+        </p>
+    </div>
 
-<p>
-  🙏 আপনার মূল্যবান সময় দেওয়ার জন্য আন্তরিক ধন্যবাদ।
-  ❤️ আপনাদের সহযোগিতা ও ধৈর্যের জন্য আমরা কৃতজ্ঞ।
-</p>
+    <p class="jos-thanks">
+        🙏 আপনার মূল্যবান সময় ও সহযোগিতার জন্য আন্তরিক ধন্যবাদ। ❤️
+    </p>
 
-<p>
-  <strong>— Jana Online Service (JOS)</strong>
-</p>
-
-
-
-
-
-
-        </div>
-
+</div>
 
 
         <!-- FOOTER -->
@@ -5838,6 +5954,15 @@ document.addEventListener(
 );
 
 
+
+/* ============================================================
+   USER DASHBOARD MENU - UI NAVIGATION ONLY
+============================================================ */
+function closeUserMenu(){const nav=$("userNav"),toggle=$("userMenuToggle");if(nav)nav.classList.remove("open");if(toggle)toggle.setAttribute("aria-expanded","false");}
+function toggleUserMenu(){const nav=$("userNav"),toggle=$("userMenuToggle");if(!nav)return;const open=nav.classList.toggle("open");if(toggle)toggle.setAttribute("aria-expanded",open?"true":"false");}
+function setUserNavActive(key){document.querySelectorAll("#userDashboard [data-user-nav]").forEach(function(item){item.classList.toggle("active",item.dataset.userNav===key);});}
+function handleUserNavigation(key){closeUserMenu();if(key==="home"){setUserNavActive("home");window.scrollTo({top:0,behavior:"smooth"});return;}if(key==="my-services"){setUserNavActive("my-services");const el=$("userServices");if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return;}if(key==="online-services"){setUserNavActive("online-services");const el=$("commonOnlineServices");if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return;}if(key==="profile"){setUserNavActive("profile");openUserProfile();return;}if(key==="status"){setUserNavActive("status");refreshUserStatus();return;}if(key==="logout"){setUserNavActive("logout");userLogout();}}
+
 /* ============================================================
    EVENTS
 ============================================================ */
@@ -5888,25 +6013,39 @@ function bindEvents(){
     );
 
 
-  $("userLogoutBtn")
-    .addEventListener(
-      "click",
-      userLogout
-    );
-
-
-  $("userProfileBtn")
-    .addEventListener(
-      "click",
-      openUserProfile
-    );
-
-
   $("statusCheckBtn")
     .addEventListener(
       "click",
-      refreshUserStatus
+      function(){
+        setUserNavActive("status");
+        closeUserMenu();
+        refreshUserStatus();
+      }
     );
+
+  $("userMenuToggle")
+    .addEventListener("click", toggleUserMenu);
+
+  document
+    .querySelectorAll("#userDashboard [data-user-nav]")
+    .forEach(function(item){
+      item.addEventListener("click", function(){
+        handleUserNavigation(item.dataset.userNav);
+      });
+    });
+
+  $("userProfileBtn")
+    .addEventListener("click", function(){
+      setUserNavActive("profile");
+      closeUserMenu();
+      openUserProfile();
+    });
+
+  $("userLogoutBtn")
+    .addEventListener("click", function(){
+      closeUserMenu();
+      userLogout();
+    });
 
 
   $("adminLogoutBtn")
@@ -8191,7 +8330,7 @@ const COMMON_ONLINE_SERVICES = [
   },
 
 
-  
+ 
 
   {
     name:"Electricity Bill Pay",
@@ -9216,42 +9355,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* =========================================
    AUTOMATIC POPUP
-   10 SECOND DELAY
-   10 SECOND DISPLAY
+   OPEN AFTER 2 SECONDS
+   AUTO CLOSE AFTER 20 SECONDS
 ========================================= */
 
-const popup = document.getElementById("josPopup");
+function openJOSPopup(){
 
+    const josPopup =
+        document.getElementById("josPopup");
 
-/* OPEN POPUP AFTER 10 SECONDS */
+    if(!josPopup){
+        return;
+    }
 
-window.addEventListener("load", function () {
+    josPopup.classList.add("active");
+    document.body.style.overflow = "hidden";
 
-    setTimeout(function () {
+    clearTimeout(window.josPopupCloseTimer);
 
-        popup.classList.add("active");
+    window.josPopupCloseTimer =
+        setTimeout(function(){
 
-        document.body.style.overflow = "hidden";
-
-
-        /* CLOSE AFTER 10 SECONDS */
-
-        setTimeout(function () {
-
-            popup.classList.remove("active");
-
+            josPopup.classList.remove("active");
             document.body.style.overflow = "";
 
-        }, 20000);
+        },20000);
+}
 
 
-    }, 2000);
+function startJOSPopup(){
 
-});
+    setTimeout(function(){
+
+        openJOSPopup();
+
+    },2000);
+}
 
 
+if(document.readyState === "loading"){
 
+    document.addEventListener(
+        "DOMContentLoaded",
+        startJOSPopup,
+        {once:true}
+    );
 
+}else{
+
+    startJOSPopup();
+
+}
 
 
 /* ============================================================
@@ -9325,6 +9479,8 @@ function closePopup(){
 
     popup.classList.remove("active");
 
+    clearTimeout(window.josPopupCloseTimer);
+
     document.body.style.overflow = "";
 
 }
@@ -9388,3 +9544,4 @@ document.addEventListener("keydown", function(event){
 
 </body>
 </html>
+
