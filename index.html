@@ -51,7 +51,7 @@
   sizes="180x180"
   href="./icons/icon-180.png"
 >
- 
+  
 <script>
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
@@ -2566,7 +2566,7 @@ th{
     }
 
 
-   
+    
 
     .login-card-area {
         padding: 28px 20px 25px;
@@ -2591,7 +2591,7 @@ th{
 
 
 
-   
+    
 }
 
 
@@ -3862,6 +3862,53 @@ body{
 
 
 </style>
+
+<style id="jos-admin-professional-upgrade">
+#adminPage{background:radial-gradient(circle at 0 0,#e0fbfb 0,transparent 32%),#f3f7fb;color:#142b3b}
+#adminPage .topbar{background:linear-gradient(115deg,#075985,#008b98,#0097a7);box-shadow:0 8px 25px #005a6e33;padding:14px clamp(14px,3vw,34px);gap:15px}
+#adminPage .brand{letter-spacing:.2px;text-shadow:0 2px 10px #003c4b55}
+#adminPage .admin-container{max-width:1500px;padding:clamp(14px,2.5vw,32px)}
+#adminPage .admin-header{padding:25px 27px;margin-bottom:20px;border-radius:22px;color:#fff;background:linear-gradient(125deg,#073b56,#087e8b 65%,#0ea5a4);box-shadow:0 14px 32px #0452662e;position:relative;overflow:hidden}
+#adminPage .admin-header:after{content:"JOS";position:absolute;right:25px;top:-20px;font-size:100px;font-weight:900;letter-spacing:-8px;color:#ffffff10;pointer-events:none}
+#adminPage .admin-header h1{font-size:clamp(24px,3vw,34px);color:white;position:relative;z-index:1}
+#adminPage .admin-header p{color:#d8f6f7!important;position:relative;z-index:1}
+#adminPage .stats{gap:16px}
+#adminPage .stat-card{position:relative;overflow:hidden;border:1px solid #dcebef;border-radius:19px;padding:22px;background:linear-gradient(145deg,#fff,#f8fdff);box-shadow:0 8px 22px #1441550f;transition:transform .2s,box-shadow .2s}
+#adminPage .stat-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px #1441551f}
+#adminPage .stat-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(#00b7bd,#087e9b)}
+#adminPage .stat-card small{font-weight:700;font-size:12px;letter-spacing:.35px;text-transform:uppercase;color:#60798a}
+#adminPage .stat-card strong{font-size:clamp(26px,3vw,36px);color:#075985}
+#adminPage .admin-section{padding:clamp(15px,2vw,25px);border:1px solid #dce8ef;border-radius:20px;box-shadow:0 10px 30px #1441550e;margin-bottom:22px}
+#adminPage .section-head h2{color:#103e52;font-size:21px}
+#adminPage .admin-muted{color:#6b8190;font-size:12px;margin-top:6px;line-height:1.5}
+#adminPage .admin-export-actions{display:flex;gap:8px;flex-wrap:wrap}
+#adminPage .admin-export-actions .btn{border-radius:11px;padding:10px 13px;font-size:12px;box-shadow:0 4px 10px #11223322}
+#adminPage .admin-user-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 15px;padding:12px;border:1px solid #e0edf1;background:#f7fcfd;border-radius:15px}
+#adminPage .admin-search{display:flex;align-items:center;gap:8px;flex:1 1 280px;min-width:0;background:white;border:1px solid #d6e5eb;border-radius:11px;padding:0 12px;color:#078b98}
+#adminPage .admin-search span{font-size:23px}
+#adminPage .admin-search input{width:100%;min-width:0;border:0;outline:0;padding:12px 0;background:transparent;font-size:13px;color:#173548}
+#adminPage .admin-filter{max-width:220px;width:100%;padding:12px;border:1px solid #d6e5eb;border-radius:11px;background:#fff;color:#24465a;font-size:12px}
+#adminPage .admin-result-count{font-size:12px;color:#547181;font-weight:800;white-space:nowrap}
+#adminPage .table-wrap{border:1px solid #e0ebf0;border-radius:13px;overflow:auto}
+#adminPage table{min-width:1120px;border-collapse:separate;border-spacing:0}
+#adminPage th{position:sticky;top:0;background:linear-gradient(120deg,#075985,#087e8b);color:white;font-size:11px;text-transform:uppercase;letter-spacing:.35px;padding:14px 12px}
+#adminPage td{font-size:12px;color:#334b5c;padding:12px;border-bottom:1px solid #eaf0f4}
+#adminPage tbody tr:nth-child(even){background:#f5fbfc}
+#adminPage tbody tr:hover{background:#e8f8f8}
+#adminPage .promo-pill{display:inline-block;max-width:160px;padding:5px 8px;border-radius:8px;background:#fff4d6;color:#8a5800;font-size:11px;font-weight:800;overflow-wrap:anywhere}
+#adminPage .action-buttons .btn{border-radius:8px;padding:7px 9px}
+#adminPage .admin-service{background:linear-gradient(145deg,#fff,#f5fbfd);border-color:#dceaf0;box-shadow:0 5px 16px #11223311}
+#adminPage .admin-service h3{color:#075985}
+#adminPage .btn{transition:transform .18s,filter .18s,box-shadow .18s}
+#adminPage .btn:hover{filter:brightness(1.04);box-shadow:0 5px 14px #11223322}
+#adminPage .btn:focus-visible{outline:3px solid #5eead4;outline-offset:2px}
+@media(max-width:650px){#adminPage .topbar{align-items:flex-start;flex-direction:column}#adminPage .top-actions{width:100%}#adminPage .top-actions .btn{flex:1}#adminPage .admin-header{padding:20px}#adminPage .admin-users-heading{align-items:flex-start;flex-direction:column}#adminPage .admin-export-actions{width:100%}#adminPage .admin-export-actions .btn{flex:1;padding:10px 7px}#adminPage .admin-filter{max-width:none}#adminPage .admin-result-count{width:100%}}
+.jos-footer{border-radius:0 0 22px 22px!important;overflow:hidden;padding:16px!important;background:linear-gradient(135deg,#e9fbfc,#dff5f7)!important;gap:12px!important}
+.jos-footer .jos-btn,.jos-footer .close-btn,.jos-footer .contact-btn{border-radius:999px!important;min-height:44px;box-shadow:0 5px 14px #00465a1f;transition:transform .2s,box-shadow .2s}
+.jos-footer .jos-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px #00465a2e}
+@media(max-width:480px){.jos-footer{display:flex!important;gap:8px!important;padding:12px!important}.jos-footer .jos-btn{flex:1;justify-content:center;padding:11px 10px!important;font-size:13px}}
+</style>
+
 </head>
 
 
@@ -3930,7 +3977,7 @@ body{
      data-title="Fast Service">
 
     <div class="feature-icon">
-      <image src="https://cdn-icons-gif.flaticon.com/17644/17644504.gif" class="feature-icon"></image>  
+      <image src="https://cdn-icons-gif.flaticon.com/17644/17644504.gif" class="feature-icon"></image>   
     </div>
 
     <div>
@@ -4367,17 +4414,12 @@ body{
             </div>
 
 
-            <!-- GST -->
+            <!-- Promo Code: existing regGST ID retained for backend compatibility -->
             <div class="modern-input-group">
-              <label for="regGST">GST Number</label>
-
+              <label for="regGST">Promo Code <small>(Optional)</small></label>
               <div class="modern-input">
-                <i class="fa-solid fa-file-invoice"></i>
-
-                <input
-                  type="text"
-                  id="regGST"
-                  placeholder="GST Number (Optional)">
+                <i class="fa-solid fa-ticket"></i>
+                <input type="text" id="regGST" placeholder="Enter Promo Code (if available)" autocomplete="off">
               </div>
             </div>
 
@@ -4603,7 +4645,7 @@ body{
 
   <!-- =================================================
        ADMIN ASSIGNED SERVICES
- 
+  
   <!-- =================================================
        COMMON ONLINE SERVICES
        এই অংশ সব User-এর জন্য
@@ -4779,7 +4821,7 @@ body{
 
   <div class="dashboard-container">
 
-   
+    
 
     <div
       id="userServices"
@@ -4790,8 +4832,8 @@ body{
 
 
 
- 
- 
+  
+  
 
 <!-- =====================================================
      ADMIN PANEL
@@ -4881,10 +4923,21 @@ body{
 
     <div class="admin-section">
 
-      <div class="section-head">
-        <h2>User Management</h2>
+      <div class="section-head admin-users-heading">
+        <div><h2>User Management</h2><p class="admin-muted">Search, filter, review and export user records. Existing Google Sheet API remains unchanged.</p></div>
+        <div class="admin-export-actions">
+          <button class="btn btn-success" type="button" onclick="exportAdminUsers('csv')">⬇ CSV</button>
+          <button class="btn btn-primary" type="button" onclick="exportAdminUsers('excel')">📊 Excel</button>
+          <button class="btn btn-dark" type="button" onclick="exportAdminUsers('pdf')">🖨 PDF / Print</button>
+        </div>
       </div>
-
+      <div class="admin-user-tools">
+        <label class="admin-search"><span>⌕</span><input id="adminUserSearch" type="search" placeholder="Search name, ID, mobile, office, district, promo code…"></label>
+        <select id="adminUserStatusFilter" class="admin-filter" aria-label="Filter by account status">
+          <option value="all">All account statuses</option><option value="active">Active users</option><option value="inactive">Inactive users</option>
+        </select>
+        <div class="admin-result-count" id="adminUserResultCount">0 records</div>
+      </div>
       <div class="table-wrap">
 
         <table>
@@ -4894,9 +4947,8 @@ body{
             <tr>
               <th>User ID</th>
               <th>Name</th>
-              <th>Mobile</th>
-              <th>Office</th>
-              <th>District</th>
+              <th>Mobile</th><th>Email</th>
+              <th>Office</th><th>District</th><th>Promo Code</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -5152,11 +5204,8 @@ body{
           </div>
 
           <div class="form-group">
-            <label>GST</label>
-            <input
-              id="editGST"
-              class="form-control"
-            >
+            <label>Promo Code</label>
+            <input id="editGST" class="form-control" placeholder="Promo Code (Optional)" autocomplete="off">
           </div>
 
           <div class="form-group full">
@@ -5965,6 +6014,8 @@ function handleUserNavigation(key){closeUserMenu();if(key==="home"){setUserNavAc
 ============================================================ */
 
 function bindEvents(){
+  $("adminUserSearch")?.addEventListener("input",renderAdminUsers);
+  $("adminUserStatusFilter")?.addEventListener("change",renderAdminUsers);
 
   $("loginForm")
     .addEventListener(
@@ -6206,6 +6257,7 @@ async function handleRegistration(e){
     pincode:
       $("regPincode").value.trim(),
 
+    // Existing API field name retained; Google Apps Script does not need changes.
     gst:
       $("regGST").value.trim(),
 
@@ -6630,8 +6682,8 @@ function openUserProfile(){
     ) +
 
     profileItem(
-      "GST",
-      currentUser.gst
+      "Promo Code",
+      currentUser.promoCode || currentUser.gst
     ) +
 
     profileItem(
@@ -6846,13 +6898,25 @@ async function loadAdminData(){
    ADMIN USERS
 ============================================================ */
 
+function getFilteredAdminUsers(){
+  const q = ($("adminUserSearch")?.value || "").trim().toLowerCase();
+  const status = $("adminUserStatusFilter")?.value || "all";
+  return allUsers.filter(user => {
+    const active = String(user.status || "").toLowerCase() === "active";
+    if(status === "active" && !active) return false;
+    if(status === "inactive" && active) return false;
+    if(!q) return true;
+    return [user.userId,user.name,user.mobile,user.email,user.officeName,user.officeType,user.officeAddress,user.district,user.state,user.pincode,user.promoCode,user.gst,user.status].join(" ").toLowerCase().includes(q);
+  });
+}
+
 function renderAdminUsers(){
+  const body = $("adminUsersBody");
+  const filteredUsers = getFilteredAdminUsers();
+  const count = $("adminUserResultCount");
+  if(count) count.textContent = `${filteredUsers.length} of ${allUsers.length} records`;
 
-  const body =
-    $("adminUsersBody");
-
-
-  if(!allUsers.length){
+  if(!filteredUsers.length){
 
     body.innerHTML = `
 
@@ -6870,7 +6934,7 @@ function renderAdminUsers(){
 
 
   body.innerHTML =
-    allUsers
+    filteredUsers
       .map(function(user){
 
         const active =
@@ -6898,23 +6962,11 @@ function renderAdminUsers(){
               )}
             </td>
 
-            <td>
-              ${escapeHTML(
-                user.mobile
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                user.officeName
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                user.district
-              )}
-            </td>
+            <td>${escapeHTML(user.mobile || "")}</td>
+            <td>${escapeHTML(user.email || "")}</td>
+            <td>${escapeHTML(user.officeName || "")}</td>
+            <td>${escapeHTML(user.district || "")}</td>
+            <td><span class="promo-pill">${escapeHTML(user.promoCode || user.gst || "—")}</span></td>
 
             <td>
 
@@ -7003,6 +7055,50 @@ function renderAdminUsers(){
 
 }
 
+
+/* Admin export tools: browser-side only; no backend writes */
+function exportAdminUsers(format){
+  const rows=getFilteredAdminUsers();
+  if(!rows.length){showToast("Export করার মতো কোনো user record নেই।","error");return;}
+  const headers=["User ID","Name","Designation","Mobile","Email","Office Name","Office Type","Office Address","District","State","Pincode","Promo Code","Status"];
+  const values=rows.map(u=>[u.userId,u.name,u.designation,u.mobile,u.email,u.officeName,u.officeType,u.officeAddress,u.district,u.state,u.pincode,u.promoCode||u.gst,u.status]);
+  const clean=v=>String(v??"").replace(/\r?\n/g," ").trim();
+  const stamp=new Date().toISOString().slice(0,10);
+  if(format==="csv"){
+    const csv=[headers,...values].map(row=>row.map(v=>`"${clean(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+    downloadAdminBlob("\uFEFF"+csv,`JOS-Users-${stamp}.csv`,"text/csv;charset=utf-8;");
+    showToast("CSV ফাইল তৈরি হয়েছে।","success");return;
+  }
+  if(format==="excel"){
+    const table=`<table><thead><tr>${headers.map(h=>`<th>${escapeHTML(h)}</th>`).join("")}</tr></thead><tbody>${values.map(row=>`<tr>${row.map(v=>`<td>${escapeHTML(clean(v))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    const html=`<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial}h2{color:#007f8d}table{border-collapse:collapse}th{background:#007f8d;color:white}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}tr:nth-child(even){background:#eefafa}</style></head><body><h2>Jana Online Service — User Report</h2><p>Generated: ${new Date().toLocaleString()}</p>${table}</body></html>`;
+    downloadAdminBlob("\uFEFF"+html,`JOS-Users-${stamp}.xls`,"application/vnd.ms-excel;charset=utf-8;");
+    showToast("Excel-compatible ফাইল তৈরি হয়েছে।","success");return;
+  }
+  if(format==="pdf"){
+    const w=window.open("","_blank");
+    if(!w){showToast("PDF print window blocked হয়েছে। Browser popup allow করুন।","error");return;}
+    const table=`<table><thead><tr>${headers.map(h=>`<th>${escapeHTML(h)}</th>`).join("")}</tr></thead><tbody>${values.map(row=>`<tr>${row.map(v=>`<td>${escapeHTML(clean(v))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    w.document.open();
+    w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>JOS User Report</title><style>
+    @page{size:A4 landscape;margin:12mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#183044;margin:0}
+    .hero{background:linear-gradient(120deg,#006b75,#0097a7,#1675b8);color:white;padding:22px 25px;border-radius:14px;margin-bottom:16px}
+    h1{font-size:23px;margin:0 0 6px}.sub{font-size:11px;opacity:.9}.summary{display:flex;gap:10px;margin:12px 0 18px}
+    .chip{padding:9px 12px;border-radius:9px;background:#e7f8f8;border:1px solid #b6e5e7;font-size:11px}
+    table{width:100%;border-collapse:collapse;font-size:8px}thead{display:table-header-group}
+    th{background:#075985;color:white;text-align:left;padding:7px 5px}td{padding:6px 5px;border:1px solid #d6e2e9;overflow-wrap:anywhere}
+    tbody tr:nth-child(even){background:#effafa}.foot{margin-top:14px;color:#64748b;font-size:9px;border-top:2px solid #0097a7;padding-top:8px}
+    @media screen{body{padding:20px;background:#eef3f6}.paper{background:white;max-width:1400px;margin:auto;padding:22px;box-shadow:0 8px 30px #0001}}
+    </style></head><body><div class="paper"><div class="hero"><h1>JANA ONLINE SERVICE</h1><div class="sub">USER MANAGEMENT REPORT · Confidential administrative record</div></div>
+    <div class="summary"><div class="chip"><b>Total records:</b> ${rows.length}</div><div class="chip"><b>Active:</b> ${rows.filter(u=>String(u.status).toLowerCase()==="active").length}</div><div class="chip"><b>Inactive:</b> ${rows.filter(u=>String(u.status).toLowerCase()!=="active").length}</div><div class="chip"><b>Generated:</b> ${new Date().toLocaleString()}</div></div>${table}
+    <div class="foot">Generated from records currently loaded in the JOS Admin Panel. Store and share user data securely.</div></div><script>window.onload=()=>setTimeout(()=>window.print(),350);<\\/script></body></html>`);
+    w.document.close();
+  }
+}
+function downloadAdminBlob(content,filename,type){
+  const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
 
 /* ============================================================
    ADMIN SERVICES
@@ -7215,8 +7311,8 @@ function viewUser(
     ) +
 
     profileItem(
-      "GST",
-      user.gst
+      "Promo Code",
+      user.promoCode || user.gst
     ) +
 
     profileItem(
@@ -7356,6 +7452,7 @@ async function saveEditedUser(e){
     pincode:
       $("editPincode").value.trim(),
 
+    // Existing API field name retained; this value is shown to users as Promo Code.
     gst:
       $("editGST").value.trim(),
 
@@ -8327,7 +8424,7 @@ const COMMON_ONLINE_SERVICES = [
   },
 
 
- 
+  
 
   {
     name:"Electricity Bill Pay",
@@ -9541,4 +9638,3 @@ document.addEventListener("keydown", function(event){
 
 </body>
 </html>
-
