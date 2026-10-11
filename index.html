@@ -53,8 +53,24 @@
 >
   
 <script>
+/* Disable right-click and content dragging/selection on the page.
+   Form fields remain selectable/editable so login, search and forms work normally. */
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
+});
+document.addEventListener("dragstart", function (e) {
+    if (e.target && e.target.closest && e.target.closest("input, textarea, [contenteditable='true']")) return;
+    e.preventDefault();
+});
+document.addEventListener("selectstart", function (e) {
+    if (e.target && e.target.closest &&
+        e.target.closest("input, textarea, select, [contenteditable='true']")) return;
+    e.preventDefault();
+});
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("img").forEach(function (img) {
+        img.setAttribute("draggable", "false");
+    });
 });
 </script>
 
@@ -3909,6 +3925,122 @@ body{
 @media(max-width:480px){.jos-footer{display:flex!important;gap:8px!important;padding:12px!important}.jos-footer .jos-btn{flex:1;justify-content:center;padding:11px 10px!important;font-size:13px}}
 </style>
 
+
+
+<style>
+/* Content protection: disable selecting/copy-highlighting page text and images.
+   Inputs and textareas remain usable and their text can still be selected. */
+html, body, body * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none;
+}
+input, textarea, select, [contenteditable="true"],
+input *, textarea *, [contenteditable="true"] * {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default;
+}
+img, picture, svg {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+</style>
+
+<!-- JOS DASHBOARD RESPONSIVE CSS-ONLY 5-SLIDE BANNER -->
+<style id="jos-dashboard-slideshow-fix">
+  /* Only the user dashboard banner is styled here. Existing HTML/data/service flow is untouched. */
+  #userDashboard .user-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: #063b53;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: josFivePhotoSlidesDesktop 25s infinite;
+  }
+  #userDashboard .user-banner .banner-inner {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,.45);
+  }
+
+  /* DESKTOP: replace these five URLs with your five desktop banner image links. */
+  @keyframes josFivePhotoSlidesDesktop {
+    0%, 19.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1920&h=600&q=85");
+    }
+    20%, 39.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://i.pinimg.com/1200x/8a/eb/27/8aeb271d44652fbd76d182f40000a65c.jpg");
+    }
+    40%, 59.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&h=600&q=85");
+    }
+    60%, 79.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://i.pinimg.com/1200x/97/15/81/9715814e61442c0f0e27734f0063a914.jpg ");
+    }
+    80%, 100% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&h=600&q=85");
+    }
+  }
+
+  /* DESKTOP banner height */
+  @media (min-width: 851px) {
+    #userDashboard .user-banner {
+      min-height: 340px;
+      padding: 70px 42px;
+    }
+    #userDashboard .user-banner .banner-inner h1 {
+      font-size: clamp(36px, 3vw, 48px);
+      line-height: 1.2;
+    }
+    #userDashboard .user-banner .banner-inner p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+
+  /* MOBILE: five separately addressable mobile image links, independent from desktop links. */
+  @media (max-width: 850px) {
+    #userDashboard .user-banner {
+      animation-name: josFivePhotoSlidesMobile;
+      min-height: 220px;
+      padding: 32px 18px;
+      background-position: center;
+      background-size: cover;
+    }
+    #userDashboard .user-banner .banner-inner h1 {
+      font-size: clamp(24px, 6vw, 32px);
+      line-height: 1.2;
+    }
+    #userDashboard .user-banner .banner-inner p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  }
+  @keyframes josFivePhotoSlidesMobile {
+    0%, 19.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://images.openai.com/static-rsc-4/fheOeROUmoJP71gMCBEFo1GALJd91_lSIO5E5WefhU-O4TEHHjzaIJ_KQdJRXnS0Nm9ljfSmjLLmZnmb4cIF2eN1xs1Ba2TU-mlkPOMoXpPzIF2C3P8R6t08U_RAvKIWQ0AxWJUUYKBLH84TrD6i185SQ_5_khYnp7bBNRKTnEGCpXfy9KxAOQQ-wdDhXmxN?purpose=fullsize");
+    }
+    20%, 39.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TJuSS0Mu-Ss4jrK5UfTCULCl6PaCGBfVRpRNyJV2WQScV6Q5KGEvEfXXwqDwQ0yUerC9B2cXXXMwbm3ZlIGslFyKjkVpSdM_5qZWAGazwk5R1OHAoKXgFUIjKBTjCZf22FjamsM2R6A5TS=s680-w680-h510-rw");
+    }
+    40%, 59.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SgZTUQ03TQUMTDhaj7FIPoUV2M77w3mxW2OyebcD86IVzmc9e99tGZ17mTsQWQihAka38srAAyrp2Hx3KrtI2WBb331rbZfHEs-a-pIPHMKX-fMsCn9qawdtLOJe1aklzThWW3wJf1MDvr=s680-w680-h510-rw");
+    }
+    60%, 79.99% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SwRmEgRYLzDtPBSUp35hd7VZ_uF5NnsTgkLZjYLHX9lDijJJaljBKmYwhQEpr9TAezOskfPVbsLMeXPQv-tSWbJZlqDlbM2mNpQ12qcEJlB8hLytF5p4C312ObRPboaQakIyF3qdNCq2w=s680-w680-h510-rw");
+    }
+    80%, 100% {
+      background-image: linear-gradient(90deg,rgba(2,35,58,.78),rgba(2,47,75,.18)), url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1080&h=600&q=85");
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #userDashboard .user-banner { animation: none; }
+  }
+</style>
+
 </head>
 
 
@@ -3973,7 +4105,7 @@ body{
 </div>
 
         <div class="brand-feature iframe-feature"
-     data-url="https://suman9907bit.github.io/Improtentservice/"
+     data-url="https://suman9907bit.github.io/josstatuschaskrjoifjigjirjgjhsd/"
      data-title="Fast Service">
 
     <div class="feature-icon">
@@ -3981,8 +4113,8 @@ body{
     </div>
 
     <div>
-        <strong>Required Documents</strong>
-        <span> সার্ভিসে ক্লিক করে প্রয়োজনীয় ডকুমেন্টগুলো দেখুন।</span>
+        <strong>Account Status Chack</strong>
+        <span> আপনার অ্যাকাউন্টের বর্তমান অবস্থা সহজেই যাচাই করুন।</span>
     </div>
 
 </div>
@@ -4547,7 +4679,7 @@ body{
   <header class="topbar user-topbar">
     <div class="user-brand-wrap">
       <button type="button" class="user-menu-toggle" id="userMenuToggle" aria-label="Open dashboard menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <div class="user-brand-mark">JOS</div>
+      <div class="user-brand-mark"><image src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SksECIBNzL28s9-zO8lHh4WruADnTp-BgKZO_lJztx54C-4aodZ3qiqiYWQMu_Za65pWYsb36_L8tAc3_AiWH1mDNGMht7VsosrDIP-azdgCQMeQ_3ZzDoi8D3lhEufoHA1-kHkHjLBEk=s680-w680-h510-rw" class="user-brand-mark"></image> </div>
       <div class="user-brand-text">
         <div class="brand">Jana <span>Online Service</span></div>
         <small>Professional Service Dashboard</small>
@@ -4842,9 +4974,7 @@ body{
 <section
   id="adminPage"
   class="admin-page hidden"
->
-
-  <div class="topbar">
+> <div class="topbar">
 
     <div class="brand">
       জানা <span>Admin Panel</span>
