@@ -4041,6 +4041,119 @@ img, picture, svg {
   }
 </style>
 
+
+<style id="jos-login-network-background">
+/* Jana Online Service — responsive animated login background.
+   Visual-only layer: existing login forms, IDs, and Google Sheets API are untouched. */
+#landing.app-login-page {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 12% 18%, rgba(0,191,166,.22), transparent 42%),
+    radial-gradient(ellipse at 88% 82%, rgba(39,231,239,.18), transparent 40%),
+    linear-gradient(135deg, #041322 0%, #082b3b 52%, #061827 100%) !important;
+  overflow: hidden;
+}
+#josLoginNetworkCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+#landing.app-login-page > .login-bg-shape {
+  display: none !important;
+}
+#landing.app-login-page > .login-app-wrapper {
+  position: relative;
+  z-index: 2;
+  --jos-glow-x: 50%;
+  --jos-glow-y: 50%;
+  isolation: isolate;
+  border: 1px solid rgba(93, 244, 232, .42);
+  box-shadow: 0 25px 75px rgba(0,0,0,.32), 0 0 32px rgba(0,191,166,.13);
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+#landing.app-login-page > .login-app-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--jos-glow-x) var(--jos-glow-y),
+    rgba(39,231,239,.18) 0,
+    rgba(0,191,166,.08) 18%,
+    transparent 43%
+  );
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+#landing.app-login-page > .login-app-wrapper:hover {
+  border-color: rgba(39,231,239,.9);
+  box-shadow: 0 28px 85px rgba(0,0,0,.36), 0 0 35px rgba(39,231,239,.24);
+}
+#landing.app-login-page > .login-app-wrapper:hover::before {
+  opacity: 1;
+}
+#landing.app-login-page > .login-app-wrapper > .login-brand-area,
+#landing.app-login-page > .login-app-wrapper > .login-card-area {
+  position: relative;
+  z-index: 1;
+}
+#landing.app-login-page .login-brand-area {
+  background: linear-gradient(145deg, rgba(0,105,115,.94), rgba(0,151,167,.91) 48%, rgba(7,76,112,.94)) !important;
+}
+#landing.app-login-page .login-card-area {
+  background: rgba(255,255,255,.96) !important;
+}
+@media (max-width: 600px) {
+  #landing.app-login-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  #landing.app-login-page > .login-app-wrapper {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #landing.app-login-page > .login-app-wrapper {
+    transition: none;
+  }
+}
+</style>
+
+
+<style id="jos-bottom-app-navigation-css">
+/* Native-app-style bottom navigation: UI only, existing dashboard actions reused. */
+.jos-bottom-app-nav{display:none;}
+@media(max-width:850px){
+  #userDashboard{padding-bottom:calc(82px + env(safe-area-inset-bottom, 0px));}
+  .jos-bottom-app-nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:9999;
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:2px;padding:7px 5px calc(7px + env(safe-area-inset-bottom, 0px));
+    background:rgba(255,255,255,.97);backdrop-filter:blur(16px);
+    border-top:1px solid rgba(7,89,133,.14);
+    box-shadow:0 -7px 24px rgba(5,40,65,.13);
+  }
+  .jos-bottom-nav-item{
+    min-width:0;min-height:53px;padding:5px 2px 4px;border:0;border-radius:12px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    color:#60758a;background:transparent;font:600 10px/1.1 system-ui,-apple-system,sans-serif;
+    transition:background .2s ease,color .2s ease,transform .2s ease;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .jos-bottom-nav-item i{font-size:18px;line-height:1;}
+  .jos-bottom-nav-item span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .jos-bottom-nav-item.active{color:#007f8d;background:linear-gradient(180deg,rgba(14,165,233,.12),rgba(13,148,136,.08));}
+  .jos-bottom-nav-item.active i{filter:drop-shadow(0 2px 5px rgba(14,165,233,.22));}
+  .jos-bottom-nav-item:active{transform:scale(.95);}
+}
+@media(prefers-reduced-motion:reduce){.jos-bottom-nav-item{transition:none;}}
+</style>
+
 </head>
 
 
@@ -4055,6 +4168,9 @@ img, picture, svg {
      PROFESSIONAL APP LOGIN / OPENING VIEW
 ===================================================== -->
 <section id="landing" class="app-login-page">
+
+  <!-- Animated Digital Network background (visual only; does not interact with Sheets/API) -->
+  <canvas id="josLoginNetworkCanvas" aria-hidden="true"></canvas>
 
   <!-- Background decoration -->
   <div class="login-bg-shape shape-1"></div>
@@ -4702,6 +4818,25 @@ img, picture, svg {
     </div>
   </header>
 
+
+  <!-- MOBILE APP BOTTOM NAVIGATION -->
+  <nav class="jos-bottom-app-nav" id="josBottomAppNav" aria-label="Quick dashboard navigation">
+    <button type="button" class="jos-bottom-nav-item active" data-user-nav="home" aria-label="Home">
+      <i class="fa-solid fa-house"></i><span>Home</span>
+    </button>
+    <button type="button" class="jos-bottom-nav-item" data-user-nav="my-services" aria-label="My Services">
+      <i class="fa-solid fa-layer-group"></i><span>My Services</span>
+    </button>
+    <button type="button" class="jos-bottom-nav-item" data-user-nav="online-services" aria-label="Online Services">
+      <i class="fa-solid fa-globe"></i><span>Online</span>
+    </button>
+    <button type="button" class="jos-bottom-nav-item" data-user-nav="profile" aria-label="My Profile">
+      <i class="fa-solid fa-user"></i><span>Profile</span>
+    </button>
+    <button type="button" class="jos-bottom-nav-item" data-user-nav="status" aria-label="Account Status">
+      <i class="fa-solid fa-circle-check"></i><span>Status</span>
+    </button>
+  </nav>
 
   <!-- USER BANNER -->
 
@@ -6136,7 +6271,7 @@ document.addEventListener(
 ============================================================ */
 function closeUserMenu(){const nav=$("userNav"),toggle=$("userMenuToggle");if(nav)nav.classList.remove("open");if(toggle)toggle.setAttribute("aria-expanded","false");}
 function toggleUserMenu(){const nav=$("userNav"),toggle=$("userMenuToggle");if(!nav)return;const open=nav.classList.toggle("open");if(toggle)toggle.setAttribute("aria-expanded",open?"true":"false");}
-function setUserNavActive(key){document.querySelectorAll("#userDashboard [data-user-nav]").forEach(function(item){item.classList.toggle("active",item.dataset.userNav===key);});}
+function setUserNavActive(key){document.querySelectorAll("#userDashboard [data-user-nav]").forEach(function(item){item.classList.toggle("active",item.dataset.userNav===key);});document.querySelectorAll("#josBottomAppNav [data-user-nav]").forEach(function(item){item.classList.toggle("active",item.dataset.userNav===key);});}
 function handleUserNavigation(key){closeUserMenu();if(key==="home"){setUserNavActive("home");window.scrollTo({top:0,behavior:"smooth"});return;}if(key==="my-services"){setUserNavActive("my-services");const el=$("userServices");if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return;}if(key==="online-services"){setUserNavActive("online-services");const el=$("commonOnlineServices");if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return;}if(key==="profile"){setUserNavActive("profile");openUserProfile();return;}if(key==="status"){setUserNavActive("status");refreshUserStatus();return;}if(key==="logout"){setUserNavActive("logout");userLogout();}}
 
 /* ============================================================
@@ -9765,6 +9900,186 @@ document.addEventListener("keydown", function(event){
 
 </script>
 
+
+
+<script id="jos-login-network-animation">
+/* Decorative canvas only. Does not read, send, or modify login/Google Sheets data. */
+(function () {
+  "use strict";
+  const section = document.getElementById("landing");
+  const canvas = document.getElementById("josLoginNetworkCanvas");
+  const wrapper = section && section.querySelector(".login-app-wrapper");
+  if (!section || !canvas || !wrapper) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let w = 0, h = 0, dpr = 1, dots = [], raf = 0, last = 0, elapsed = 0;
+  const palette = ["39,231,239", "0,191,166", "32,227,154", "69,169,255"];
+  const pointer = { x: -999, y: -999, active: false };
+
+  function makeDot() {
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - .5) * .34,
+      vy: (Math.random() - .5) * .34,
+      r: .8 + Math.random() * 1.7,
+      phase: Math.random() * Math.PI * 2,
+      color: palette[Math.floor(Math.random() * palette.length)]
+    };
+  }
+
+  function resize() {
+    const rect = section.getBoundingClientRect();
+    w = Math.max(1, rect.width);
+    h = Math.max(1, rect.height);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.max(35, Math.min(105, Math.floor(w * h / 11500)));
+    dots = Array.from({ length: count }, makeDot);
+    drawStill();
+  }
+
+  function background() {
+    ctx.clearRect(0, 0, w, h);
+    const drift = Math.sin(elapsed * .00018) * w * .07;
+    const g1 = ctx.createRadialGradient(w * .12 + drift, h * .18, 0, w * .12 + drift, h * .18, Math.max(w,h) * .7);
+    g1.addColorStop(0, "rgba(0,191,166,.13)");
+    g1.addColorStop(1, "rgba(0,191,166,0)");
+    ctx.fillStyle = g1;
+    ctx.fillRect(0, 0, w, h);
+
+    const g2 = ctx.createRadialGradient(w * .88 - drift, h * .8, 0, w * .88 - drift, h * .8, Math.max(w,h) * .6);
+    g2.addColorStop(0, "rgba(39,231,239,.10)");
+    g2.addColorStop(1, "rgba(39,231,239,0)");
+    ctx.fillStyle = g2;
+    ctx.fillRect(0, 0, w, h);
+
+    const gap = 52, ox = (elapsed * .004) % gap, oy = (elapsed * .0025) % gap;
+    ctx.strokeStyle = "rgba(110,224,230,.055)";
+    ctx.lineWidth = .6;
+    for (let x = -gap + ox; x < w; x += gap) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+    for (let y = -gap + oy; y < h; y += gap) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+  }
+
+  function moveDots() {
+    for (const p of dots) {
+      p.x += p.vx + Math.sin(p.phase) * .08;
+      p.y += p.vy + Math.cos(p.phase * .8) * .08;
+      p.phase += .015;
+      if (pointer.active) {
+        const dx = p.x - pointer.x, dy = p.y - pointer.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist > 0 && dist < 105) {
+          const force = (105 - dist) / 105 * .012;
+          p.x += dx * force; p.y += dy * force;
+        }
+      }
+      if (p.x < -5) p.x = w + 5;
+      if (p.x > w + 5) p.x = -5;
+      if (p.y < -5) p.y = h + 5;
+      if (p.y > h + 5) p.y = -5;
+    }
+  }
+
+  function links() {
+    const limit = Math.min(135, w * .24);
+    for (let i = 0; i < dots.length; i++) {
+      const a = dots[i];
+      for (let j = i + 1; j < dots.length; j++) {
+        const b = dots[j], dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (dist < limit) {
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.lineWidth = .7;
+          ctx.strokeStyle = "rgba(" + a.color + "," + ((1 - dist / limit) * .42) + ")";
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function nodes() {
+    for (const p of dots) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * (.75 + .25 * Math.sin(p.phase)), 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(" + p.color + ",.86)";
+      ctx.shadowColor = "rgba(" + p.color + ",.55)";
+      ctx.shadowBlur = 8;
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+  }
+
+  function drawStill() {
+    elapsed = 0;
+    background();
+    links();
+    nodes();
+  }
+
+  function frame(t) {
+    raf = 0;
+    if (document.hidden) return;
+    if (!reduceMotion.matches && t - last < 30) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
+    last = t;
+    elapsed = reduceMotion.matches ? 0 : t;
+    background();
+    if (!reduceMotion.matches) moveDots();
+    links();
+    nodes();
+    if (!reduceMotion.matches) raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  section.addEventListener("pointermove", function (e) {
+    const r = section.getBoundingClientRect();
+    pointer.x = e.clientX - r.left;
+    pointer.y = e.clientY - r.top;
+    pointer.active = true;
+  }, { passive: true });
+  section.addEventListener("pointerleave", function () {
+    pointer.active = false;
+  }, { passive: true });
+
+  wrapper.addEventListener("pointermove", function (e) {
+    const r = wrapper.getBoundingClientRect();
+    wrapper.style.setProperty("--jos-glow-x", ((e.clientX - r.left) / r.width * 100) + "%");
+    wrapper.style.setProperty("--jos-glow-y", ((e.clientY - r.top) / r.height * 100) + "%");
+  }, { passive: true });
+
+  window.addEventListener("resize", resize, { passive: true });
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) stop(); else start();
+  });
+  if (reduceMotion.addEventListener) {
+    reduceMotion.addEventListener("change", function () { stop(); resize(); start(); });
+  }
+
+  resize();
+  start();
+})();
+</script>
 
 </body>
 </html>
