@@ -4166,6 +4166,42 @@ img, picture, svg {
   });
 })();
 </script>
+
+<style>
+/* JOS Special Service: polished four app-icon cards only */
+#commonOnlineServices .jos-shortcuts-grid.jos-app-icons{
+  width:100%;max-width:680px;margin:18px auto 4px;padding:clamp(8px,2vw,18px);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(9px,2.2vw,18px);
+  border-radius:24px;background:linear-gradient(135deg,rgba(224,247,250,.92),rgba(239,246,255,.96));
+  border:1px solid rgba(14,116,144,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 30px rgba(15,55,75,.07);
+}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon{
+  position:relative;isolation:isolate;aspect-ratio:1/1;width:100%;max-width:136px;min-width:0;
+  justify-self:center;overflow:hidden;padding:0;border:1px solid rgba(255,255,255,.9);
+  border-radius:25%;background:linear-gradient(145deg,#ffffff,#dff7fb);
+  box-shadow:0 7px 18px rgba(8,47,73,.14),inset 0 1px 0 rgba(255,255,255,.95);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(1){background:linear-gradient(145deg,#fff7ed,#fed7aa)}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(2){background:linear-gradient(145deg,#eff6ff,#bfdbfe)}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(3){background:linear-gradient(145deg,#f0fdf4,#bbf7d0)}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(4){background:linear-gradient(145deg,#faf5ff,#e9d5ff)}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon img{position:relative;z-index:0;display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit;transition:transform .28s ease;}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:hover{transform:translateY(-4px);border-color:#fff;box-shadow:0 13px 25px rgba(8,47,73,.20);}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:hover img{transform:scale(1.045)}
+#commonOnlineServices .jos-shortcut-card.jos-app-icon:focus-visible{outline:3px solid #0891b2;outline-offset:4px}
+@media(max-width:600px){
+  #commonOnlineServices .jos-shortcuts-grid.jos-app-icons{gap:10px;padding:10px;border-radius:18px;margin-top:14px}
+  #commonOnlineServices .jos-shortcut-card.jos-app-icon{max-width:100%;border-radius:23%;}
+}
+@media(max-width:360px){
+  #commonOnlineServices .jos-shortcuts-grid.jos-app-icons{gap:7px;padding:8px}
+  #commonOnlineServices .jos-shortcut-card.jos-app-icon{border-radius:20%}
+}
+@media(prefers-reduced-motion:reduce){#commonOnlineServices .jos-shortcut-card.jos-app-icon,#commonOnlineServices .jos-shortcut-card.jos-app-icon img{transition:none}}
+</style>
 </head>
 
 
@@ -4931,14 +4967,9 @@ img, picture, svg {
        Admin Assignment প্রয়োজন নেই
   ================================================= -->
 
-  <section
-    id="commonOnlineServices"
-    class="common-service-section"
-  >
-
-    <div class="common-service-container">
-
-
+  <section id="commonOnlineServices" class="jos-shortcuts-section" aria-label="JOS Quick Links">
+  <div class="jos-shortcuts-wrap">
+  <div class="jos-restored-intro">
       <div class="common-service-header">
 
         <div class="common-service-badge">
@@ -5043,64 +5074,78 @@ img, picture, svg {
 
 
 
-      <div class="common-service-toolbar">
 
-        <div
-          id="commonServiceCount"
-          class="common-service-count"
-        >
-          0 Services Available
-        </div>
+  </div>
+  <div class="jos-special-heading">
+    <span class="jos-special-heading-badge">⚡ JOS FEATURED</span>
+    <h2>Special <span>Service</span></h2>
+    <p>আপনার প্রয়োজনীয় বিশেষ পরিষেবাগুলি এখানে পাবেন।</p>
+ 
 
-        <div class="common-search-box">
-
-          <span>🔍</span>
-
-          <input
-            type="text"
-            id="commonServiceSearch"
-            placeholder="Search service..."
-            autocomplete="off"
-          >
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="commonServiceGrid"
-        class="common-service-grid"
-      ></div>
-
-
-      <div
-        id="commonServiceNoResult"
-        class="common-service-no-result"
-      >
-
-        <div>🔎</div>
-
-        <strong>
-          Service Not Found
-        </strong>
-
-        <p>
-          অন্য কোনো service name দিয়ে search করুন।
-        </p>
-
-      </div>
-
+    <div class="jos-shortcuts-grid jos-app-icons">
+      <!-- Change each href URL to your page URL and each img src to your icon/photo path -->
+      <a class="jos-shortcut-card jos-app-icon" href="./shop.html" onclick="event.preventDefault();openService('Shop','https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/');" aria-label="Open Shop">
+        <img src="https://images.squarespace-cdn.com/content/v1/5b48c29f9f8770367788f244/1611582700101-JMIIX69SHSXK1X96XE91/ke17ZwdGBToddI8pDm48kHKmDLrMZO7HHpcyjMqbzOMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcBVek0a0L5ZzZO5sIOvWwrqKYA-dXl4sYwgdPtOa0B174TByWOce_SwawEQNsQ9Qi/ecommerce+marketing+strategy" alt="Shop app icon" onerror="this.style.opacity='.0'">
+      </a>
+      <a class="jos-shortcut-card jos-app-icon" href="./typing-test.html" onclick="event.preventDefault();openService('Typing Test','https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/');" aria-label="Open Typing Test">
+        <img src="https://media.baamboozle.com/uploads/images/976802/b1d83bd7-4d1e-4742-a0e9-1bd6f4deaaac.gif" alt="Typing Test app icon" onerror="this.style.opacity='.0'">
+      </a>
+      <a class="jos-shortcut-card jos-app-icon" href="#" onclick="event.preventDefault();openService('Special Tool 3','PASTE_THIRD_PAGE_URL_HERE');" aria-label="Open Special Tool 3">
+        <img src="tool-3-icon.png" alt="Special Tool 3 app icon" onerror="this.style.opacity='.0'">
+      </a>
+      <a class="jos-shortcut-card jos-app-icon" href="#" onclick="event.preventDefault();openService('Special Tool 4','PASTE_FOURTH_PAGE_URL_HERE');" aria-label="Open Special Tool 4">
+        <img src="tool-4-icon.png" alt="Special Tool 4 app icon" onerror="this.style.opacity='.0'">
+      </a>
     </div>
-
-  </section>
-
+  </div>
 </section>
 
+<style>
+/* JOS Special Service — image-only app icons */
+.jos-shortcuts-section{width:100%;padding:14px 16px 22px;background:radial-gradient(circle at 8% 0%,rgba(0,151,167,.12),transparent 32%),#f4f8fb}
+.jos-shortcuts-wrap{max-width:1120px;margin:0 auto}
+.jos-shortcuts-grid.jos-app-icons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:620px;margin:0 auto}
+.jos-shortcut-card.jos-app-icon{aspect-ratio:1/1;min-width:0;width:100%;max-width:132px;justify-self:center;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:0;text-decoration:none;background:linear-gradient(145deg,#fff,#eaf7fa);border:1px solid #dce9ed;border-radius:26%;box-shadow:0 5px 16px rgba(23,72,91,.10);transition:transform .2s ease,box-shadow .2s ease}
+.jos-shortcut-card.jos-app-icon:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 22px rgba(0,111,130,.17)}
+.jos-app-icon img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+@media(max-width:520px){.jos-shortcuts-section{padding:12px 10px 18px}.jos-shortcuts-grid.jos-app-icons{gap:10px}.jos-shortcut-card.jos-app-icon{max-width:100px;border-radius:24%}}
+@media(max-width:360px){.jos-shortcuts-grid.jos-app-icons{gap:7px}.jos-shortcut-card.jos-app-icon{border-radius:20%}}
+</style>
+<style>
+.jos-restored-intro{width:100%;max-width:1250px;margin:0 auto 24px;text-align:center}
+.jos-restored-intro .common-service-header{margin-bottom:18px}
+.jos-restored-intro .common-service-header h2{color:#12384a}
+.jos-restored-intro .common-service-header h2 span{color:#0097a7}
+.jos-restored-intro .common-service-header p{color:#667786}
+.jos-restored-intro > div[style*="width:100%"]{margin:15px 0!important}
+.jos-restored-intro > div[style*="position:fixed"]{text-align:left}
+.jos-special-heading{max-width:1250px;margin:0 auto 22px;padding:18px 20px;text-align:center;color:#fff;background:linear-gradient(135deg,#071d3a,#0b3b68);border-radius:15px;box-shadow:0 8px 22px rgba(3,20,48,.22)}
+.jos-special-heading-badge{display:inline-block;padding:5px 12px;margin-bottom:7px;border:1px solid rgba(255,255,255,.28);border-radius:20px;background:rgba(255,255,255,.1);font-size:12px;font-weight:700;letter-spacing:.5px}
+.jos-special-heading h2{font-size:clamp(22px,3.5vw,30px);margin:0 0 6px;color:#fff}
+.jos-special-heading h2 span{color:#54d5f0}
+.jos-special-heading p{font-size:13px;color:#d7e7f6;line-height:1.6}
+@media(max-width:600px){.jos-special-heading{padding:15px 12px;margin-bottom:16px}.jos-restored-intro{margin-bottom:18px}}
+</style>
 
-  <div class="dashboard-container">
+ </div>
 
-    
+<style>
+/* Keep assigned-services heading visually consistent with Special Service */
+.jos-assigned-heading-wrap{width:100%;padding:0 18px;margin:8px auto 0}
+.jos-assigned-heading-wrap .jos-assigned-heading{max-width:1250px;margin:0 auto 20px}
+@media(max-width:600px){.jos-assigned-heading-wrap{padding:0 10px}.jos-assigned-heading-wrap .jos-assigned-heading{margin-bottom:15px}}
+</style>
+
+<!-- ASSIGNED SERVICES HEADING: same navy style as Special Service -->
+<div class="jos-assigned-heading-wrap">
+  <div class="jos-special-heading jos-assigned-heading">
+    <span class="jos-special-heading-badge">👤 PERSONAL SERVICES</span>
+    <h2>Assigned <span>Services</span></h2>
+    <p>আপনার অ্যাকাউন্টে Admin-এর মাধ্যমে Assign করা পরিষেবাগুলি এখানে দেখতে ও ব্যবহার করতে পারবেন।</p>
+  </div>
+</div>
+
+<div class="dashboard-container">
 
     <div
       id="userServices"
