@@ -4167,41 +4167,593 @@ img, picture, svg {
 })();
 </script>
 
-<style>
-/* JOS Special Service: polished four app-icon cards only */
-#commonOnlineServices .jos-shortcuts-grid.jos-app-icons{
-  width:100%;max-width:680px;margin:18px auto 4px;padding:clamp(8px,2vw,18px);
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(9px,2.2vw,18px);
-  border-radius:24px;background:linear-gradient(135deg,rgba(224,247,250,.92),rgba(239,246,255,.96));
-  border:1px solid rgba(14,116,144,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 30px rgba(15,55,75,.07);
+<style id="jos-app-redesign-v2">
+/* JOS APP REDESIGN — presentation layer only; Apps Script/API and existing data IDs preserved */
+:root{--primary:#007f89;--primary2:#00a6ad;--dark:#073b46;--light:#effcfc;--border:#d9eeee;--shadow:0 18px 48px rgba(5,68,78,.12)}
+html{scroll-behavior:smooth}
+body{background:#f3f8fa;color:#16343b;font-family:Inter,"Noto Sans Bengali",Arial,sans-serif}
+button,input,select,textarea{font-family:inherit}
+#adminPage{display:none!important}
+.app-login-page{min-height:100svh;padding:clamp(12px,3vw,34px);background:radial-gradient(ellipse at 10% 10%,rgba(0,166,173,.16),transparent 34%),radial-gradient(ellipse at 90% 90%,rgba(0,127,137,.13),transparent 35%),linear-gradient(135deg,#f6ffff,#eaf6f7);isolation:isolate}
+.app-login-page:before,.app-login-page:after{content:"";position:absolute;pointer-events:none;border-radius:50%;filter:blur(1px);z-index:-1}
+.app-login-page:before{width:380px;height:380px;right:-120px;top:-150px;background:linear-gradient(135deg,rgba(0,166,173,.18),rgba(0,127,137,.03));animation:josFloat 12s ease-in-out infinite}
+.app-login-page:after{width:280px;height:280px;left:-100px;bottom:-100px;background:rgba(0,151,167,.11);animation:josFloat 15s ease-in-out infinite reverse}
+@keyframes josFloat{50%{transform:translate3d(0,18px,0) scale(1.04)}}
+.login-app-wrapper{width:min(1180px,100%);max-width:1180px;min-height:min(720px,calc(100svh - 48px));grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);border:1px solid rgba(255,255,255,.9);border-radius:30px;box-shadow:0 30px 90px rgba(4,65,75,.16);background:rgba(255,255,255,.82);backdrop-filter:blur(24px)}
+.login-brand-area{padding:clamp(28px,5vw,64px);background:linear-gradient(145deg,#006e78 0%,#008f99 52%,#00a6ad 100%)}
+.login-brand-area:before{width:500px;height:500px;top:-220px;right:-230px;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06)}
+.login-brand-area:after{width:330px;height:330px;bottom:-180px;left:-110px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.brand-logo{width:76px;height:76px;border-radius:22px;color:#007f89;box-shadow:0 14px 35px rgba(0,0,0,.16)}
+.brand-content h1{font-size:clamp(28px,3vw,39px);letter-spacing:-.8px}
+.brand-subtitle{font-size:16px;font-weight:600}
+.brand-description{font-size:14px;line-height:1.85}
+.brand-features{margin-top:30px;gap:13px}
+.brand-feature{padding:11px 12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);border-radius:14px}
+.feature-icon{flex:0 0 42px;border-radius:12px;background:rgba(255,255,255,.13)}
+.login-card-area{padding:clamp(22px,4vw,48px);background:rgba(255,255,255,.92)}
+.professional-login-card{max-width:410px}
+.login-header{text-align:left;margin-bottom:23px}
+.login-header h2{font-size:30px;letter-spacing:-.6px;color:#103f48}
+.login-header p{font-size:13px;line-height:1.7}
+.professional-auth-card{padding:0;background:transparent;border:0;box-shadow:none;border-radius:0}
+.modern-input-group{margin-bottom:17px}
+.modern-input-group label{font-size:12px;color:#23464d}
+.modern-input{min-height:53px;border-radius:14px;background:#f6fafb;border:1.5px solid #dce9eb}
+.modern-input:focus-within{border-color:#0097a7;box-shadow:0 0 0 4px rgba(0,151,167,.10)}
+.modern-input>i{color:#0097a7}
+.modern-input input{height:51px;font-size:14px}
+.professional-login-btn{height:54px;border-radius:14px;background:linear-gradient(120deg,#007f89,#00a6ad);box-shadow:0 10px 24px rgba(0,127,137,.22)}
+.professional-login-btn:hover{box-shadow:0 14px 28px rgba(0,127,137,.28)}
+.registration-btn,.registration-area button{border-radius:13px}
+.login-footer{margin-top:24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;color:#71868b;font-size:11px}
+#userDashboard{background:#f3f8fa;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+#userDashboard .user-topbar{min-height:74px;padding:10px clamp(12px,2.5vw,34px);background:rgba(0,127,137,.97);box-shadow:0 6px 24px rgba(0,74,82,.16);border:0}
+#userDashboard .user-brand-mark{border-radius:14px;background:rgba(255,255,255,.16)}
+#userDashboard .user-nav-item{border-radius:11px}
+#userDashboard .user-nav-item.active{background:rgba(255,255,255,.17)}
+#userDashboard .user-nav-item.active:after{background:#d9ff8f}
+#userDashboard .user-status-quick{background:rgba(255,255,255,.95);color:#00727b}
+#userDashboard .user-logout-quick{border-radius:11px;background:#e85e5e}
+#userDashboard .user-banner{position:relative;min-height:235px;padding:clamp(34px,5vw,64px) clamp(18px,5vw,64px);overflow:hidden;background:linear-gradient(105deg,rgba(0,72,82,.88),rgba(0,127,137,.64)),url("https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk3jL7j43IsWUoBVf_bLfw955hvP00lkqADA_9gxahUnXWYkLwMIer0jXHckhbPwD7M53ulqUj2nsVyGYrhV3bWTCsQ5c529LfBLcCDUMnhcZl4u4A4u4PJ3zcIqCa3fZhYhYvEqkz8E00D=s680-w680-h510-rw") center/cover}
+#userDashboard .user-banner:after{content:"";position:absolute;width:300px;height:300px;right:6%;top:-170px;border:1px solid rgba(255,255,255,.24);border-radius:50%;box-shadow:0 0 0 35px rgba(255,255,255,.04),0 0 0 70px rgba(255,255,255,.035)}
+#userDashboard .banner-inner{position:relative;z-index:1;max-width:1240px}
+#userDashboard .banner-inner h1{font-size:clamp(27px,4vw,42px);font-weight:850;letter-spacing:-.7px}
+#userDashboard .banner-inner p{max-width:650px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.88)}
+#userDashboard .notice-bar{height:44px;background:linear-gradient(90deg,#006e78,#0097a7,#006e78);box-shadow:0 4px 12px rgba(0,90,100,.10)}
+#userDashboard .notice-label{background:#005f69}
+#userDashboard .dashboard-container{max-width:1320px;margin:0 auto;padding:22px clamp(12px,2.5vw,30px)}
+#userDashboard .service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+#userDashboard .service-grid>*{border-radius:18px}
+#userDashboard .common-service-section{padding:clamp(24px,4vw,44px) clamp(12px,2.5vw,30px) 42px;background:linear-gradient(180deg,#f3f8fa,#f8fbfc)}
+#userDashboard .common-service-container{max-width:1320px}
+#userDashboard .common-service-header{margin-bottom:28px}
+#userDashboard .common-service-header h2{color:#103f48;font-weight:850;letter-spacing:-.5px}
+#userDashboard .common-service-badge{background:#dff7f7;color:#007b84}
+#userDashboard .common-search-box input{min-height:46px;border-radius:13px}
+#userDashboard .common-service-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+#userDashboard .common-service-card{min-height:165px;padding:20px;border-radius:18px;border-color:#e0ebed;box-shadow:0 6px 20px rgba(11,67,76,.055)}
+#userDashboard .common-service-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,111,130,.12)}
+#userDashboard .common-service-icon{border-radius:15px;background:linear-gradient(135deg,#def8f8,#c4eeee);color:#007f89}
+#josBottomAppNav{background:rgba(255,255,255,.96);border:1px solid #deebed;box-shadow:0 -8px 30px rgba(9,62,71,.10);backdrop-filter:blur(18px);padding:7px 8px calc(7px + env(safe-area-inset-bottom))}
+.jos-bottom-nav-item{border-radius:13px;color:#71858a}
+.jos-bottom-nav-item.active{color:#007f89;background:#e6f8f8}
+#userDashboard .modal-box,#userDashboard .common-service-modal{border-radius:22px}
+#userDashboard .common-modal-header{background:linear-gradient(125deg,#007782,#00a6ad)}
+#userDashboard .common-service-link{border-radius:14px}
+#userDashboard .btn{border-radius:12px}
+#userDashboard .profile-btn{background:#e1f8f8}
+@media(max-width:900px){
+ .login-app-wrapper{grid-template-columns:1fr;max-width:600px;min-height:auto}
+ .login-brand-area{padding:30px 28px}
+ .brand-features{display:grid;grid-template-columns:1fr 1fr;margin-top:22px}
+ .brand-feature{gap:9px}
+ .brand-feature span{line-height:1.4}
+ .login-card-area{padding:30px 28px}
+ .login-brand-area .brand-content h1{font-size:30px}
+ #userDashboard .common-service-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-#commonOnlineServices .jos-shortcut-card.jos-app-icon{
-  position:relative;isolation:isolate;aspect-ratio:1/1;width:100%;max-width:136px;min-width:0;
-  justify-self:center;overflow:hidden;padding:0;border:1px solid rgba(255,255,255,.9);
-  border-radius:25%;background:linear-gradient(145deg,#ffffff,#dff7fb);
-  box-shadow:0 7px 18px rgba(8,47,73,.14),inset 0 1px 0 rgba(255,255,255,.95);
-  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
-  -webkit-tap-highlight-color:transparent;
-}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(1){background:linear-gradient(145deg,#fff7ed,#fed7aa)}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(2){background:linear-gradient(145deg,#eff6ff,#bfdbfe)}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(3){background:linear-gradient(145deg,#f0fdf4,#bbf7d0)}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:nth-child(4){background:linear-gradient(145deg,#faf5ff,#e9d5ff)}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon img{position:relative;z-index:0;display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit;transition:transform .28s ease;}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:hover{transform:translateY(-4px);border-color:#fff;box-shadow:0 13px 25px rgba(8,47,73,.20);}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:hover img{transform:scale(1.045)}
-#commonOnlineServices .jos-shortcut-card.jos-app-icon:focus-visible{outline:3px solid #0891b2;outline-offset:4px}
 @media(max-width:600px){
-  #commonOnlineServices .jos-shortcuts-grid.jos-app-icons{gap:10px;padding:10px;border-radius:18px;margin-top:14px}
-  #commonOnlineServices .jos-shortcut-card.jos-app-icon{max-width:100%;border-radius:23%;}
+ .app-login-page{padding:10px;align-items:flex-start}
+ .login-app-wrapper{margin:auto;border-radius:23px;min-height:0;grid-template-columns:1fr}
+ .login-brand-area{padding:24px 22px 21px}
+ .brand-logo-box{margin-bottom:14px}
+ .brand-logo{width:57px;height:57px;border-radius:17px;font-size:25px}
+ .brand-content h1{font-size:26px!important}
+ .brand-subtitle{margin:7px 0 8px;font-size:13px}
+ .brand-description{font-size:12px;line-height:1.65}
+ .brand-features{grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+ .brand-feature{padding:9px;border-radius:12px;align-items:flex-start}
+ .feature-icon{width:34px;height:34px;flex-basis:34px;border-radius:10px;font-size:13px}
+ .brand-feature strong{font-size:11px}
+ .brand-feature span{font-size:10px}
+ .login-card-area{padding:24px 21px 20px}
+ .login-header{text-align:left;margin-bottom:18px}
+ .login-header h2{font-size:25px}
+ .login-header p{font-size:12px}
+ .modern-input{min-height:49px}
+ .modern-input input{height:47px}
+ .professional-login-btn{height:50px}
+ #userDashboard .user-topbar{min-height:62px}
+ #userDashboard .user-banner{min-height:190px;padding:30px 18px}
+ #userDashboard .banner-inner h1{font-size:28px}
+ #userDashboard .banner-inner p{font-size:13px}
+ #userDashboard .common-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #userDashboard .common-service-card{min-height:145px;padding:14px;border-radius:15px}
+ #userDashboard .common-service-icon{width:42px;height:42px;margin-bottom:10px}
+ #userDashboard .common-service-card h3{font-size:13px}
+ #userDashboard .common-service-card p{font-size:11px}
+ #userDashboard .common-service-card-footer{margin-top:10px}
+ #userDashboard .dashboard-container{padding:16px 12px}
+ #userDashboard .service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 }
 @media(max-width:360px){
-  #commonOnlineServices .jos-shortcuts-grid.jos-app-icons{gap:7px;padding:8px}
-  #commonOnlineServices .jos-shortcut-card.jos-app-icon{border-radius:20%}
+ .brand-features{grid-template-columns:1fr}
+ #userDashboard .common-service-grid{gap:8px}
+ #userDashboard .common-service-card{padding:12px}
 }
-@media(prefers-reduced-motion:reduce){#commonOnlineServices .jos-shortcut-card.jos-app-icon,#commonOnlineServices .jos-shortcut-card.jos-app-icon img{transition:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
+
+
+<style id="jos-final-layout-fixes">
+/* Fix login scrolling: allow the full login card to scroll on short screens. */
+html, body { min-height:100%; }
+#landing.app-login-page {
+  min-height:100vh; min-height:100dvh; height:auto;
+  overflow-x:hidden !important; overflow-y:auto !important;
+  align-items:center; padding:28px 20px;
+  box-sizing:border-box;
+}
+#landing.app-login-page > #josLoginNetworkCanvas {
+  position:absolute; inset:0; height:100%; min-height:100%;
+}
+#landing.app-login-page > .login-app-wrapper {
+  flex:0 0 auto; height:auto; min-height:0; margin:auto;
+}
+@media (max-width:900px) {
+  #landing.app-login-page { align-items:flex-start; padding:18px 14px 28px; }
+  #landing.app-login-page > .login-app-wrapper { width:100%; max-width:600px; margin:0 auto; }
+}
+@media (max-width:600px) {
+  #landing.app-login-page { padding:10px 10px 24px; }
+  #landing.app-login-page > .login-app-wrapper { min-height:0; height:auto; overflow:hidden; }
+}
+/* Keep the dashboard hero directly below the topbar and remove its decorative rings/shapes. */
+#userDashboard .user-topbar { position:relative; z-index:20; }
+#userDashboard .user-banner { margin-top:0 !important; clear:both; }
+#userDashboard .user-banner::before,
+#userDashboard .user-banner::after { content:none !important; display:none !important; }
+#userDashboard .user-banner .banner-inner { position:relative; z-index:1; }
+</style>
+
+
+<style id="jos-scroll-repair-final">
+/* Scroll-only repair: preserve existing UI, IDs, data, and application logic. */
+html {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scroll-behavior: auto;
+}
+body {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  position: relative;
+}
+#landing.app-login-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  overflow: visible !important;
+  overflow-x: clip !important;
+}
+#landing.app-login-page > #josLoginNetworkCanvas {
+  position: absolute !important;
+  inset: 0 auto auto 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+#landing.app-login-page > .login-app-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  height: auto !important;
+  max-height: none !important;
+}
+.login-card-area,
+.register-card,
+.modal-box,
+.common-service-modal,
+.common-modal-body {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+#userDashboard,
+#userDashboard.dashboard,
+#userDashboard .dashboard-container {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-x: clip !important;
+}
+#userDashboard .user-topbar {
+  position: sticky !important;
+  top: 0;
+}
+@media (max-width: 900px) {
+  #landing.app-login-page { align-items: flex-start !important; }
+  #landing.app-login-page > .login-app-wrapper { margin: 0 auto !important; }
+}
+@media (max-width: 600px) {
+  #landing.app-login-page { padding-bottom: 28px !important; }
+  #landing.app-login-page > .login-app-wrapper { overflow: visible !important; }
+}
+</style>
+
+
+
+
+<style>
+#jos-application-center,
+#jos-application-center * {
+  box-sizing: border-box;
+}
+
+#jos-application-center {
+  --primary: #087f8c;
+  --teal: #00bfae;
+  --blue: #087cff;
+  --ink: #102b46;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  padding: 22px;
+  border: 1px solid #dcebef;
+  border-radius: 24px;
+  color: var(--ink);
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 0% 0%, #d9fff7 0, transparent 42%),
+    radial-gradient(ellipse at 100% 100%, #dceaff 0, transparent 45%),
+    linear-gradient(135deg, #fbffff, #eff6ff);
+  box-shadow: 0 16px 45px rgba(25, 91, 126, .10);
+}
+
+#jos-application-center .jac-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+#jos-application-center .jac-title {
+  margin: 0;
+  font-size: clamp(19px, 3vw, 25px);
+  font-weight: 850;
+  letter-spacing: -.6px;
+  color: #102b46;
+}
+
+#jos-application-center .jac-subtitle {
+  margin: 7px 0 0;
+  color: #6b8198;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#jos-application-center .jac-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid #c4f0e7;
+  border-radius: 30px;
+  color: #087f70;
+  background: #e3faf5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+#jos-application-center .jac-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+#jos-application-center .jac-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 17px 9px 15px;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  color: #18374f;
+  background: rgba(255,255,255,.88);
+  border: 1px solid #dfedf2;
+  border-radius: 19px;
+  box-shadow: 0 5px 16px rgba(26,74,109,.045);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .24s ease, box-shadow .24s ease,
+              border-color .24s ease;
+}
+
+#jos-application-center .jac-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  height: 3px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(90deg, #00c9b7, #087cff);
+  opacity: 0;
+  transition: opacity .24s ease;
+}
+
+#jos-application-center .jac-card:hover {
+  transform: translateY(-5px);
+  border-color: #8bded9;
+  box-shadow: 0 14px 28px rgba(15,112,148,.12);
+}
+
+#jos-application-center .jac-card:hover::before {
+  opacity: 1;
+}
+
+#jos-application-center .jac-icon {
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+  padding: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #d7f1ef;
+  border-radius: 22px;
+  background: linear-gradient(140deg, #e1fbf6, #e9f0ff);
+  box-shadow: 0 7px 16px rgba(8,124,255,.08);
+  transition: transform .24s ease;
+}
+
+#jos-application-center .jac-card:hover .jac-icon {
+  transform: scale(1.05);
+}
+
+#jos-application-center .jac-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 17px;
+}
+
+#jos-application-center .jac-name {
+  width: 100%;
+  color: #122f4b;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+#jos-application-center .jac-description {
+  margin-top: 5px;
+  color: #7c91a5;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+#jos-application-center .jac-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 150px;
+  margin-top: 13px;
+  padding: 9px 5px;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(110deg, #00bfae, #087cff);
+  box-shadow: 0 5px 13px rgba(8,124,255,.17);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+#jos-application-center .jac-card:focus-visible {
+  outline: 3px solid #087cff;
+  outline-offset: 3px;
+}
+
+@media(max-width:520px) {
+  #jos-application-center {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  #jos-application-center .jac-heading {
+    gap: 9px;
+    margin-bottom: 16px;
+  }
+
+  #jos-application-center .jac-subtitle {
+    font-size: 10px;
+  }
+
+  #jos-application-center .jac-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #jos-application-center .jac-card {
+    padding: 11px 3px 10px;
+    border-radius: 13px;
+  }
+
+  #jos-application-center .jac-icon {
+    width: min(100%, 58px);
+    height: auto;
+    aspect-ratio: 1;
+    padding: 3px;
+    margin-bottom: 8px;
+    border-radius: 15px;
+  }
+
+  #jos-application-center .jac-icon img {
+    border-radius: 11px;
+  }
+
+  #jos-application-center .jac-name {
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  #jos-application-center .jac-description {
+    font-size: 8px;
+    line-height: 1.4;
+  }
+
+  #jos-application-center .jac-open {
+    margin-top: 9px;
+    padding: 7px 2px;
+    border-radius: 7px;
+    font-size: 8px;
+    gap: 2px;
+  }
+
+  #jos-application-center .jac-badge {
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  #jos-application-center *,
+  #jos-application-center *::before,
+  #jos-application-center *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ===== APPLICATION VIEWER ===== */
+
+#josApplicationViewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #f5f9fc;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+#josApplicationViewer .jav-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  height: 54px;
+  padding: 0 14px;
+  color: #fff;
+  background: linear-gradient(100deg, #075b70, #087f8c, #086ed5);
+  box-shadow: 0 3px 14px rgba(0,0,0,.12);
+}
+
+#josApplicationViewer .jav-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#josApplicationViewer .jav-logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  color: #087f8c;
+  background: #fff;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+#josApplicationViewer .jav-brand-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#josApplicationViewer .jav-button {
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 9px;
+  padding: 8px 12px;
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#josApplicationViewer .jav-close {
+  color: #087f8c;
+  background: #fff;
+  border-color: #fff;
+}
+
+#josApplicationViewer .jav-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 54px);
+  border: 0;
+  background: #fff;
+}
+
+@media(max-width:480px) {
+  #josApplicationViewer .jav-header {
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  #josApplicationViewer .jav-brand {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  #josApplicationViewer .jav-logo {
+    width: 29px;
+    height: 29px;
+    border-radius: 8px;
+  }
+
+  #josApplicationViewer .jav-button {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+}
+</style>
+
 </head>
 
 
@@ -4255,7 +4807,7 @@ img, picture, svg {
 
         <div class="brand-feature iframe-feature"
      data-url="https://suman9907bit.github.io/syber-information/"
-     data-title="Secure">
+     data-title="Cyber Info — সাইবার তথ্যের পেজ">
 
     <div class="feature-icon">
        <image src="https://cdn-icons-gif.flaticon.com/17489/17489726.gif" class="feature-icon">
@@ -4270,7 +4822,7 @@ img, picture, svg {
 
         <div class="brand-feature iframe-feature"
      data-url="https://suman9907bit.github.io/josstatuschaskrjoifjigjirjgjhsd/"
-     data-title="Fast Service">
+     data-title="Account Status Check — অ্যাকাউন্ট স্ট্যাটাস">
 
     <div class="feature-icon">
       <image src="https://cdn-icons-gif.flaticon.com/17644/17644504.gif" class="feature-icon"></image>   
@@ -4285,7 +4837,7 @@ img, picture, svg {
 
         <div class="brand-feature iframe-feature"
      data-url="https://suman9907bit.github.io/Contact/"
-     data-title="Support">
+     data-title="Contact / Technical Support — যোগাযোগ ও সাপোর্ট">
 
     <div class="feature-icon">
          <image src="https://cdn-icons-gif.flaticon.com/17576/17576972.gif" class="feature-icon"></image>
@@ -4335,53 +4887,8 @@ img, picture, svg {
 
           <form id="loginForm">
 
-            <!-- Account Type -->
-            <div class="account-type-title">
-              <span>Login As</span>
-            </div>
-
-            <div class="login-type-buttons">
-
-              <button
-                type="button"
-                class="login-type-btn active"
-                data-type="user"
-                id="userLoginBtn">
-
-                <i class="fa-solid fa-user"><image src="https://cdn-icons-png.magnific.com/256/9159/9159776.png?semt=ais_white_label" height="30px"></image></i>
-
-                <span>
-                  <strong>User</strong>
-                  <small>User Account</small>
-                </span>
-
-              </button>
-
-
-              <button
-                type="button"
-                class="login-type-btn"
-                data-type="admin"
-                id="adminLoginBtn">
-
-                <i class="fa-solid fa-user-shield"><image src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-host-and-admin-marketing-job-vacancies-vector-png-image_6480101.png" height="30px "></i>
-
-                <span>
-                  <strong>Admin</strong>
-                  <small>Admin Panel</small>
-                </span>
-
-              </button>
-
-            </div>
-
-
-            <!-- Hidden login type -->
-            <select id="loginType" hidden>
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-
+            <!-- User-only sign in. Existing loginType field is retained for API compatibility. -->
+            <input type="hidden" id="loginType" value="user">
 
             <!-- Login ID -->
             <div class="modern-input-group">
@@ -4958,6 +5465,125 @@ img, picture, svg {
   </div>
 
 
+
+
+
+
+
+  
+<!-- ===== JOS PREMIUM DIGITAL APPLICATION CENTER ===== -->
+
+
+
+<div id="jos-application-center">
+
+  <div class="jac-heading">
+    <div>
+      <h3 class="jac-title">JOS Application Center</h3>
+      <p class="jac-subtitle">Your Digital Workspace — All in One Place</p>
+    </div>
+    <span class="jac-badge">● APPLICATION CENTER</span>
+  </div>
+
+  <div class="jac-grid">
+
+    <!-- APPLICATION 1 -->
+    <a class="jac-card"
+       href="https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/"
+       onclick="return josOpenApplication(event,this.href,'Private Shop')">
+
+      <div class="jac-icon">
+        <img src="https://i.pinimg.com/originals/7c/89/90/7c89904c65970d2581ce4b5a392f7712.gif"
+             alt="Private Shop" loading="lazy">
+      </div>
+      <div class="jac-name">Private Shop</div>
+      <div class="jac-description">Online Shopping</div>
+      <div class="jac-open">↗ Open Application</div>
+    </a>
+
+    <!-- APPLICATION 2 -->
+    <a class="jac-card"
+       href="https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/"
+       onclick="return josOpenApplication(event,this.href,'Typing Test')">
+
+      <div class="jac-icon">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5j08iYR4wBIGXEkH4o-2ehfJbqsIAg0z1OYqfCUHnZ-SDbom4AU2aY84&s=10"
+             alt="Typing Test" loading="lazy">
+      </div>
+      <div class="jac-name">Typing Test</div>
+      <div class="jac-description">Typing Practice</div>
+      <div class="jac-open">↗ Open Application</div>
+    </a>
+
+    <!-- APPLICATION 3: CHANGE DETAILS -->
+    <a class="jac-card"
+       href="YOUR_PAGE_LINK_3"
+       onclick="return josOpenApplication(event,this.href,'Application 3')">
+
+      <div class="jac-icon">
+        <img src="https://cdn-icons-png.magnific.com/256/12525/12525802.png?semt=ais_white_label" alt="Application 3" loading="lazy">
+      </div>
+      <div class="jac-name">Application 3</div>
+      <div class="jac-description">Digital Services</div>
+      <div class="jac-open">↗ Open Application</div>
+    </a>
+
+    <!-- APPLICATION 4: CHANGE DETAILS -->
+    <a class="jac-card"
+       href="YOUR_PAGE_LINK_4"
+       onclick="return josOpenApplication(event,this.href,'Application 4')">
+
+      <div class="jac-icon">
+        <img src="https://cdn-icons-png.magnific.com/256/12525/12525802.png?semt=ais_white_label" alt="Application 4" loading="lazy">
+      </div>
+      <div class="jac-name">Application 4</div>
+      <div class="jac-description">Digital Services</div>
+      <div class="jac-open">↗ Open Application</div>
+    </a>
+
+  </div>
+</div>
+
+
+<!-- ===== JOS FULLSCREEN APPLICATION VIEWER ===== -->
+
+<div id="josApplicationViewer" aria-hidden="true">
+
+  <div class="jav-header">
+    <div class="jav-brand">
+      <div class="jav-logo">JOS</div>
+      <div class="jav-brand-text">
+        <span>JOS</span> | <span id="josApplicationTitle">Application Viewer</span>
+      </div>
+    </div>
+
+    <button class="jav-button" type="button"
+            onclick="josReloadApplication()" aria-label="Reload application">
+      ↻ Reload
+    </button>
+
+    <button class="jav-button jav-close" type="button"
+            onclick="josCloseApplication()">
+      ✕ Close
+    </button>
+  </div>
+
+  <iframe id="josApplicationFrame"
+          class="jav-frame"
+          title="JOS Application Viewer"
+          src="about:blank"
+          allow="fullscreen; clipboard-read; clipboard-write"
+          referrerpolicy="strict-origin-when-cross-origin">
+  </iframe>
+
+</div>
+
+
+
+
+<!-- ===== JOS PREMIUM DIGITAL APPLICATION CENTER END ===== -->
+
+
   <!-- =================================================
        ADMIN ASSIGNED SERVICES
   
@@ -4967,28 +5593,7 @@ img, picture, svg {
        Admin Assignment প্রয়োজন নেই
   ================================================= -->
 
-  <section id="commonOnlineServices" class="jos-shortcuts-section" aria-label="JOS Quick Links">
-  <div class="jos-shortcuts-wrap">
-  <div class="jos-restored-intro">
-      <div class="common-service-header">
-
-        <div class="common-service-badge">
-          ⚡ Online Service Center
-        </div>
-
-        <h2>
-          Jana Online <span>Services</span>
-        </h2>
-
-        <p>
-          আপনার প্রয়োজনীয় Online ও Digital Services
-          এক জায়গায়। Service-এ ক্লিক করে প্রয়োজনীয়
-          option নির্বাচন করুন।
-        </p>
-
-      </div>
-
-
+  
 
       <!-- FULL SCREEN IFRAME BUTTON -->
 <div style="width:100%; margin:15px 0;">
@@ -5010,7 +5615,7 @@ img, picture, svg {
     "
   >
     <i class="fa-solid fa-up-right-from-square"></i>
-    <b>SERVICE UPDATE</b>  (নতুন সার্ভিস ও আপডেট জানতে এখানে ক্লিক করুন )
+    <b>All Services — Govt. • Private • Online Services</b>  (আপনার প্রয়োজনীয় সরকারি ও বেসরকারি পরিষেবা এক জায়গায়। এগুলি Jana Online Service-এর নিজস্ব পরিষেবা নয়। )
   </button>
 
 </div>
@@ -5075,77 +5680,11 @@ img, picture, svg {
 
 
 
-  </div>
-  <div class="jos-special-heading">
-    <span class="jos-special-heading-badge">⚡ JOS FEATURED</span>
-    <h2>Special <span>Service</span></h2>
-    <p>আপনার প্রয়োজনীয় বিশেষ পরিষেবাগুলি এখানে পাবেন।</p>
- 
+      
 
-    <div class="jos-shortcuts-grid jos-app-icons">
-      <!-- Change each href URL to your page URL and each img src to your icon/photo path -->
-      <a class="jos-shortcut-card jos-app-icon" href="./shop.html" onclick="event.preventDefault();openService('Shop','https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/');" aria-label="Open Shop">
-        <img src="https://images.squarespace-cdn.com/content/v1/5b48c29f9f8770367788f244/1611582700101-JMIIX69SHSXK1X96XE91/ke17ZwdGBToddI8pDm48kHKmDLrMZO7HHpcyjMqbzOMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcBVek0a0L5ZzZO5sIOvWwrqKYA-dXl4sYwgdPtOa0B174TByWOce_SwawEQNsQ9Qi/ecommerce+marketing+strategy" alt="Shop app icon" onerror="this.style.opacity='.0'">
-      </a>
-      <a class="jos-shortcut-card jos-app-icon" href="./typing-test.html" onclick="event.preventDefault();openService('Typing Test','https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/');" aria-label="Open Typing Test">
-        <img src="https://media.baamboozle.com/uploads/images/976802/b1d83bd7-4d1e-4742-a0e9-1bd6f4deaaac.gif" alt="Typing Test app icon" onerror="this.style.opacity='.0'">
-      </a>
-      <a class="jos-shortcut-card jos-app-icon" href="#" onclick="event.preventDefault();openService('Special Tool 3','PASTE_THIRD_PAGE_URL_HERE');" aria-label="Open Special Tool 3">
-        <img src="tool-3-icon.png" alt="Special Tool 3 app icon" onerror="this.style.opacity='.0'">
-      </a>
-      <a class="jos-shortcut-card jos-app-icon" href="#" onclick="event.preventDefault();openService('Special Tool 4','PASTE_FOURTH_PAGE_URL_HERE');" aria-label="Open Special Tool 4">
-        <img src="tool-4-icon.png" alt="Special Tool 4 app icon" onerror="this.style.opacity='.0'">
-      </a>
-    </div>
-  </div>
-</section>
+  <div class="dashboard-container">
 
-<style>
-/* JOS Special Service — image-only app icons */
-.jos-shortcuts-section{width:100%;padding:14px 16px 22px;background:radial-gradient(circle at 8% 0%,rgba(0,151,167,.12),transparent 32%),#f4f8fb}
-.jos-shortcuts-wrap{max-width:1120px;margin:0 auto}
-.jos-shortcuts-grid.jos-app-icons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:620px;margin:0 auto}
-.jos-shortcut-card.jos-app-icon{aspect-ratio:1/1;min-width:0;width:100%;max-width:132px;justify-self:center;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:0;text-decoration:none;background:linear-gradient(145deg,#fff,#eaf7fa);border:1px solid #dce9ed;border-radius:26%;box-shadow:0 5px 16px rgba(23,72,91,.10);transition:transform .2s ease,box-shadow .2s ease}
-.jos-shortcut-card.jos-app-icon:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 22px rgba(0,111,130,.17)}
-.jos-app-icon img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
-@media(max-width:520px){.jos-shortcuts-section{padding:12px 10px 18px}.jos-shortcuts-grid.jos-app-icons{gap:10px}.jos-shortcut-card.jos-app-icon{max-width:100px;border-radius:24%}}
-@media(max-width:360px){.jos-shortcuts-grid.jos-app-icons{gap:7px}.jos-shortcut-card.jos-app-icon{border-radius:20%}}
-</style>
-<style>
-.jos-restored-intro{width:100%;max-width:1250px;margin:0 auto 24px;text-align:center}
-.jos-restored-intro .common-service-header{margin-bottom:18px}
-.jos-restored-intro .common-service-header h2{color:#12384a}
-.jos-restored-intro .common-service-header h2 span{color:#0097a7}
-.jos-restored-intro .common-service-header p{color:#667786}
-.jos-restored-intro > div[style*="width:100%"]{margin:15px 0!important}
-.jos-restored-intro > div[style*="position:fixed"]{text-align:left}
-.jos-special-heading{max-width:1250px;margin:0 auto 22px;padding:18px 20px;text-align:center;color:#fff;background:linear-gradient(135deg,#071d3a,#0b3b68);border-radius:15px;box-shadow:0 8px 22px rgba(3,20,48,.22)}
-.jos-special-heading-badge{display:inline-block;padding:5px 12px;margin-bottom:7px;border:1px solid rgba(255,255,255,.28);border-radius:20px;background:rgba(255,255,255,.1);font-size:12px;font-weight:700;letter-spacing:.5px}
-.jos-special-heading h2{font-size:clamp(22px,3.5vw,30px);margin:0 0 6px;color:#fff}
-.jos-special-heading h2 span{color:#54d5f0}
-.jos-special-heading p{font-size:13px;color:#d7e7f6;line-height:1.6}
-@media(max-width:600px){.jos-special-heading{padding:15px 12px;margin-bottom:16px}.jos-restored-intro{margin-bottom:18px}}
-</style>
-
- </div>
-
-<style>
-/* Keep assigned-services heading visually consistent with Special Service */
-.jos-assigned-heading-wrap{width:100%;padding:0 18px;margin:8px auto 0}
-.jos-assigned-heading-wrap .jos-assigned-heading{max-width:1250px;margin:0 auto 20px}
-@media(max-width:600px){.jos-assigned-heading-wrap{padding:0 10px}.jos-assigned-heading-wrap .jos-assigned-heading{margin-bottom:15px}}
-</style>
-
-<!-- ASSIGNED SERVICES HEADING: same navy style as Special Service -->
-<div class="jos-assigned-heading-wrap">
-  <div class="jos-special-heading jos-assigned-heading">
-    <span class="jos-special-heading-badge">👤 PERSONAL SERVICES</span>
-    <h2>Assigned <span>Services</span></h2>
-    <p>আপনার অ্যাকাউন্টে Admin-এর মাধ্যমে Assign করা পরিষেবাগুলি এখানে দেখতে ও ব্যবহার করতে পারবেন।</p>
-  </div>
-</div>
-
-<div class="dashboard-container">
+    
 
     <div
       id="userServices"
@@ -8507,408 +9046,6 @@ function escapeJS(value){
 }
 
 
-/* ============================================================
-   COMMON ONLINE SERVICES
-============================================================ */
-
-const COMMON_SERVICE_PHONE =
-  "9907992247";
-
-const COMMON_SERVICE_WHATSAPP =
-  "919907992247";
-
-
-const COMMON_ONLINE_SERVICES = [
-
-  {
-    name:"UTI PAN Card Service",
-    description:"Apply, Correction, Download & PAN Status",
-    icon:"🪪",
-
-    links:[
-      {
-        title:"Apply PAN",
-        description:"New PAN Apply",
-        url:"https://www.pan.utiitsl.com/newA.html"
-      },
-      {
-        title:"Correction",
-        description:"PAN Correction",
-        url:"https://www.pan.utiitsl.com/PAN_ONLINE/addresschangeHome.action"
-      },
-      {
-        title:"Download",
-        description:"E-PAN Download",
-        url:"https://www.pan.utiitsl.com/PAN_ONLINE/ePANCardHome"
-      },
-      {
-        title:"PAN Status",
-        description:"Check PAN Status",
-        url:"https://www.trackpan.utiitsl.com/PANONLINE/forms/TrackPan/trackApp#forward"
-      },
-      {
-        title:"UTI Portal",
-        description:"Official Portal",
-        url:"https://www.pan.utiitsl.com/"
-      }
-    ]
-  },
-
-
-  {
-    name:"NSDL PAN Card Service",
-    description:"Apply, Correction, Download & PAN Status",
-    icon:"🪪",
-
-    links:[
-      {
-        title:"Apply PAN",
-        description:"New PAN Apply",
-        url:"https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-      },
-      {
-        title:"Correction",
-        description:"PAN Correction",
-        url:"https://onlineservices.proteantech.in/paam/endUserAddressUpdate.html"
-      },
-      {
-        title:"Download",
-        description:"E-PAN Download",
-        url:"https://onlineservices.proteantech.in/paam/requestAndDownloadEPAN.html"
-      },
-      {
-        title:"PAN Status",
-        description:"Check PAN Status",
-        url:"https://tin.tin.proteantech.in/pantan/StatusTrack.html"
-      },
-      {
-        title:"NSDL Portal",
-        description:"Official Portal",
-        url:"https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-      }
-    ]
-  },
-
-
-  {
-    name:"Voter Card Service",
-    description:"New Voter ID, Search Name & Electoral Roll",
-    icon:"🗳️",
-
-    links:[
-      {
-        title:"New Voter ID",
-        description:"New Voter Registration",
-        url:"https://voters.eci.gov.in/form6"
-      },
-      {
-        title:"Search Name",
-        description:"Search Your Name",
-        url:"https://electoralsearch.eci.gov.in/uesfmempmlkypo"
-      },
-      {
-        title:"Electoral Roll",
-        description:"Download Electoral Roll",
-        url:"https://voters.eci.gov.in/download-eroll"
-      }
-    ]
-  },
-
-
-  {
-    name:"Aadhaar Service",
-    description:"Aadhaar Download, Update & Status",
-    icon:"🆔",
-
-    links:[
-      {
-        title:"My Aadhaar Login",
-        description:"Aadhaar Online Services",
-        url:"https://myaadhaar.uidai.gov.in/"
-      },
-      {
-        title:"Verify Mobile / Email",
-        description:"Verify Aadhaar Details",
-        url:"https://myaadhaar.uidai.gov.in/verify-email-mobile/en"
-      },
-      {
-        title:"Check Status",
-        description:"Aadhaar Status",
-        url:"https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en"
-      },
-      {
-        title:"Aadhaar DBT Link",
-        description:"Bank DBT Services",
-        url:"https://www.npci.org.in/"
-      },
-      {
-        title:"Aadhaar Login",
-        description:"Aadhaar Portal Login",
-        url:"https://myaadhaar.uidai.gov.in/login"
-      }
-    ]
-  },
-
-
-  {
-    name:"Ration Card Service",
-    description:"New Apply, Update, Download & Status",
-    icon:"🍚",
-
-    links:[
-      {
-        title:"Apply New",
-        description:"New Ration Card",
-        url:"https://wbpds.wb.gov.in/rcmsnew/AadhaarAuthenticationLogin/Index"
-      },
-      {
-        title:"Update Information",
-        description:"Ration Card Correction",
-        url:"https://wbpds.wb.gov.in/Benificiary_Deatils_Update_by_Aadhaar.aspx"
-      },
-      {
-        title:"Download",
-        description:"Ration Card Download",
-        url:"https://wbpds.wb.gov.in/E_Card_Download.aspx"
-      },
-      {
-        title:"Aadhaar Link",
-        description:"Ration Aadhaar Link",
-        url:"https://wbpds.wb.gov.in/Ekyc_otp.aspx"
-      },
-      {
-        title:"Status Check",
-        description:"Application Status",
-        url:"https://wbpds.wb.gov.in/CheckApplicationStatus.aspx"
-      }
-    ]
-  },
-
-
-  {
-    name:"Train Details Service",
-    description:"IRCTC, PNR & Agent Interface",
-    icon:"🚆",
-
-    links:[
-      {
-        title:"IRCTC",
-        description:"Train Booking",
-        url:"https://www.irctc.co.in/"
-      },
-      {
-        title:"PNR Status",
-        description:"Check PNR Status",
-        url:"https://indianrail.gov.in/enquiry/PNR/PnrEnquiry.html"
-      },
-     
-    ]
-  },
-
-
-  {
-    name:"Bus Details Chacking",
-    description:"Online & Intercity Bus Booking",
-    icon:"🚌",
-
-    links:[
-      {
-        title:"RedBus",
-        description:"Online Bus Booking",
-        url:"https://www.redbus.in/"
-      },
-      {
-        title:"State Transport",
-        description:"West Bengal Transport",
-        url:"https://www.wbtransport.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"JOB CARD",
-    description:"Job Card Search & Website",
-    icon:"💼",
-
-    links:[
-      {
-        title:"Job Card Search",
-        description:"Search Job Card",
-        url:"https://mnregaweb2.dord.gov.in/netnrega/writereaddata/state_out/jobcardreg_3216026008_eng.html"
-      },
-      {
-        title:"Job Card Website",
-        description:"MGNREGA Official Website",
-        url:"https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx"
-      }
-    ]
-  },
-
-
-  
-
-  {
-    name:"Electricity Bill Pay",
-    description:"WBSEDCL Bill Payment & Services",
-    icon:"💡",
-
-    links:[
-      {
-        title:"WBSEDCL",
-        description:"Electricity Services",
-        url:"https://www.wbsedcl.in/"
-      },
-      {
-        title:"Bill Pay",
-        description:"Online Electricity Bill",
-        url:"https://portal.wbsedcl.in/onlinepay/OnlineBillPay.jsp"
-      },
-      {
-        title:"Consumer Login",
-        description:"Consumer Account",
-        url:"https://portal.wbsedcl.in/ConsumerLogin/Consumer_Login.jsp"
-      },
-      {
-        title:"Payment Receipt",
-        description:"Download Receipt",
-        url:"https://portal.wbsedcl.in/webdynpro/resources/wbsedcl/wbpaymentreceipt/ViewPaymentReceipt"
-      },
-      {
-        title:"No Dues Certificate",
-        description:"Electricity No Dues",
-        url:"https://portal.wbsedcl.in/irj/go/km/docs/bills/IFRAME/NoDuesCertificate.html"
-      }
-    ]
-  },
-
-
-  {
-    name:"Loan Payment / EMI",
-    description:"Bank Loan & EMI Payment",
-    icon:"🏦",
-
-    links:[
-      {
-        title:"HDFC Bank",
-        description:"EMI / Bank Services",
-        url:"https://www.hdfcbank.com/"
-      },
-      {
-        title:"SBI Loan Pay",
-        description:"SBI Online Services",
-        url:"https://www.onlinesbi.com/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Land Records",
-    description:"Khatian, Plot & Land Information",
-    icon:"🌍",
-
-    links:[
-      {
-        title:"Banglarbhumi",
-        description:"West Bengal Land Records",
-        url:"https://banglarbhumi.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Caste Certificate",
-    description:"SC / ST / OBC Apply & Download",
-    icon:"📜",
-
-    links:[
-      {
-        title:"OBC Apply",
-        description:"OBC Certificate Apply",
-        url:"https://castcertificatewb.gov.in/application_revalidate"
-      },
-      {
-        title:"SC / ST Apply",
-        description:"SC/ST Certificate Apply",
-        url:"https://castcertificatewb.gov.in/application"
-      },
-      {
-        title:"SC / ST Search",
-        description:"Search Application",
-        url:"https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-      },
-      {
-        title:"OBC Search",
-        description:"Search Application",
-        url:"https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-      },
-      {
-        title:"SC / ST Download",
-        description:"Download Certificate",
-        url:"https://castcertificatewb.gov.in/downlaodsigncertificate"
-      },
-      {
-        title:"OBC Download",
-        description:"Download Certificate",
-        url:"https://castcertificatewb.gov.in/downlaod_signcertificate"
-      },
-      {
-        title:"Caste Portal",
-        description:"Official Portal",
-        url:"https://castcertificatewb.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Online Work Services",
-    description:"Freelance & Online Document Services",
-    icon:"💻",
-
-    links:[
-      {
-        title:"Upwork",
-        description:"Freelance Work",
-        url:"https://www.upwork.com/"
-      },
-      {
-        title:"Jana Online Service",
-        description:"Online Form & Document Help",
-        url:"https://www.janaonlineservice.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Government Schemes",
-    description:"Government Scheme Online Services",
-    icon:"🏛️",
-
-    links:[
-      {
-        title:"Anandadhara / Scheme Portal",
-        description:"West Bengal Government",
-        url:"https://socialsecurity.wb.gov.in/"
-      },
-      {
-        title:"Yuba Sathi",
-        description:"Banglar Yuba Sathi",
-        url:"https://yubasathi.wb.gov.in/"
-      },
-      {
-        title:"Ayushman Card",
-        description:"Ayushman Bharat",
-        url:"https://beneficiary.nha.gov.in/"
-      }
-    ]
-  }
-
-];
-
 
 /* ============================================================
    COMMON SERVICE INIT
@@ -9363,7 +9500,7 @@ if ("serviceWorker" in navigator) {
 document.addEventListener("DOMContentLoaded", function () {
 
     const userBtn = document.getElementById("userLoginBtn");
-    const adminBtn = document.getElementById("adminLoginBtn");
+    const adminBtn = null; // Admin sign-in removed from the public app UI
     const loginType = document.getElementById("loginType");
 
     const loginId = document.getElementById("loginId");
@@ -9386,10 +9523,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       USER / ADMIN SWITCH
+       USER-ONLY LOGIN — public admin sign-in removed
     ================================================= */
 
     function setLoginType(type) {
+        type = "user"; // force user login only
 
         if (!loginType) return;
 
@@ -9852,28 +9990,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const viewer = document.getElementById("serviceViewer");
-            const frame = document.getElementById("serviceFrame");
-            const viewerTitle = document.getElementById("viewerTitle");
-
-            if (!viewer || !frame) {
-                console.error("Iframe Viewer পাওয়া যায়নি।");
-                return;
-            }
-
-            /* Title */
-            if (viewerTitle) {
-                viewerTitle.textContent = title;
-            }
-
-            /* Open URL */
-            frame.src = url;
-
-            /* Show full-screen viewer */
-            viewer.classList.add("active");
-
-            /* Background scroll বন্ধ */
-            document.body.style.overflow = "hidden";
+            /* তিনটি নির্দিষ্ট পেজ এখন dashboard-এর ভিতরে নয়,
+               আলাদা browser tab-এও নয়—একই built-in iframe viewer-এ খুলবে।
+               Viewer-এর × Close button দিয়ে বন্ধ করা যাবে। */
+            openService(title, url);
 
         });
 
@@ -10135,6 +10255,81 @@ document.addEventListener("keydown", function(event){
 
   resize();
   start();
+})();
+</script>
+
+
+<script>
+(function () {
+  let currentApplicationUrl = "";
+  let previousBodyOverflow = "";
+  let previousHtmlOverflow = "";
+
+  const viewerId = "josApplicationViewer";
+  const frameId = "josApplicationFrame";
+
+  window.josOpenApplication = function (event, url, title) {
+    if (event) event.preventDefault();
+
+    if (
+      !url ||
+      url.includes("YOUR_PAGE_LINK") ||
+      !/^https?:\/\//i.test(url)
+    ) {
+      alert("Please enter a valid application page link.");
+      return false;
+    }
+
+    const viewer = document.getElementById(viewerId);
+    const frame = document.getElementById(frameId);
+
+    previousBodyOverflow = document.body.style.overflow;
+    previousHtmlOverflow = document.documentElement.style.overflow;
+
+    currentApplicationUrl = url;
+
+    document.getElementById("josApplicationTitle").textContent =
+      title || "Application Viewer";
+
+    viewer.style.display = "block";
+    viewer.setAttribute("aria-hidden", "false");
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    frame.src = url;
+
+    return false;
+  };
+
+  window.josCloseApplication = function () {
+    const viewer = document.getElementById(viewerId);
+
+    viewer.style.display = "none";
+    viewer.setAttribute("aria-hidden", "true");
+
+    document.getElementById(frameId).src = "about:blank";
+
+    document.body.style.overflow = previousBodyOverflow;
+    document.documentElement.style.overflow = previousHtmlOverflow;
+
+    currentApplicationUrl = "";
+  };
+
+  window.josReloadApplication = function () {
+    if (currentApplicationUrl) {
+      document.getElementById(frameId).src = currentApplicationUrl;
+    }
+  };
+
+  document.addEventListener("keydown", function (event) {
+    if (
+      event.key === "Escape" &&
+      document.getElementById(viewerId).style.display === "block"
+    ) {
+      window.josCloseApplication();
+    }
+  });
 })();
 </script>
 
