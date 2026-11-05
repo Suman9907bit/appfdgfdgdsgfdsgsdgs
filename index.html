@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
 
 *{
@@ -4116,6 +4116,10 @@ img, picture, svg {
 <style id="jos-bottom-app-navigation-css">
 /* Native-app-style bottom navigation: UI only, existing dashboard actions reused. */
 .jos-bottom-app-nav{display:none;}
+.jos-bottom-app-nav{
+    border-top:1px solid rgba(7,89,133,.14);
+    border-radius:20px 20px 0 0;
+}
 @media(max-width:850px){
   #userDashboard{padding-bottom:calc(82px + env(safe-area-inset-bottom, 0px));}
   .jos-bottom-app-nav{
@@ -4833,22 +4837,33 @@ img, picture, svg {
 
   <!-- MOBILE APP BOTTOM NAVIGATION -->
   <nav class="jos-bottom-app-nav" id="josBottomAppNav" aria-label="Quick dashboard navigation">
-    <button type="button" class="jos-bottom-nav-item active" data-user-nav="home" aria-label="Home">
-      <i class="fa-solid fa-house"></i><span>Home</span>
-    </button>
-    <button type="button" class="jos-bottom-nav-item" data-user-nav="my-services" aria-label="My Services">
-      <i class="fa-solid fa-layer-group"></i><span>My Services</span>
-    </button>
-    <button type="button" class="jos-bottom-nav-item" data-user-nav="online-services" aria-label="Online Services">
-      <i class="fa-solid fa-globe"></i><span>Online</span>
-    </button>
-    <button type="button" class="jos-bottom-nav-item" data-user-nav="profile" aria-label="My Profile">
-      <i class="fa-solid fa-user"></i><span>Profile</span>
-    </button>
-    <button type="button" class="jos-bottom-nav-item" data-user-nav="status" aria-label="Account Status">
-      <i class="fa-solid fa-circle-check"></i><span>Status</span>
-    </button>
-  </nav>
+
+  <button type="button" class="jos-bottom-nav-item active" data-user-nav="home" aria-label="Home">
+    <i class="fa-solid fa-house-chimney"></i>
+    <span>Home</span>
+  </button>
+
+  <button type="button" class="jos-bottom-nav-item" data-user-nav="my-services" aria-label="My Services">
+    <i class="fa-solid fa-briefcase"></i>
+    <span>My Services</span>
+  </button>
+
+  <button type="button" class="jos-bottom-nav-item" data-user-nav="online-services" aria-label="Online Services">
+    <i class="fa-solid fa-globe"></i>
+    <span>Online</span>
+  </button>
+
+  <button type="button" class="jos-bottom-nav-item" data-user-nav="profile" aria-label="My Profile">
+    <i class="fa-solid fa-circle-user"></i>
+    <span>Profile</span>
+  </button>
+
+  <button type="button" class="jos-bottom-nav-item" data-user-nav="status" aria-label="Account Status">
+    <i class="fa-solid fa-shield-halved"></i>
+    <span>Status</span>
+  </button>
+
+</nav>
 
   <!-- USER BANNER -->
 
@@ -4959,30 +4974,327 @@ img, picture, svg {
 
 
 
-      <!-- FULL SCREEN IFRAME BUTTON -->
-<div style="width:100%; margin:15px 0;">
+<!-- ==================================================
+     JOS THREE SERVICE CARDS + FULL SCREEN IFRAME
+================================================== -->
 
-  <button
-    type="button"
-    onclick="openMyIframePage()"
-    style="
-      width:100%;
-      padding:14px 18px;
-      border:none;
-      border-radius:12px;
-      background:#075985;
-      color:#fff;
-      font-size:16px;
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:0 4px 12px rgba(0,0,0,.15);
-    "
-  >
-    <i class="fa-solid fa-up-right-from-square"></i>
-    <b>SERVICE UPDATE</b>  (নতুন সার্ভিস ও আপডেট জানতে এখানে ক্লিক করুন )
+<div class="jos-action-grid">
+
+  <!-- SERVICE UPDATE -->
+  <button type="button" class="jos-action-card service-card"
+    onclick="openMyIframePage('service')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-bullhorn"></i>
+    </span>
+    <strong>Service Update</strong>
+    <small>New services & updates</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
+  </button>
+
+  <!-- TYPING MASTER -->
+  <button type="button" class="jos-action-card typing-card"
+    onclick="openMyIframePage('typing')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-keyboard"></i>
+    </span>
+    <strong>Typing Master</strong>
+    <small>Improve typing skills</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
+  </button>
+
+  <!-- SHOPPING -->
+  <button type="button" class="jos-action-card shopping-card"
+    onclick="openMyIframePage('shopping')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-bag-shopping"></i>
+    </span>
+    <strong>Shopping</strong>
+    <small>Explore products</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
   </button>
 
 </div>
+
+
+<!-- ==================================================
+     THREE CARD CSS
+================================================== -->
+
+<style>
+.jos-action-grid {
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:15px 0;
+  box-sizing:border-box;
+}
+
+.jos-action-card {
+  position:relative;
+  min-width:0;
+  min-height:135px;
+  padding:14px 8px;
+  border:1px solid #eeeeee;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  cursor:pointer;
+  font-family:system-ui,-apple-system,sans-serif;
+  transition:transform .2s ease,box-shadow .2s ease;
+  -webkit-tap-highlight-color:transparent;
+  appearance:none;
+}
+
+.jos-action-card:active {
+  transform:scale(.96);
+}
+
+.jos-action-icon {
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.jos-action-card strong {
+  font-size:12px;
+  font-weight:800;
+  color:#252525;
+  text-align:center;
+  line-height:1.3;
+}
+
+.jos-action-card small {
+  font-size:9px;
+  color:#777;
+  text-align:center;
+  line-height:1.3;
+}
+
+.jos-action-arrow {
+  position:absolute;
+  top:9px;
+  right:9px;
+  font-size:10px;
+  opacity:.65;
+}
+
+/* RED */
+.service-card {
+  background:linear-gradient(145deg,#fff5f5,#ffffff);
+  border-color:#f5dada;
+}
+.service-card .jos-action-icon {
+  background:#fee2e2;
+  color:#dc2626;
+}
+.service-card .jos-action-arrow {color:#dc2626;}
+
+/* BLUE */
+.typing-card {
+  background:linear-gradient(145deg,#eff6ff,#ffffff);
+  border-color:#dbeafe;
+}
+.typing-card .jos-action-icon {
+  background:#dbeafe;
+  color:#2563eb;
+}
+.typing-card .jos-action-arrow {color:#2563eb;}
+
+/* GREEN */
+.shopping-card {
+  background:linear-gradient(145deg,#ecfdf5,#ffffff);
+  border-color:#d1fae5;
+}
+.shopping-card .jos-action-icon {
+  background:#d1fae5;
+  color:#059669;
+}
+.shopping-card .jos-action-arrow {color:#059669;}
+
+@media(max-width:380px) {
+  .jos-action-grid {gap:7px;}
+  .jos-action-card {
+    min-height:120px;
+    padding:11px 4px;
+  }
+  .jos-action-card strong {font-size:10px;}
+  .jos-action-card small {font-size:8px;}
+}
+
+
+/* ==================================================
+   FULL SCREEN IFRAME VIEWER
+================================================== */
+
+#myIframeViewer {
+  display:none;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:999999;
+  background:#ffffff;
+  overflow:hidden;
+}
+
+#myIframeFrame {
+  display:block;
+  width:100%;
+  height:100%;
+  border:0;
+  background:#ffffff;
+}
+
+.jos-iframe-close {
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:1000000;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  background:#dc2626;
+  color:white;
+  font-size:19px;
+  cursor:pointer;
+  box-shadow:0 3px 12px rgba(0,0,0,.2);
+}
+</style>
+
+
+<!-- ==================================================
+     FULL SCREEN IFRAME HTML
+================================================== -->
+
+<div id="myIframeViewer">
+
+  <button type="button"
+    class="jos-iframe-close"
+    onclick="closeMyIframePage()"
+    aria-label="Close iframe">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
+  <iframe
+    id="myIframeFrame"
+    src="about:blank"
+    title="JOS Service Viewer"
+    allowfullscreen>
+  </iframe>
+
+</div>
+
+
+<!-- ==================================================
+     JAVASCRIPT - THREE PAGE NAVIGATION
+================================================== -->
+
+<script>
+
+(function() {
+
+  /* THREE DIFFERENT PAGE LINKS */
+  const pageLinks = {
+    service:
+      "https://suman9907bit.github.io/updateservice-fjdgjfdsjgkjfgkjfkdgk/",
+
+    typing:
+      "https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/",
+
+    shopping:
+      "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/"
+  };
+
+
+  /* OPEN SELECTED PAGE */
+  window.openMyIframePage = function(option) {
+
+    const viewer = document.getElementById("myIframeViewer");
+    const frame = document.getElementById("myIframeFrame");
+
+    if (!viewer || !frame) {
+      alert("Iframe viewer HTML পাওয়া যায়নি!");
+      return;
+    }
+
+    const pageURL = pageLinks[option];
+
+    if (!pageURL) {
+      alert("Invalid page selection!");
+      return;
+    }
+
+    /* SHOW VIEWER */
+    viewer.style.display = "block";
+
+    /* STOP BACKGROUND SCROLL */
+    document.body.style.overflow = "hidden";
+
+    /* LOAD SELECTED WEBSITE */
+    frame.src = pageURL;
+
+  };
+
+
+  /* CLOSE IFRAME */
+  window.closeMyIframePage = function() {
+
+    const viewer = document.getElementById("myIframeViewer");
+    const frame = document.getElementById("myIframeFrame");
+
+    if (!viewer || !frame) return;
+
+    viewer.style.display = "none";
+
+    /* RESET IFRAME */
+    frame.src = "about:blank";
+
+    /* RESTORE SCROLL */
+    document.body.style.overflow = "";
+
+  };
+
+
+  /* ESC KEY CLOSE */
+  document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+      const viewer = document.getElementById("myIframeViewer");
+
+      if (viewer && viewer.style.display !== "none") {
+        window.closeMyIframePage();
+      }
+
+    }
+
+  });
+
+})();
+
+</script>
+
+
+
+
+
+
+
 
 <!-- FULL SCREEN IFRAME -->
 <div
@@ -5042,72 +5354,28 @@ img, picture, svg {
 
 
 
-
-      <div class="common-service-toolbar">
-
-        <div
-          id="commonServiceCount"
-          class="common-service-count"
-        >
-          0 Services Available
-        </div>
-
-        <div class="common-search-box">
-
-          <span>🔍</span>
-
-          <input
-            type="text"
-            id="commonServiceSearch"
-            placeholder="Search service..."
-            autocomplete="off"
-          >
-
-        </div>
-
-      </div>
+   
 
 
-      <div
-        id="commonServiceGrid"
-        class="common-service-grid"
-      ></div>
-
-
-      <div
-        id="commonServiceNoResult"
-        class="common-service-no-result"
-      >
-
-        <div>🔎</div>
-
-        <strong>
-          Service Not Found
-        </strong>
-
-        <p>
-          অন্য কোনো service name দিয়ে search করুন।
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
+   
 
 </section>
 
 
-  <div class="dashboard-container">
 
-    
 
-    <div
-      id="userServices"
-      class="service-grid"
-    ></div>
 
-  </div>
+  <!-- EXISTING ASSIGNED SERVICES -->
+  <div
+    id="userServices"
+    class="service-grid"
+  ></div>
+
+
+
+
+</section>
+
 
 
 
@@ -5774,100 +6042,6 @@ img, picture, svg {
 
 
 
-<!-- =====================================================
-     COMMON SERVICE MODAL
-===================================================== -->
-
-<div
-  id="commonServiceModal"
-  class="common-service-modal-overlay"
->
-
-  <div class="common-service-modal">
-
-    <div class="common-modal-header">
-
-      <div class="common-modal-title-area">
-
-        <div
-          id="commonModalIcon"
-          class="common-modal-icon"
-        >
-          ⚡
-        </div>
-
-        <div>
-
-          <h3 id="commonModalTitle">
-            Service
-          </h3>
-
-          <p id="commonModalDescription">
-            Select an option
-          </p>
-
-        </div>
-
-      </div>
-
-      <button
-        type="button"
-        id="commonModalClose"
-        class="common-modal-close"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="common-modal-body">
-
-      <div class="common-modal-label">
-        Select Service Option
-      </div>
-
-      <div
-        id="commonServiceLinks"
-        class="common-service-links"
-      ></div>
-
-    </div>
-
-
-    <div class="common-modal-footer">
-
-      <div class="common-contact-buttons">
-
-        <a
-          href="#"
-          id="commonCallButton"
-          class="common-call-button"
-        >
-          📞 Call
-        </a>
-
-        <a
-          href="#"
-          id="commonWhatsappButton"
-          class="common-whatsapp-button"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          💬 WhatsApp
-        </a>
-
-      </div>
-
-      <small>
-        Links open in new tab
-      </small>
-
-    </div>
-
-  </div>
-
-</div>
 
 
 
@@ -9893,51 +10067,81 @@ function closePopup(){
 }
 
 
+
 /* =====================================================
-  iframe update service
+   JOS THREE OPTION FULL SCREEN IFRAME SYSTEM
 ===================================================== */
 
-
-function openMyIframePage(){
+function openMyIframePage(option) {
 
   const viewer = document.getElementById("myIframeViewer");
   const frame  = document.getElementById("myIframeFrame");
 
-  /* এখানে আপনার Page URL দিন */
-  const pageURL = "https://suman9907bit.github.io/updateservice-fjdgjfdsjgkjfgkjfkdgk/";
+  if (!viewer || !frame) {
+    console.error("Iframe Viewer or Frame not found!");
+    alert("Iframe system HTML পাওয়া যায়নি।");
+    return;
+  }
 
+  /* THREE PAGE URL */
+  const pageLinks = {
+    service: "https://suman9907bit.github.io/updateservice-fjdgjfdsjgkjfgkjfkdgk/",
+    typing: "https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/",
+    shopping: "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/"
+  };
+
+  const pageURL = pageLinks[option];
+
+  if (!pageURL) {
+    console.error("Invalid iframe option:", option);
+    alert("সঠিক পেজ নির্বাচন করা হয়নি!");
+    return;
+  }
+
+  /* LOAD SELECTED PAGE */
   frame.src = pageURL;
 
   viewer.style.display = "block";
+  viewer.style.visibility = "visible";
 
-  /* Main page scroll বন্ধ */
+  /* STOP BACKGROUND SCROLL */
   document.body.style.overflow = "hidden";
+
 }
 
 
-function closeMyIframePage(){
+/* =====================================================
+   CLOSE IFRAME
+===================================================== */
+
+function closeMyIframePage() {
 
   const viewer = document.getElementById("myIframeViewer");
   const frame  = document.getElementById("myIframeFrame");
 
-  viewer.style.display = "none";
+  if (!viewer || !frame) return;
 
-  /* iframe বন্ধ করে memory/data reset */
+  viewer.style.display = "none";
+  viewer.style.visibility = "hidden";
+
   frame.src = "about:blank";
 
-  /* Main page scroll আবার চালু */
   document.body.style.overflow = "";
+
 }
 
 
-/* ESC চাপলেও iframe বন্ধ হবে */
-document.addEventListener("keydown", function(event){
+/* =====================================================
+   ESC KEY CLOSE
+===================================================== */
 
-  if(event.key === "Escape"){
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "Escape") {
 
     const viewer = document.getElementById("myIframeViewer");
 
-    if(viewer && viewer.style.display === "block"){
+    if (viewer && getComputedStyle(viewer).display !== "none") {
       closeMyIframePage();
     }
 
