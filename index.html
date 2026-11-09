@@ -4270,6 +4270,200 @@ img, picture, svg {
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+
+     
+<style id="jos-assigned-services-theme">
+/* JOS PROFESSIONAL ASSIGNED SERVICES THEME */
+
+#userDashboard #userServices.service-grid {
+    padding: 22px !important;
+    gap: 17px !important;
+    border-radius: 24px;
+    border: 1px solid #e1ebf2;
+
+    background:
+      radial-gradient(circle at 8% 5%, #d9f5f2 0%, transparent 32%),
+      radial-gradient(circle at 95% 95%, #e5eaff 0%, transparent 35%),
+      linear-gradient(135deg, #f3f8ff, #edf7f8, #f8f8ff);
+
+    box-shadow: 0 12px 34px rgba(36,73,105,.07);
+}
+
+/* SERVICE CARD */
+
+#userDashboard #userServices .service-card {
+    position: relative;
+    overflow: hidden;
+
+    padding: 19px 18px !important;
+    border-radius: 19px !important;
+    border: 1px solid #e2eaf2 !important;
+
+    background: linear-gradient(
+        155deg,
+        #ffffff,
+        #f8fbff
+    ) !important;
+
+    box-shadow:
+        0 7px 20px rgba(35,67,102,.07),
+        inset 0 1px 0 #ffffff !important;
+
+    transition: all .25s ease;
+}
+
+/* TOP COLOR LINE */
+
+#userDashboard #userServices .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #0e9f9a,
+        #4388d8,
+        #8067d9
+    );
+}
+
+/* CARD HOVER */
+
+#userDashboard #userServices .service-card:hover {
+    transform: translateY(-5px);
+    border-color: #a9d8e7 !important;
+
+    box-shadow:
+        0 15px 30px rgba(35,75,115,.13) !important;
+}
+
+/* ICON BOX */
+
+#userDashboard #userServices .service-icon {
+    width: 52px !important;
+    height: 52px !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 14px !important;
+    border-radius: 16px !important;
+
+    color: #087f89 !important;
+
+    background: linear-gradient(
+        145deg,
+        #dcf8f3,
+        #e5f0ff
+    ) !important;
+
+    box-shadow: 0 5px 13px rgba(44,120,150,.09);
+
+    font-size: 23px;
+}
+
+/* DIFFERENT ICON COLORS */
+
+#userDashboard #userServices
+.service-card:nth-child(4n+2) .service-icon {
+    color: #416bc0 !important;
+    background: linear-gradient(145deg,#e5edff,#edf1ff) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(4n+3) .service-icon {
+    color: #a06420 !important;
+    background: linear-gradient(145deg,#fff0d9,#fff6e9) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(4n+4) .service-icon {
+    color: #7854b8 !important;
+    background: linear-gradient(145deg,#f0e8ff,#f8efff) !important;
+}
+
+/* SERVICE TITLE */
+
+#userDashboard #userServices .service-card h3,
+#userDashboard #userServices .service-card h4 {
+    color: #203b55 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1.45 !important;
+    margin-bottom: 7px !important;
+}
+
+/* DESCRIPTION */
+
+#userDashboard #userServices .service-card p {
+    color: #718397 !important;
+    font-size: 12px !important;
+    line-height: 1.65 !important;
+}
+
+/* BUTTON */
+
+#userDashboard #userServices .service-card button,
+#userDashboard #userServices .service-card .btn {
+    min-height: 38px;
+    border: none !important;
+    border-radius: 11px !important;
+
+    color: #ffffff !important;
+
+    background: linear-gradient(
+        110deg,
+        #087f89,
+        #287fbd
+    ) !important;
+
+    box-shadow: 0 5px 12px rgba(23,115,153,.18);
+
+    font-weight: 750 !important;
+    transition: all .2s ease;
+}
+
+#userDashboard #userServices .service-card button:hover,
+#userDashboard #userServices .service-card .btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:700px) {
+    #userDashboard #userServices.service-grid {
+        padding: 14px !important;
+        gap: 12px !important;
+        border-radius: 19px;
+    }
+
+    #userDashboard #userServices .service-card {
+        padding: 16px 14px !important;
+        border-radius: 16px !important;
+    }
+
+    #userDashboard #userServices .service-icon {
+        width: 46px !important;
+        height: 46px !important;
+        border-radius: 14px !important;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce) {
+    #userDashboard #userServices .service-card {
+        transition: none !important;
+    }
+}
+</style>
+
 </head>
 
 
