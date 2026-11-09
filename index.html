@@ -4462,7 +4462,353 @@ img, picture, svg {
         transition: none !important;
     }
 }
+
+
+     
+/* =====================================================
+   JOS SMART APP - ASSIGNED SERVICES
+   COMPLETE PROFESSIONAL CSS REPLACEMENT
+   ===================================================== */
+
+#userDashboard #userServices.service-grid {
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto 30px;
+    padding: 22px !important;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px !important;
+
+    position: relative;
+    isolation: isolate;
+
+    background:
+        radial-gradient(ellipse at 0% 0%, rgba(13,148,136,.10), transparent 38%),
+        radial-gradient(ellipse at 100% 100%, rgba(79,70,229,.09), transparent 38%),
+        linear-gradient(145deg, #f4f8fc, #eef4fa 55%, #f6f8ff);
+
+    border: 1px solid #e1e9f2;
+    border-radius: 25px;
+
+    box-shadow:
+        0 12px 35px rgba(25, 55, 90, .055),
+        inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* ========== SERVICE CARD ========== */
+
+#userDashboard #userServices .service-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    min-width: 0;
+    min-height: 190px;
+
+    padding: 20px !important;
+
+    border: 1px solid #e5ebf2 !important;
+    border-radius: 21px !important;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #fbfdff 65%,
+        #f7faff 100%
+    ) !important;
+
+    box-shadow:
+        0 5px 15px rgba(30, 58, 90, .045),
+        0 1px 3px rgba(30, 58, 90, .025),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+/* Top Gradient Accent */
+
+#userDashboard #userServices .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #0891b2,
+        #0d9488,
+        #6366f1
+    );
+
+    opacity: .9;
+}
+
+/* Decorative Background Circle */
+
+#userDashboard #userServices .service-card::after {
+    content: "";
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    right: -65px;
+    top: -65px;
+
+    border-radius: 50%;
+    background: rgba(13,148,136,.045);
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Hover Effect */
+
+#userDashboard #userServices .service-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #b9d9e8 !important;
+
+    box-shadow:
+        0 16px 32px rgba(30, 70, 110, .11),
+        0 4px 10px rgba(30, 70, 110, .04) !important;
+}
+
+/* ========== SMART ICON SYSTEM ========== */
+
+#userDashboard #userServices .service-icon {
+    position: relative;
+    z-index: 1;
+
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 0 16px !important;
+
+    border-radius: 17px !important;
+
+    color: #087f8c !important;
+
+    background: linear-gradient(
+        145deg,
+        #d8f7f2,
+        #e5f0ff
+    ) !important;
+
+    box-shadow:
+        0 5px 13px rgba(8,127,140,.09),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    font-size: 23px;
+    transition: transform .25s ease;
+}
+
+#userDashboard #userServices .service-card:hover .service-icon {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+/* Icon Color Variations */
+
+#userDashboard #userServices
+.service-card:nth-child(6n+2) .service-icon {
+    color: #4166c5 !important;
+    background: linear-gradient(145deg,#e1eaff,#edf1ff) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(6n+3) .service-icon {
+    color: #c07822 !important;
+    background: linear-gradient(145deg,#fff0d8,#fff7e9) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(6n+4) .service-icon {
+    color: #8055c6 !important;
+    background: linear-gradient(145deg,#eee5ff,#f7efff) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(6n+5) .service-icon {
+    color: #16834f !important;
+    background: linear-gradient(145deg,#dcf8e8,#edfff3) !important;
+}
+
+#userDashboard #userServices
+.service-card:nth-child(6n+6) .service-icon {
+    color: #d04f75 !important;
+    background: linear-gradient(145deg,#ffe4ed,#fff0f5) !important;
+}
+
+/* ========== SERVICE TITLE ========== */
+
+#userDashboard #userServices .service-card h3,
+#userDashboard #userServices .service-card h4 {
+    position: relative;
+    z-index: 1;
+
+    margin: 0 0 8px !important;
+
+    color: #1e344d !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1.5 !important;
+
+    letter-spacing: .1px;
+}
+
+/* ========== DESCRIPTION ========== */
+
+#userDashboard #userServices .service-card p {
+    position: relative;
+    z-index: 1;
+
+    margin: 0 0 12px !important;
+
+    color: #748397 !important;
+
+    font-size: 12px !important;
+    font-weight: 500;
+    line-height: 1.7 !important;
+}
+
+/* ========== BUTTON DESIGN ========== */
+
+#userDashboard #userServices .service-card button,
+#userDashboard #userServices .service-card .btn {
+    position: relative;
+    z-index: 2;
+
+    min-height: 39px;
+
+    padding: 9px 15px !important;
+
+    border: none !important;
+    border-radius: 11px !important;
+
+    color: #ffffff !important;
+
+    background: linear-gradient(
+        110deg,
+        #087f89,
+        #167bb6
+    ) !important;
+
+    box-shadow:
+        0 5px 12px rgba(15, 113, 151, .17);
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+#userDashboard #userServices .service-card button:hover,
+#userDashboard #userServices .service-card .btn:hover {
+    transform: translateY(-2px);
+
+    background: linear-gradient(
+        110deg,
+        #066b78,
+        #1768a6
+    ) !important;
+
+    box-shadow: 0 7px 16px rgba(15, 113, 151, .23);
+}
+
+/* ========== TABLET ========== */
+
+@media (max-width: 1000px) {
+    #userDashboard #userServices.service-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px !important;
+        padding: 17px !important;
+    }
+}
+
+/* ========== MOBILE ========== */
+
+@media (max-width: 700px) {
+    #userDashboard #userServices.service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px !important;
+
+        padding: 12px !important;
+        border-radius: 19px;
+    }
+
+    #userDashboard #userServices .service-card {
+        min-height: 175px;
+        padding: 15px !important;
+        border-radius: 17px !important;
+    }
+
+    #userDashboard #userServices .service-icon {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px;
+        border-radius: 14px !important;
+        font-size: 20px;
+        margin-bottom: 12px !important;
+    }
+
+    #userDashboard #userServices .service-card h3,
+    #userDashboard #userServices .service-card h4 {
+        font-size: 13px !important;
+    }
+
+    #userDashboard #userServices .service-card p {
+        font-size: 11px !important;
+    }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 360px) {
+    #userDashboard #userServices.service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px !important;
+        padding: 9px !important;
+    }
+
+    #userDashboard #userServices .service-card {
+        padding: 12px !important;
+        min-height: 165px;
+    }
+
+    #userDashboard #userServices .service-icon {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    #userDashboard #userServices .service-card,
+    #userDashboard #userServices .service-icon,
+    #userDashboard #userServices .service-card button {
+        transition: none !important;
+    }
+}
 </style>
+
 
 </head>
 
