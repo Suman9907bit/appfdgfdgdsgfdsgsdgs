@@ -3961,6 +3961,15 @@ body{
 .admin-page{
   background:linear-gradient(135deg,#edf7f9 0%,#f4f8fc 55%,#eaf3f8 100%);
 }
+
+/* Real registered user photo in header, profile and printable ID card */
+#userDashboard .profile-btn{display:grid;place-items:center;padding:0;background:#ffffff!important;flex:0 0 42px;width:42px;height:42px;border-radius:50%;}
+#userDashboard .profile-btn .jos-user-avatar{display:block;width:100%;height:100%;min-width:100%;min-height:100%;border:0;border-radius:50%;object-fit:cover;}
+#userDashboard .profile-btn .profile-avatar-fallback{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#e5f3f5;color:#087f8c;font-weight:900;}
+#userDashboard .user-brand-mark{font-size:13px;letter-spacing:.4px;font-weight:900;}
+.jos-idcard-avatar{overflow:hidden;}
+.jos-idcard-real-photo{display:block;width:100%;height:100%;object-fit:cover;border-radius:11px;}
+.jos-idcard-initial{display:grid;place-items:center;width:100%;height:100%;font-size:32px;font-weight:900;color:#087f8c;background:#e3f2f5;}
 </style>
 
 <style id="jos-admin-professional-upgrade">
@@ -4270,545 +4279,239 @@ img, picture, svg {
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-
-     
-<style id="jos-assigned-services-theme">
-/* JOS PROFESSIONAL ASSIGNED SERVICES THEME */
-
-#userDashboard #userServices.service-grid {
-    padding: 22px !important;
-    gap: 17px !important;
-    border-radius: 24px;
-    border: 1px solid #e1ebf2;
-
-    background:
-      radial-gradient(circle at 8% 5%, #d9f5f2 0%, transparent 32%),
-      radial-gradient(circle at 95% 95%, #e5eaff 0%, transparent 35%),
-      linear-gradient(135deg, #f3f8ff, #edf7f8, #f8f8ff);
-
-    box-shadow: 0 12px 34px rgba(36,73,105,.07);
-}
-
-/* SERVICE CARD */
-
-#userDashboard #userServices .service-card {
-    position: relative;
-    overflow: hidden;
-
-    padding: 19px 18px !important;
-    border-radius: 19px !important;
-    border: 1px solid #e2eaf2 !important;
-
-    background: linear-gradient(
-        155deg,
-        #ffffff,
-        #f8fbff
-    ) !important;
-
-    box-shadow:
-        0 7px 20px rgba(35,67,102,.07),
-        inset 0 1px 0 #ffffff !important;
-
-    transition: all .25s ease;
-}
-
-/* TOP COLOR LINE */
-
-#userDashboard #userServices .service-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+<style id="jos-profile-desktop-professional-v3">
+/* Desktop-only profile popup refinement. Existing mobile layout and profile functions remain unchanged. */
+@media (min-width: 801px) {
+  #profileModal {
+    padding: 28px !important;
+    background: rgba(7, 24, 39, .72) !important;
+    backdrop-filter: blur(9px);
+  }
+  #profileModal .modal-box {
+    width: min(1080px, 94vw) !important;
+    max-width: 1080px !important;
+    max-height: min(900px, 91vh) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 24px !important;
+    background: #f6fafc !important;
+    box-shadow: 0 32px 90px rgba(2, 22, 38, .34) !important;
+    animation: josProfileDesktopIn .22s ease-out both;
+  }
+  #profileModal .modal-head {
+    min-height: 76px;
+    padding: 18px 28px !important;
+    color: #fff;
+    background: linear-gradient(110deg, #063b59, #087f8c 68%, #0b9ca8);
+    border: 0 !important;
+  }
+  #profileModal .modal-head h2 {
+    color: #fff !important;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: .2px;
+  }
+  #profileModal .close-btn {
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.28);
+    font-size: 25px;
+    transition: .2s ease;
+  }
+  #profileModal .close-btn:hover {
+    background: #e34d5b;
+    transform: rotate(90deg);
+  }
+  #profileModal .modal-body {
+    padding: 26px 30px 22px !important;
+    max-height: calc(min(900px, 91vh) - 76px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #9bbdc7 #edf4f6;
+  }
+  #profileModal #profileContent {
+    display: block !important;
     width: 100%;
-    height: 4px;
-
-    background: linear-gradient(
-        90deg,
-        #0e9f9a,
-        #4388d8,
-        #8067d9
-    );
-}
-
-/* CARD HOVER */
-
-#userDashboard #userServices .service-card:hover {
-    transform: translateY(-5px);
-    border-color: #a9d8e7 !important;
-
-    box-shadow:
-        0 15px 30px rgba(35,75,115,.13) !important;
-}
-
-/* ICON BOX */
-
-#userDashboard #userServices .service-icon {
-    width: 52px !important;
-    height: 52px !important;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 14px !important;
-    border-radius: 16px !important;
-
-    color: #087f89 !important;
-
-    background: linear-gradient(
-        145deg,
-        #dcf8f3,
-        #e5f0ff
-    ) !important;
-
-    box-shadow: 0 5px 13px rgba(44,120,150,.09);
-
-    font-size: 23px;
-}
-
-/* DIFFERENT ICON COLORS */
-
-#userDashboard #userServices
-.service-card:nth-child(4n+2) .service-icon {
-    color: #416bc0 !important;
-    background: linear-gradient(145deg,#e5edff,#edf1ff) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(4n+3) .service-icon {
-    color: #a06420 !important;
-    background: linear-gradient(145deg,#fff0d9,#fff6e9) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(4n+4) .service-icon {
-    color: #7854b8 !important;
-    background: linear-gradient(145deg,#f0e8ff,#f8efff) !important;
-}
-
-/* SERVICE TITLE */
-
-#userDashboard #userServices .service-card h3,
-#userDashboard #userServices .service-card h4 {
-    color: #203b55 !important;
-    font-size: 15px !important;
-    font-weight: 800 !important;
-    line-height: 1.45 !important;
-    margin-bottom: 7px !important;
-}
-
-/* DESCRIPTION */
-
-#userDashboard #userServices .service-card p {
-    color: #718397 !important;
-    font-size: 12px !important;
-    line-height: 1.65 !important;
-}
-
-/* BUTTON */
-
-#userDashboard #userServices .service-card button,
-#userDashboard #userServices .service-card .btn {
-    min-height: 38px;
-    border: none !important;
-    border-radius: 11px !important;
-
-    color: #ffffff !important;
-
-    background: linear-gradient(
-        110deg,
-        #087f89,
-        #287fbd
-    ) !important;
-
-    box-shadow: 0 5px 12px rgba(23,115,153,.18);
-
-    font-weight: 750 !important;
-    transition: all .2s ease;
-}
-
-#userDashboard #userServices .service-card button:hover,
-#userDashboard #userServices .service-card .btn:hover {
-    filter: brightness(1.08);
-    transform: translateY(-2px);
-}
-
-/* MOBILE RESPONSIVE */
-
-@media(max-width:700px) {
-    #userDashboard #userServices.service-grid {
-        padding: 14px !important;
-        gap: 12px !important;
-        border-radius: 19px;
-    }
-
-    #userDashboard #userServices .service-card {
-        padding: 16px 14px !important;
-        border-radius: 16px !important;
-    }
-
-    #userDashboard #userServices .service-icon {
-        width: 46px !important;
-        height: 46px !important;
-        border-radius: 14px !important;
-    }
-}
-
-/* REDUCED MOTION */
-
-@media(prefers-reduced-motion:reduce) {
-    #userDashboard #userServices .service-card {
-        transition: none !important;
-    }
-}
-
-
-     
-/* =====================================================
-   JOS SMART APP - ASSIGNED SERVICES
-   COMPLETE PROFESSIONAL CSS REPLACEMENT
-   ===================================================== */
-
-#userDashboard #userServices.service-grid {
-    width: 100%;
-    max-width: 100%;
-    margin: 20px auto 30px;
-    padding: 22px !important;
-
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px !important;
-
-    position: relative;
-    isolation: isolate;
-
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+  #profileContent .jos-profile-hero-v2 {
+    min-height: 210px;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 190px;
+    align-items: center !important;
+    gap: 28px !important;
+    padding: 25px 30px !important;
+    margin: 0 0 25px !important;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 20px !important;
     background:
-        radial-gradient(ellipse at 0% 0%, rgba(13,148,136,.10), transparent 38%),
-        radial-gradient(ellipse at 100% 100%, rgba(79,70,229,.09), transparent 38%),
-        linear-gradient(145deg, #f4f8fc, #eef4fa 55%, #f6f8ff);
-
-    border: 1px solid #e1e9f2;
-    border-radius: 25px;
-
-    box-shadow:
-        0 12px 35px rgba(25, 55, 90, .055),
-        inset 0 1px 0 rgba(255,255,255,.9);
-}
-
-/* ========== SERVICE CARD ========== */
-
-#userDashboard #userServices .service-card {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
+      radial-gradient(circle at 80% 0%, rgba(91,221,221,.25), transparent 32%),
+      linear-gradient(120deg, #07364f 0%, #075e70 55%, #078e98 100%) !important;
+    box-shadow: 0 13px 30px rgba(5, 72, 91, .16);
+  }
+  #profileContent .jos-profile-person {
+    display: flex !important;
+    align-items: center !important;
+    gap: 25px !important;
     min-width: 0;
-    min-height: 190px;
-
-    padding: 20px !important;
-
-    border: 1px solid #e5ebf2 !important;
-    border-radius: 21px !important;
-
-    background: linear-gradient(
-        145deg,
-        #ffffff 0%,
-        #fbfdff 65%,
-        #f7faff 100%
-    ) !important;
-
-    box-shadow:
-        0 5px 15px rgba(30, 58, 90, .045),
-        0 1px 3px rgba(30, 58, 90, .025),
-        inset 0 1px 0 #ffffff !important;
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
-}
-
-/* Top Gradient Accent */
-
-#userDashboard #userServices .service-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-
-    background: linear-gradient(
-        90deg,
-        #0891b2,
-        #0d9488,
-        #6366f1
-    );
-
-    opacity: .9;
-}
-
-/* Decorative Background Circle */
-
-#userDashboard #userServices .service-card::after {
-    content: "";
-    position: absolute;
-    width: 125px;
-    height: 125px;
-    right: -65px;
-    top: -65px;
-
-    border-radius: 50%;
-    background: rgba(13,148,136,.045);
-
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Hover Effect */
-
-#userDashboard #userServices .service-card:hover {
-    transform: translateY(-5px);
-
-    border-color: #b9d9e8 !important;
-
-    box-shadow:
-        0 16px 32px rgba(30, 70, 110, .11),
-        0 4px 10px rgba(30, 70, 110, .04) !important;
-}
-
-/* ========== SMART ICON SYSTEM ========== */
-
-#userDashboard #userServices .service-icon {
-    position: relative;
-    z-index: 1;
-
-    width: 54px !important;
-    height: 54px !important;
-    min-width: 54px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin: 0 0 16px !important;
-
-    border-radius: 17px !important;
-
-    color: #087f8c !important;
-
-    background: linear-gradient(
-        145deg,
-        #d8f7f2,
-        #e5f0ff
-    ) !important;
-
-    box-shadow:
-        0 5px 13px rgba(8,127,140,.09),
-        inset 0 1px 0 rgba(255,255,255,.9);
-
-    font-size: 23px;
-    transition: transform .25s ease;
-}
-
-#userDashboard #userServices .service-card:hover .service-icon {
-    transform: scale(1.08) rotate(-3deg);
-}
-
-/* Icon Color Variations */
-
-#userDashboard #userServices
-.service-card:nth-child(6n+2) .service-icon {
-    color: #4166c5 !important;
-    background: linear-gradient(145deg,#e1eaff,#edf1ff) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(6n+3) .service-icon {
-    color: #c07822 !important;
-    background: linear-gradient(145deg,#fff0d8,#fff7e9) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(6n+4) .service-icon {
-    color: #8055c6 !important;
-    background: linear-gradient(145deg,#eee5ff,#f7efff) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(6n+5) .service-icon {
-    color: #16834f !important;
-    background: linear-gradient(145deg,#dcf8e8,#edfff3) !important;
-}
-
-#userDashboard #userServices
-.service-card:nth-child(6n+6) .service-icon {
-    color: #d04f75 !important;
-    background: linear-gradient(145deg,#ffe4ed,#fff0f5) !important;
-}
-
-/* ========== SERVICE TITLE ========== */
-
-#userDashboard #userServices .service-card h3,
-#userDashboard #userServices .service-card h4 {
-    position: relative;
-    z-index: 1;
-
-    margin: 0 0 8px !important;
-
-    color: #1e344d !important;
-
+  }
+  #profileContent .jos-profile-photo-ring {
+    width: 142px !important;
+    height: 142px !important;
+    min-width: 142px !important;
+    min-height: 142px !important;
+    flex: 0 0 142px !important;
+    border: 5px solid rgba(255,255,255,.92) !important;
+    box-shadow: 0 9px 26px rgba(0,0,0,.25), 0 0 0 7px rgba(255,255,255,.12);
+  }
+  #profileContent .jos-profile-photo-large {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+  #profileContent .jos-profile-hero-text {
+    min-width: 0;
+  }
+  #profileContent .jos-profile-kicker {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: #a8eeee !important;
+    font-size: 10px !important;
+    letter-spacing: 2.2px !important;
+  }
+  #profileContent .jos-profile-hero-text h3 {
+    margin: 0 0 7px !important;
+    color: #fff;
+    font-size: 29px !important;
+    line-height: 1.2;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+  }
+  #profileContent .jos-profile-hero-text p {
+    margin: 0 0 14px !important;
+    color: rgba(237,250,252,.84) !important;
     font-size: 15px !important;
-    font-weight: 800 !important;
-    line-height: 1.5 !important;
-
-    letter-spacing: .1px;
-}
-
-/* ========== DESCRIPTION ========== */
-
-#userDashboard #userServices .service-card p {
-    position: relative;
-    z-index: 1;
-
-    margin: 0 0 12px !important;
-
-    color: #748397 !important;
-
+  }
+  #profileContent .jos-profile-id-pill {
+    padding: 8px 13px !important;
+    color: #fff;
+    background: rgba(255,255,255,.13) !important;
+    border: 1px solid rgba(255,255,255,.30) !important;
     font-size: 12px !important;
-    font-weight: 500;
-    line-height: 1.7 !important;
-}
-
-/* ========== BUTTON DESIGN ========== */
-
-#userDashboard #userServices .service-card button,
-#userDashboard #userServices .service-card .btn {
-    position: relative;
-    z-index: 2;
-
-    min-height: 39px;
-
-    padding: 9px 15px !important;
-
-    border: none !important;
+    font-weight: 700;
+  }
+  #profileContent .jos-profile-photo-status {
+    margin-top: 10px;
+    color: rgba(224,248,248,.72);
+    font-size: 11px;
+  }
+  #profileContent .jos-profile-qr-panel {
+    width: 176px !important;
+    flex: 0 0 176px !important;
+    padding: 12px !important;
+    border: 1px solid rgba(255,255,255,.25) !important;
+    border-radius: 16px !important;
+    background: rgba(255,255,255,.12) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  #profileContent .jos-profile-qr-title {
+    color: #e2ffff !important;
+    font-size: 10px !important;
+    letter-spacing: 1.2px !important;
+  }
+  #profileContent .jos-profile-qr {
+    width: 146px !important;
+    height: 146px !important;
+    padding: 7px !important;
+    margin: 8px auto !important;
     border-radius: 11px !important;
-
-    color: #ffffff !important;
-
-    background: linear-gradient(
-        110deg,
-        #087f89,
-        #167bb6
-    ) !important;
-
-    box-shadow:
-        0 5px 12px rgba(15, 113, 151, .17);
-
-    font-size: 12px !important;
-    font-weight: 750 !important;
-
-    cursor: pointer;
-
-    transition: all .2s ease;
-}
-
-#userDashboard #userServices .service-card button:hover,
-#userDashboard #userServices .service-card .btn:hover {
+    background: #fff !important;
+    box-shadow: 0 5px 18px rgba(0,0,0,.13);
+  }
+  #profileContent .jos-profile-qr img,
+  #profileContent .jos-profile-qr canvas {
+    width: 132px !important;
+    height: 132px !important;
+    max-width: 132px !important;
+    max-height: 132px !important;
+  }
+  #profileContent .jos-profile-qr-panel small {
+    color: #d8f4f3 !important;
+    font-size: 8px !important;
+    letter-spacing: 1px;
+  }
+  #profileContent .jos-profile-section-title {
+    margin: 0 0 15px !important;
+    padding-bottom: 12px;
+    color: #123d50 !important;
+    border-bottom: 1px solid #dce9ed;
+    font-size: 16px;
+  }
+  #profileContent .jos-profile-details-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 13px !important;
+  }
+  #profileContent .jos-profile-detail {
+    min-height: 76px;
+    padding: 14px 15px !important;
+    gap: 12px !important;
+    border: 1px solid #e0ebef !important;
+    border-radius: 14px !important;
+    background: linear-gradient(145deg, #fff, #f8fbfc) !important;
+    box-shadow: 0 3px 12px rgba(16, 62, 78, .035);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  #profileContent .jos-profile-detail:hover {
     transform: translateY(-2px);
-
-    background: linear-gradient(
-        110deg,
-        #066b78,
-        #1768a6
-    ) !important;
-
-    box-shadow: 0 7px 16px rgba(15, 113, 151, .23);
+    border-color: #b7dce2 !important;
+    box-shadow: 0 8px 20px rgba(9, 93, 111, .08);
+  }
+  #profileContent .jos-profile-detail-icon {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    border-radius: 12px !important;
+    background: #e5f5f6 !important;
+    color: #087f8c !important;
+    font-size: 15px;
+  }
+  #profileContent .jos-profile-detail small {
+    color: #718591 !important;
+    font-size: 10px !important;
+    font-weight: 700;
+    letter-spacing: .35px;
+    text-transform: uppercase;
+  }
+  #profileContent .jos-profile-detail strong {
+    color: #193b4b !important;
+    font-size: 13px !important;
+    line-height: 1.45;
+  }
+  #profileContent .jos-profile-bottom {
+    margin-top: 18px;
+    padding: 15px 0 0 !important;
+    border-top: 1px solid #e0eaee;
+    color: #718994 !important;
+    font-size: 11px !important;
+  }
 }
-
-/* ========== TABLET ========== */
-
-@media (max-width: 1000px) {
-    #userDashboard #userServices.service-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 15px !important;
-        padding: 17px !important;
-    }
+@keyframes josProfileDesktopIn {
+  from { opacity: 0; transform: translateY(10px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-/* ========== MOBILE ========== */
-
-@media (max-width: 700px) {
-    #userDashboard #userServices.service-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px !important;
-
-        padding: 12px !important;
-        border-radius: 19px;
-    }
-
-    #userDashboard #userServices .service-card {
-        min-height: 175px;
-        padding: 15px !important;
-        border-radius: 17px !important;
-    }
-
-    #userDashboard #userServices .service-icon {
-        width: 46px !important;
-        height: 46px !important;
-        min-width: 46px;
-        border-radius: 14px !important;
-        font-size: 20px;
-        margin-bottom: 12px !important;
-    }
-
-    #userDashboard #userServices .service-card h3,
-    #userDashboard #userServices .service-card h4 {
-        font-size: 13px !important;
-    }
-
-    #userDashboard #userServices .service-card p {
-        font-size: 11px !important;
-    }
-}
-
-/* SMALL MOBILE */
-
-@media (max-width: 360px) {
-    #userDashboard #userServices.service-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px !important;
-        padding: 9px !important;
-    }
-
-    #userDashboard #userServices .service-card {
-        padding: 12px !important;
-        min-height: 165px;
-    }
-
-    #userDashboard #userServices .service-icon {
-        width: 42px !important;
-        height: 42px !important;
-        min-width: 42px;
-    }
-}
-
-/* ACCESSIBILITY */
-
-@media (prefers-reduced-motion: reduce) {
-    #userDashboard #userServices .service-card,
-    #userDashboard #userServices .service-icon,
-    #userDashboard #userServices .service-card button {
-        transition: none !important;
-    }
+@media (min-width: 801px) and (max-width: 1050px) {
+  #profileContent .jos-profile-details-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  #profileContent .jos-profile-photo-ring { width: 118px !important; height: 118px !important; min-width:118px !important; min-height:118px !important; flex-basis:118px !important; }
 }
 </style>
-
 
 </head>
 
@@ -4942,53 +4645,8 @@ img, picture, svg {
         <div id="loginCard" class="auth-card professional-auth-card">
 
           <form id="loginForm">
-
-            <!-- Account Type -->
-            <div class="account-type-title">
-              <span>Login As</span>
-            </div>
-
-            <div class="login-type-buttons">
-
-              <button
-                type="button"
-                class="login-type-btn active"
-                data-type="user"
-                id="userLoginBtn">
-
-                <i class="fa-solid fa-user"><image src="https://cdn-icons-png.magnific.com/256/9159/9159776.png?semt=ais_white_label" height="30px"></image></i>
-
-                <span>
-                  <strong>User</strong>
-                  <small>User Account</small>
-                </span>
-
-              </button>
-
-
-              <button
-                type="button"
-                class="login-type-btn"
-                data-type="admin"
-                id="adminLoginBtn">
-
-                <i class="fa-solid fa-user-shield"><image src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-host-and-admin-marketing-job-vacancies-vector-png-image_6480101.png" height="30px "></i>
-
-                <span>
-                  <strong>Admin</strong>
-                  <small>Admin Panel</small>
-                </span>
-
-              </button>
-
-            </div>
-
-
-            <!-- Hidden login type -->
-            <select id="loginType" hidden>
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
+            <!-- User-only login; admin login option disabled -->
+            <input type="hidden" id="loginType" value="user">
 
 
             <!-- Login ID -->
@@ -4996,17 +4654,17 @@ img, picture, svg {
 
               <label for="loginId">
                 <i class="fa-solid fa-id-card"></i>
-                Profile ID / Mobile
+                Profile ID / User ID
               </label>
 
               <div class="modern-input">
 
-                <i class="fa-solid fa-user"><image src="https://cdn-icons-gif.flaticon.com/11255/11255995.gif" style="width: 70%"></i>
+                <i class="fa-solid fa-user"></i>
 
                 <input
                   type="text"
                   id="loginId"
-                  placeholder="JANA10001 / Mobile Number"
+                  placeholder="আপনার User Profile ID দিন"
                   autocomplete="username"
                   required>
 
@@ -5025,7 +4683,7 @@ img, picture, svg {
 
               <div class="modern-input">
 
-                <i class="fa-solid fa-key"><image src="https://cdn-icons-gif.flaticon.com/19027/19027984.gif" style="width: 70%"></image></i>
+                <i class="fa-solid fa-key"></i>
 
                 <input
                   type="password"
@@ -5171,6 +4829,21 @@ img, picture, svg {
               </div>
             </div>
 
+
+            <!-- Profile Photo -->
+            <div class="modern-input-group">
+              <label for="regPhoto">Profile Photo (Optional)</label>
+              <div class="jos-photo-upload">
+                <img id="regPhotoPreview" alt="Profile photo preview"
+                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='48' fill='%23e8eef7'/%3E%3Ccircle cx='48' cy='35' r='17' fill='%2394a3b8'/%3E%3Cpath d='M16 88c3-19 15-29 32-29s29 10 32 29' fill='%2394a3b8'/%3E%3C/svg%3E">
+                <div class="jos-photo-upload-info">
+                  <strong>Upload your profile picture</strong>
+                  <small>JPG, PNG or WEBP · Maximum 2 MB</small>
+                  <input type="file" id="regPhoto" accept="image/jpeg,image/png,image/webp">
+                  <small id="regPhotoStatus">No photo selected</small>
+                </div>
+              </div>
+            </div>
 
             <!-- Designation -->
             <div class="modern-input-group">
@@ -5451,7 +5124,7 @@ img, picture, svg {
   <header class="topbar user-topbar">
     <div class="user-brand-wrap">
       <button type="button" class="user-menu-toggle" id="userMenuToggle" aria-label="Open dashboard menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <div class="user-brand-mark"><image src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SksECIBNzL28s9-zO8lHh4WruADnTp-BgKZO_lJztx54C-4aodZ3qiqiYWQMu_Za65pWYsb36_L8tAc3_AiWH1mDNGMht7VsosrDIP-azdgCQMeQ_3ZzDoi8D3lhEufoHA1-kHkHjLBEk=s680-w680-h510-rw" class="user-brand-mark"></image> </div>
+      <div class="user-brand-mark" aria-label="JOS">JOS</div>
       <div class="user-brand-text">
         <div class="brand">Jana <span>Online Service</span></div>
         <small>Professional Service Dashboard</small>
@@ -5469,7 +5142,7 @@ img, picture, svg {
 
     <div class="top-actions">
       <button class="btn btn-light user-status-quick" id="idCardQuickBtn" title="ID Card"><i class="fa-solid fa-id-card"></i><span>ID Card</span></button>
-      <button class="profile-btn" id="userProfileBtn" title="Profile"><image src="https://assets-v2.lottiefiles.com/a/d4f46ebe-1180-11ee-a47a-d34b68ca717c/X1wAcRAuX0.gif" class="profile-btn"></button>
+      <button type="button" class="profile-btn" id="userProfileBtn" title="My Profile" aria-label="My Profile"><span class="profile-avatar-fallback">U</span></button>
       <button class="btn btn-danger user-logout-quick" id="userLogoutBtn"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
     </div>
   </header>
@@ -6185,8 +5858,8 @@ img, picture, svg {
 <div class="jos-idcard-overlay" id="userIdCardOverlay" aria-hidden="true"><div class="jos-idcard-shell">
 <div class="jos-idcard-toolbar"><div><strong><i class="fa-solid fa-id-card"></i> User Identity Card</strong><small>Generated from your JOS account information</small></div><button type="button" class="jos-idcard-close" onclick="closeUserIdCard()">×</button></div>
 <div class="jos-idcard" id="josPrintableIdCard"><div class="jos-idcard-head"><div class="jos-idcard-logo">JOS</div><div><h2>JANA ONLINE SERVICE</h2><p>DIGITAL SERVICE IDENTITY CARD</p></div><div class="jos-idcard-chip">USER</div></div>
-<div class="jos-idcard-main"><div class="jos-idcard-avatar"><i class="fa-solid fa-user"></i></div><div class="jos-idcard-details" id="josIdCardDetails"></div></div>
-<div class="jos-idcard-barcode-wrap"><svg id="josUserBarcode"></svg><div class="jos-idcard-code" id="josIdCardCode"></div></div><div class="jos-idcard-foot"><span>User Identity</span><span>Jana Online Service</span></div></div>
+<div class="jos-idcard-main"><div class="jos-idcard-avatar" id="josIdCardAvatar"><i class="fa-solid fa-user"></i></div><div class="jos-idcard-details" id="josIdCardDetails"></div></div>
+<div class="jos-idcard-barcode-wrap"><svg id="josUserBarcode" aria-label="JOS member ID barcode"></svg><div class="jos-idcard-code" id="josIdCardCode"></div><small class="jos-qr-caption">JOS MEMBER ID · CODE 128</small></div><div class="jos-idcard-foot"><span>User Identity</span><span>Jana Online Service</span></div></div>
 <div class="jos-idcard-actions"><button type="button" class="btn btn-light" onclick="closeUserIdCard()">Close</button><button type="button" class="btn btn-primary" onclick="printUserIdCard()"><i class="fa-solid fa-print"></i> Print ID Card</button></div>
 </div></div>
 <style>
@@ -6194,8 +5867,64 @@ img, picture, svg {
 .jos-idcard-overlay{display:none;position:fixed;inset:0;z-index:12000;background:#081927b8;backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:16px;overflow:auto}.jos-idcard-overlay.active{display:flex}.jos-idcard-shell{width:min(100%,620px);max-height:96vh;overflow:auto;background:#fff;border-radius:20px;padding:18px;box-shadow:0 25px 80px #001b2b55}.jos-idcard-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;color:#183746}.jos-idcard-toolbar strong{display:block;font-size:17px}.jos-idcard-toolbar small{display:block;color:#71818b;margin-top:4px;font-size:11px}.jos-idcard-close{border:0;background:#fff0f0;color:#c62828;width:38px;height:38px;border-radius:50%;font-size:25px}
 .jos-idcard{width:100%;max-width:520px;margin:auto;border:1px solid #d9e3e8;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,#fff,#f2fafc);color:#183746}.jos-idcard-head{display:flex;align-items:center;gap:12px;padding:17px 19px;background:linear-gradient(115deg,#073b59,#087f8c);color:#fff}.jos-idcard-logo{width:48px;height:48px;border-radius:13px;background:#fff;color:#087f8c;display:grid;place-items:center;font-weight:900;font-size:18px}.jos-idcard-head h2{font-size:17px}.jos-idcard-head p{font-size:9px;letter-spacing:1.2px;margin-top:4px}.jos-idcard-chip{margin-left:auto;border:1px solid #ffffff66;border-radius:20px;padding:5px 10px;font-size:10px;font-weight:800}.jos-idcard-main{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:18px 18px 10px}.jos-idcard-avatar{width:78px;height:88px;border-radius:12px;background:#e3f2f5;color:#087f8c;display:grid;place-items:center;font-size:34px;border:1px solid #cde4e8}.jos-idcard-details{display:grid;grid-template-columns:1fr 1fr;gap:9px 13px;align-content:start}.jos-id-field{min-width:0}.jos-id-field small{display:block;color:#71818b;font-size:9px;text-transform:uppercase;margin-bottom:3px}.jos-id-field strong{display:block;font-size:12px;overflow-wrap:anywhere}.jos-id-field.wide{grid-column:1/-1}.jos-idcard-barcode-wrap{margin:6px 18px 12px;padding:8px 10px 5px;border-top:1px dashed #cbd9df;text-align:center}.jos-idcard-barcode-wrap svg{width:100%;max-width:340px;height:65px}.jos-idcard-code{font-size:11px;letter-spacing:2px;font-weight:800}.jos-idcard-foot{display:flex;justify-content:space-between;padding:10px 18px;background:#eaf5f7;color:#53717d;font-size:9px;font-weight:700;text-transform:uppercase}.jos-idcard-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 @media(max-width:480px){.jos-idcard-shell{padding:12px}.jos-idcard-head{padding:13px;gap:9px}.jos-idcard-logo{width:40px;height:40px}.jos-idcard-head h2{font-size:13px}.jos-idcard-main{grid-template-columns:65px 1fr;padding:14px 11px 9px;gap:9px}.jos-idcard-avatar{width:62px;height:72px;font-size:27px}.jos-id-field strong{font-size:10px}.jos-idcard-foot{padding:9px 11px}.jos-idcard-actions .btn{flex:1}}
+.jos-profile-hero{display:flex;align-items:center;gap:18px;padding:20px;border-radius:18px;background:linear-gradient(120deg,#073b59,#087f8c);color:#fff;margin-bottom:20px}.jos-profile-photo-ring{width:104px;height:104px;flex:0 0 104px;border:4px solid #ffffffb8;border-radius:50%;overflow:hidden;background:#e8f2f5;display:grid;place-items:center}.jos-profile-photo-large{width:100%;height:100%;object-fit:cover;border-radius:50%}.jos-profile-hero-text h3{margin:5px 0;font-size:21px}.jos-profile-hero-text p{margin:0 0 9px;color:#d5edf1;font-size:13px}.jos-profile-kicker{font-size:9px;letter-spacing:1.8px;font-weight:800;color:#b9e9e9}.jos-profile-id-pill{display:inline-flex;gap:6px;align-items:center;background:#ffffff20;border:1px solid #ffffff55;border-radius:20px;padding:5px 10px;font-size:11px}.jos-profile-section-title{font-weight:800;color:#173b4b;margin:16px 0 12px;display:flex;gap:9px;align-items:center}.jos-profile-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.jos-profile-detail{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e1eaf0;background:linear-gradient(135deg,#fff,#f7fafc);border-radius:12px;min-width:0}.jos-profile-detail-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:10px;background:#e5f3f5;color:#087f8c}.jos-profile-detail small{display:block;color:#71818b;font-size:10px;margin-bottom:3px}.jos-profile-detail strong{display:block;color:#203b49;font-size:12px;overflow-wrap:anywhere}.jos-profile-bottom{display:flex;gap:8px;align-items:center;justify-content:center;color:#66808b;font-size:10px;padding:16px 5px 3px}.jos-user-qr{width:122px;height:122px;padding:5px;background:#fff;border:1px solid #d8e4e8;border-radius:10px;margin:auto;display:grid;place-items:center}.jos-user-qr img,.jos-user-qr canvas{max-width:112px;max-height:112px}.jos-qr-caption{display:block;color:#607985;font-size:8px;letter-spacing:1.4px;margin-top:5px}.jos-idcard-barcode-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+@media(max-width:480px){.jos-profile-hero{padding:14px;gap:12px}.jos-profile-photo-ring{width:78px;height:78px;flex-basis:78px}.jos-profile-hero-text h3{font-size:17px}.jos-profile-details-grid{grid-template-columns:1fr}.jos-profile-detail{padding:10px}}
+
+/* Profile photo + QR: aligned in one professional header panel */
+.jos-profile-hero-v2{justify-content:space-between;gap:14px;min-width:0}
+.jos-profile-person{display:flex;align-items:center;gap:16px;min-width:0;flex:1}
+.jos-profile-photo-ring{overflow:hidden;flex-shrink:0}
+.jos-profile-photo-large{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%}
+.jos-photo-initial{width:100%;height:100%;display:grid;place-items:center;border-radius:inherit;background:linear-gradient(135deg,#dceef2,#ffffff);color:#087f8c;font-size:36px;font-weight:900}
+.jos-profile-qr-panel{width:164px;flex:0 0 164px;padding:10px 8px;border:1px solid #ffffff55;border-radius:14px;background:#ffffff18;text-align:center}
+.jos-profile-qr-title{font-size:9px;font-weight:900;letter-spacing:1.2px;color:#d8f4f3;margin-bottom:7px}
+.jos-profile-qr{width:142px;height:142px;margin:auto;padding:5px;border-radius:9px;background:#fff;display:grid;place-items:center}
+.jos-profile-qr img,.jos-profile-qr canvas{display:block!important;width:132px!important;height:132px!important;max-width:100%}
+.jos-profile-qr-panel small{display:block;margin-top:7px;font-size:8px;letter-spacing:1px;color:#d8f4f3;font-weight:800}
+.jos-qr-error{font-size:10px;color:#9b2525}
+@media(max-width:560px){.jos-profile-hero-v2{align-items:stretch;padding:12px;gap:9px}.jos-profile-person{gap:10px}.jos-profile-photo-ring{width:68px;height:68px;flex-basis:68px}.jos-profile-photo-large{width:100%;height:100%}.jos-profile-hero-text h3{font-size:15px;overflow-wrap:anywhere}.jos-profile-hero-text p{font-size:11px}.jos-profile-qr-panel{width:112px;flex-basis:112px;padding:7px 4px}.jos-profile-qr{width:94px;height:94px;padding:3px}.jos-profile-qr img,.jos-profile-qr canvas{width:88px!important;height:88px!important}.jos-profile-qr-title{font-size:7px}.jos-profile-qr-panel small{font-size:6px}}
+@media(max-width:360px){.jos-profile-hero-v2{flex-direction:column}.jos-profile-qr-panel{width:100%;flex-basis:auto;display:flex;align-items:center;justify-content:center;gap:10px}.jos-profile-qr{margin:0}}
+
 @media print{@page{size:A4;margin:0}body *{visibility:hidden!important}.jos-idcard-overlay,.jos-idcard-overlay *{visibility:visible!important}.jos-idcard-overlay{display:block!important;position:absolute!important;inset:0!important;padding:25mm 15mm!important;background:#fff!important}.jos-idcard-shell{width:100%!important;max-width:none!important;max-height:none!important;overflow:visible!important;padding:0!important;box-shadow:none!important}.jos-idcard-toolbar,.jos-idcard-actions{display:none!important}.jos-idcard{width:86mm!important;max-width:86mm!important;margin:auto!important;break-inside:avoid}}
 
+
+
+/* JOS PROFILE: balanced two-column member panel with QR always on the right */
+.jos-profile-hero-v2{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;padding:18px!important;min-height:190px}
+.jos-profile-person{display:flex!important;align-items:center!important;gap:15px!important;flex:1 1 auto!important;min-width:0}
+.jos-profile-photo-ring{width:94px!important;height:94px!important;flex:0 0 94px!important}
+.jos-profile-hero-text{min-width:0}
+.jos-profile-hero-text h3{overflow-wrap:anywhere}
+.jos-profile-qr-panel{width:154px!important;flex:0 0 154px!important;padding:10px!important;background:rgba(255,255,255,.13)!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:15px!important;text-align:center!important}
+.jos-profile-qr{width:126px!important;height:126px!important;padding:5px!important;background:#fff!important;border-radius:10px!important;margin:0 auto!important}
+.jos-profile-qr img,.jos-profile-qr canvas{width:116px!important;height:116px!important;max-width:116px!important;max-height:116px!important;display:block!important}
+.jos-profile-qr-title{display:block!important;color:#e8ffff!important;font-size:9px!important;letter-spacing:1.1px!important;margin:0 0 8px!important}
+.jos-profile-qr-panel small{font-size:8px!important;line-height:1.3!important;margin-top:7px!important;color:#e8ffff!important}
+.jos-idcard-barcode-wrap{display:flex!important;flex-direction:column!important;align-items:center!important;gap:5px!important}
+#josUserBarcode{display:block;width:100%;max-width:340px;height:68px;background:#fff}.jos-barcode-error{font-size:11px;color:#b91c1c;padding:12px}
+.jos-idcard-barcode-wrap .jos-idcard-code{font-size:11px;letter-spacing:2px}
+@media(max-width:560px){
+ .jos-profile-hero-v2{flex-direction:row!important;align-items:center!important;gap:8px!important;padding:12px!important}
+ .jos-profile-person{gap:9px!important;min-width:0}
+ .jos-profile-photo-ring{width:66px!important;height:66px!important;flex-basis:66px!important;border-width:3px!important}
+ .jos-profile-hero-text h3{font-size:14px!important;line-height:1.2}
+ .jos-profile-hero-text p{font-size:10px!important;margin-bottom:6px!important}
+ .jos-profile-kicker{font-size:7px!important;letter-spacing:1px!important}
+ .jos-profile-id-pill{font-size:9px!important;padding:4px 7px!important}
+ .jos-profile-photo-status{font-size:9px!important}
+ .jos-profile-qr-panel{width:104px!important;flex:0 0 104px!important;padding:6px!important}
+ .jos-profile-qr{width:88px!important;height:88px!important;padding:3px!important}
+ .jos-profile-qr img,.jos-profile-qr canvas{width:82px!important;height:82px!important;max-width:82px!important;max-height:82px!important}
+ .jos-profile-qr-title{font-size:6px!important;letter-spacing:.5px!important;margin-bottom:5px!important}
+ .jos-profile-qr-panel small{font-size:6px!important;margin-top:5px!important}
+}
+@media(max-width:360px){
+ .jos-profile-hero-v2{flex-direction:row!important}
+ .jos-profile-photo-ring{width:56px!important;height:56px!important;flex-basis:56px!important}
+ .jos-profile-qr-panel{width:92px!important;flex-basis:92px!important}
+ .jos-profile-qr{width:78px!important;height:78px!important}
+ .jos-profile-qr img,.jos-profile-qr canvas{width:72px!important;height:72px!important;max-width:72px!important;max-height:72px!important}
+}
 </style>
 
 <!-- =====================================================
@@ -6223,7 +5952,6 @@ img, picture, svg {
     </div>
 
     <div class="modal-body">
-     <center> <image src="https://i.pinimg.com/originals/91/7c/06/917c06856035dd3d396b62916d082472.gif"style="width:50%"></center>
       <div
         id="profileContent"
         class="profile-grid"
@@ -6954,7 +6682,7 @@ img, picture, svg {
 ============================================================ */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzYM8ToB_pKlzEx6BZmuKcoABxlBVoeSMNwHBP4SxEtoZoEAiHypmpb9i61b9rsWTHZ/exec";
+"https://script.google.com/macros/s/AKfycbzKD11-oisGpL2a40X2BF_iiKtouN462TxuROq3zv9tNons2qw8Y24cIIJ5npGTm_aK/exec";
 
 
 /* ============================================================
@@ -7129,6 +6857,7 @@ function handleUserNavigation(key){closeUserMenu();if(key==="home"){setUserNavAc
 ============================================================ */
 
 function bindEvents(){
+  $("regPhoto")?.addEventListener("change", handleRegistrationPhotoPreview);
   $("adminUserSearch")?.addEventListener("input",renderAdminUsers);
   $("adminUserStatusFilter")?.addEventListener("change",renderAdminUsers);
 
@@ -7271,6 +7000,10 @@ function bindEvents(){
         );
 
         $("registerForm").reset();
+        registrationPhotoData = "";
+        registrationPhotoName = "";
+        if($("regPhotoPreview")) $("regPhotoPreview").src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='48' fill='%23e8eef7'/%3E%3Ccircle cx='48' cy='35' r='17' fill='%2394a3b8'/%3E%3Cpath d='M16 88c3-19 15-29 32-29s29 10 32 29' fill='%2394a3b8'/%3E%3C/svg%3E";
+        if($("regPhotoStatus")) $("regPhotoStatus").textContent = "No photo selected";
 
         $("registerCard")
           .classList.remove("active");
@@ -7308,6 +7041,117 @@ function bindEvents(){
 
 }
 
+
+/* ============================================================
+   REGISTRATION PHOTO HANDLING
+============================================================ */
+
+let registrationPhotoData = "";
+let registrationPhotoName = "";
+
+function handleRegistrationPhotoPreview(event){
+  const file = event.target.files && event.target.files[0];
+  const preview = $("regPhotoPreview");
+  const status = $("regPhotoStatus");
+
+  registrationPhotoData = "";
+  registrationPhotoName = "";
+
+  if(!file){
+    if(status) status.textContent = "No photo selected";
+    return;
+  }
+
+  if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+    event.target.value = "";
+    showToast("শুধুমাত্র JPG, PNG অথবা WEBP ছবি দিন।","error");
+    if(status) status.textContent = "Unsupported image format";
+    return;
+  }
+
+  if(file.size > 2 * 1024 * 1024){
+    event.target.value = "";
+    showToast("ছবির Size 2 MB-এর মধ্যে রাখুন।","error");
+    if(status) status.textContent = "Image is larger than 2 MB";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(){
+    registrationPhotoData = String(reader.result || "");
+    registrationPhotoName = file.name || "profile-photo";
+    if(preview) preview.src = registrationPhotoData;
+    if(status) status.textContent = file.name + " selected";
+  };
+  reader.onerror = function(){
+    showToast("ছবি পড়া যায়নি। আবার চেষ্টা করুন।","error");
+  };
+  reader.readAsDataURL(file);
+}
+
+function getProfilePhotoCandidates(user){
+  if(!user) return [];
+  const urls=[];
+  // Support the common response keys used by Apps Script / Google Sheets.
+  const rawValues=[user.photoUrl,user.photoURL,user.photo,user.imageUrl,user.profilePhoto,user.profilePhotoUrl,user.photoData,user.photoBase64,user.imageData];
+  rawValues.forEach(value=>{
+    if(!value) return;
+    let v=String(value).trim();
+    if(!v) return;
+    // A stored base64 value may arrive without its data-URL prefix.
+    if(/^data:image\//i.test(v) || /^https?:\/\//i.test(v) || /^blob:/i.test(v)) urls.push(v);
+    else if(v.length>100 && /^[A-Za-z0-9+/=\r\n]+$/.test(v)) urls.push('data:image/jpeg;base64,'+v.replace(/\s/g,''));
+  });
+  const raw=String(user.photoUrl||user.photoURL||user.photo||user.imageUrl||user.profilePhotoUrl||'').trim();
+  const fileId=String(user.photoFileId||user.driveFileId||'').trim();
+  const match=raw.match(/[?&]id=([a-zA-Z0-9_-]+)/)||raw.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  const id=fileId||(match?match[1]:'');
+  if(id){
+    urls.unshift('https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1000');
+    urls.push('https://lh3.googleusercontent.com/d/'+encodeURIComponent(id));
+    urls.push('https://drive.google.com/uc?export=view&id='+encodeURIComponent(id));
+  }
+  return [...new Set(urls)];
+}
+
+function josProfilePhotoFallback(img){
+  try{
+    const urls=JSON.parse(img.getAttribute('data-fallbacks')||'[]');
+    const next=Number(img.getAttribute('data-fallback-index')||0);
+    if(next<urls.length){img.setAttribute('data-fallback-index',String(next+1));img.src=urls[next];return;}
+  }catch(e){}
+  const holder=img.parentElement;
+  const initial=(img.getAttribute('data-fallback-name')||'U').trim().charAt(0).toUpperCase()||'U';
+  if(holder){holder.innerHTML='<span class="jos-photo-initial">'+escapeHTML(initial)+'</span>';}
+}
+
+function getProfilePhotoImageMarkup(user, className, extraStyle){
+  const urls=getProfilePhotoCandidates(user);
+  if(!urls.length) return '';
+  const first=urls.shift();
+  return `<img class="${escapeHTML(className||'jos-user-avatar')}" src="${escapeHTML(first)}" data-fallbacks="${escapeHTML(JSON.stringify(urls))}" data-fallback-index="0" data-fallback-name="${escapeHTML(user.name||'U')}" alt="${escapeHTML((user.name||'User')+' profile photo')}" referrerpolicy="no-referrer" style="${escapeHTML(extraStyle||'')}" onerror="josProfilePhotoFallback(this)">`;
+}
+
+function getUserAvatarMarkup(user, extraClass){
+  const name = user && user.name ? String(user.name).trim() : "U";
+  const initials = escapeHTML(name ? name.charAt(0).toUpperCase() : "U");
+  if(getProfilePhotoCandidates(user).length){
+    return getProfilePhotoImageMarkup(user, "jos-user-avatar " + (extraClass || ""));
+  }
+  return `<span class="jos-user-avatar ${extraClass || ""}">${initials}</span>`;
+}
+
+function renderUserRealPhoto(){
+  if(!currentUser) return;
+  const headerButton = $("userProfileBtn");
+  if(headerButton){
+    headerButton.innerHTML = getUserAvatarMarkup(currentUser, "jos-header-user-photo");
+    headerButton.setAttribute("aria-label", "My Profile");
+    headerButton.title = currentUser.name ? "Profile: " + currentUser.name : "My Profile";
+  }
+  const brandMark = document.querySelector("#userDashboard .user-brand-mark");
+  if(brandMark) brandMark.textContent = "JOS";
+}
 
 /* ============================================================
    REGISTRATION
@@ -7379,7 +7223,9 @@ async function handleRegistration(e){
     userId:
       $("regUserId").value.trim(),
 
-    password
+    password,
+    photoData: registrationPhotoData,
+    photoName: registrationPhotoName
 
   };
 
@@ -7439,109 +7285,57 @@ async function handleRegistration(e){
 ============================================================ */
 
 async function handleLogin(e){
-
   e.preventDefault();
 
+  const loginType = $("loginType")?.value || "user";
+  const loginId = $("loginId")?.value.trim() || "";
+  const password = $("loginPassword")?.value || "";
 
-  const loginType =
-    "user"; // Public app accepts user sign-in only; API payload shape is unchanged.
-
-  const loginId =
-    $("loginId").value.trim();
-
-  const password =
-    $("loginPassword").value;
-
-
-  if(!loginType){
-
-    showToast(
-      "Login Type নির্বাচন করুন।",
-      "error"
-    );
-
+  if(!loginId || !password){
+    showToast("User ID / Admin ID এবং Password দিন।", "error");
     return;
-
   }
 
+  const submitBtn = $("loginSubmitBtn");
+  if(submitBtn) submitBtn.disabled = true;
+  showLoader("Login হচ্ছে...");
 
-  showLoader(
-    "Login হচ্ছে..."
-  );
+  try{
+    const result = await api("login", { loginType, loginId, password });
 
+    if(!result || !result.success){
+      showToast(result?.message || "Login failed. আবার চেষ্টা করুন।", "error");
+      return;
+    }
 
-  const result =
-    await api(
-      "login",
-      {
-        loginType,
-        loginId,
-        password
-      }
-    );
+    if(result.type === "admin" && result.admin){
+      currentAdmin = result.admin;
+      currentUser = null;
+      sessionStorage.removeItem("jos_user");
+      sessionStorage.setItem("jos_admin", JSON.stringify(result.admin));
+      showAdminPage();
+      await loadAdminData();
+      return;
+    }
 
+    if(result.type === "user" && result.user){
+      currentUser = result.user;
+      currentAdmin = null;
+      sessionStorage.removeItem("jos_admin");
+      sessionStorage.setItem("jos_user", JSON.stringify(result.user));
+      showUserDashboard();
+      await loadUserServices();
+      return;
+    }
 
-  hideLoader();
-
-
-  if(!result.success){
-
-    showToast(
-      result.message ||
-      "Login failed",
-      "error"
-    );
-
-    return;
-
+    showToast("Login response সঠিক নয়। Apps Script deployment পরীক্ষা করুন।", "error");
+  }catch(error){
+    console.error("JOS login error:", error);
+    showToast("Login করতে সমস্যা হয়েছে। Internet ও Apps Script URL পরীক্ষা করুন।", "error");
+  }finally{
+    hideLoader();
+    if(submitBtn) submitBtn.disabled = false;
   }
-
-
-  if(
-    result.type ===
-    "admin"
-  ){
-
-    currentAdmin =
-      result.admin;
-
-    sessionStorage.setItem(
-      "jos_admin",
-      JSON.stringify(
-        result.admin
-      )
-    );
-
-    showAdminPage();
-
-    await loadAdminData();
-
-    return;
-
-  }
-
-
-  if(
-    result.type ===
-    "user"
-  ){
-
-    currentUser =
-      result.user;
-
-    sessionStorage.setItem(
-      "jos_user",
-      JSON.stringify(
-        result.user
-      )
-    );
-
-    showUserDashboard();
-
-    await loadUserServices();
-
-  }
-
 }
 
 
@@ -7572,6 +7366,8 @@ function showUserDashboard(){
       currentUser.officeName +
       " • " +
       currentUser.designation;
+
+  renderUserRealPhoto();
 
 }
 
@@ -7733,86 +7529,43 @@ function closeServiceViewer(){
    USER PROFILE
 ============================================================ */
 
-function openUserProfile(){
-
-  if(!currentUser)
-    return;
-
-
-  $("profileContent").innerHTML =
-
-    profileItem(
-      "User ID",
-      currentUser.userId
-    ) +
-
-    profileItem(
-      "Name",
-      currentUser.name
-    ) +
-
-    profileItem(
-      "Designation",
-      currentUser.designation
-    ) +
-
-    profileItem(
-      "Mobile",
-      currentUser.mobile
-    ) +
-
-    profileItem(
-      "Email",
-      currentUser.email
-    ) +
-
-    profileItem(
-      "Office Name",
-      currentUser.officeName
-    ) +
-
-    profileItem(
-      "Office Type",
-      currentUser.officeType
-    ) +
-
-    profileItem(
-      "Office Address",
-      currentUser.officeAddress
-    ) +
-
-    profileItem(
-      "District",
-      currentUser.district
-    ) +
-
-    profileItem(
-      "State",
-      currentUser.state
-    ) +
-
-    profileItem(
-      "Pincode",
-      currentUser.pincode
-    ) +
-
-    profileItem(
-      "Promo Code",
-      currentUser.promoCode || currentUser.gst
-    ) +
-
-    profileItem(
-      "Status",
-      currentUser.status
-    );
-
-
-  openModal(
-    "profileModal"
-  );
-
+function buildJOSUserVCard(u){
+  const clean=v=>String(v||'').replace(/[\\;,]/g,' ').replace(/\r?\n/g,' ').trim();
+  return [
+    'BEGIN:VCARD','VERSION:3.0',
+    'FN:'+clean(u.name||'JOS Member'),
+    'ORG:Jana Online Service',
+    'TITLE:'+clean(u.designation||'Registered Member'),
+    'TEL;TYPE=CELL:'+clean(u.mobile),
+    'EMAIL:'+clean(u.email),
+    'NOTE:'+clean('JOS User ID: '+(u.userId||'')+' | Office: '+(u.officeName||'')+' | Address: '+(u.officeAddress||'')+' | District: '+(u.district||'')+' | State: '+(u.state||'')),
+    'END:VCARD'
+  ].join('\n');
 }
 
+function renderJOSProfileQR(u){
+  const box=$('josProfileQr'); if(!box) return;
+  box.innerHTML='';
+  if(window.QRCode){
+    new QRCode(box,{text:buildJOSUserVCard(u),width:132,height:132,colorDark:'#102f43',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+  }else{
+    box.innerHTML='<span class="jos-qr-error">QR load হয়নি</span>';
+  }
+}
+
+function openUserProfile(){
+  if(!currentUser) return;
+  const u=currentUser, urls=getProfilePhotoCandidates(u);
+  const initial=escapeHTML((String(u.name||"U").trim().charAt(0)||"U").toUpperCase());
+  const photo=urls.length ? `<img id="josProfileMainPhoto" class="jos-profile-photo-large" src="${escapeHTML(urls[0])}" alt="Profile photo" referrerpolicy="no-referrer">` : `<span class="jos-profile-photo-initial">${initial}</span>`;
+  const fields=[["User ID",u.userId,"fa-id-badge"],["Full Name",u.name,"fa-user"],["Designation",u.designation,"fa-briefcase"],["Mobile",u.mobile,"fa-phone"],["Email",u.email,"fa-envelope"],["Office Name",u.officeName,"fa-building"],["Office Type",u.officeType,"fa-layer-group"],["Office Address",u.officeAddress,"fa-location-dot"],["District",u.district,"fa-map"],["State",u.state,"fa-flag"],["Pincode",u.pincode,"fa-map-pin"],["Promo Code",u.promoCode||u.gst,"fa-ticket"],["Account Status",u.status,"fa-circle-check"]];
+  $("profileContent").innerHTML=`<section class="jos-profile-hero jos-profile-hero-v2"><div class="jos-profile-person"><div class="jos-profile-photo-ring">${photo}</div><div class="jos-profile-hero-text"><span class="jos-profile-kicker">JOS MEMBER PROFILE</span><h3>${escapeHTML(u.name||"User")}</h3><p>${escapeHTML(u.designation||"Registered Member")}</p><span class="jos-profile-id-pill"><i class="fa-solid fa-id-card"></i> ${escapeHTML(u.userId||"-")}</span><div class="jos-profile-photo-status">Registered member photo</div></div></div><aside class="jos-profile-qr-panel"><div class="jos-profile-qr-title">JOS DIGITAL PROFILE</div><div id="josProfileQr" class="jos-profile-qr"></div><small>SCAN TO SAVE CONTACT</small></aside></section><div class="jos-profile-section-title"><i class="fa-solid fa-address-card"></i> Personal & Office Information</div><div class="jos-profile-details-grid">${fields.map(([l,v,i])=>`<div class="jos-profile-detail"><span class="jos-profile-detail-icon"><i class="fa-solid ${i}"></i></span><div><small>${escapeHTML(l)}</small><strong>${escapeHTML(v||"-")}</strong></div></div>`).join("")}</div><div class="jos-profile-bottom"><i class="fa-solid fa-shield-halved"></i><span>Jana Online Service · Registration record</span></div>`;
+  const img=$("josProfileMainPhoto");
+  if(img){let n=0;img.onerror=function(){n++;if(n<urls.length)img.src=urls[n];else img.parentElement.innerHTML=`<span class="jos-profile-photo-initial">${initial}</span>`;};}
+   renderJOSProfileQR(u);
+
+  openModal("profileModal");
+}
 
 function profileItem(
   label,
@@ -7845,8 +7598,22 @@ function generateUserIdCard(){
  if(!currentUser){showToast("User information পাওয়া যায়নি। আবার login করুন।","error");return;}
  const u=currentUser, fields=[["Full Name",u.name,""],["User ID",u.userId,""],["Designation",u.designation,""],["Mobile",u.mobile,""],["Email",u.email,"wide"],["Office Name",u.officeName,""],["Office Type",u.officeType,""],["Office Address",u.officeAddress,"wide"],["District",u.district,""],["State",u.state,""],["Pincode",u.pincode,""],["Promo / GST",u.promoCode||u.gst,""],["Account Status",u.status,""]];
  $("josIdCardDetails").innerHTML=fields.filter(f=>f[1]!==undefined&&f[1]!==null&&String(f[1]).trim()!=="").map(f=>`<div class="jos-id-field ${f[2]}"><small>${escapeHTML(f[0])}</small><strong>${escapeHTML(f[1])}</strong></div>`).join("");
- const id=String(u.userId||"JOS-USER");$("josIdCardCode").textContent=id;const overlay=$("userIdCardOverlay");overlay.classList.add("active");overlay.setAttribute("aria-hidden","false");
- if(window.JsBarcode){try{JsBarcode("#josUserBarcode",id,{format:"CODE128",lineColor:"#142f3a",width:1.8,height:48,displayValue:false,margin:2});}catch(e){console.error(e);showToast("Barcode তৈরি করা যায়নি। User ID পরীক্ষা করুন।","error");}}else showToast("Barcode library load হয়নি। Internet connection পরীক্ষা করুন।","error");document.body.style.overflow="hidden";
+ const idAvatar=$("josIdCardAvatar");
+ if(idAvatar){
+   idAvatar.innerHTML=getProfilePhotoCandidates(u).length
+     ? getProfilePhotoImageMarkup(u,"jos-idcard-real-photo","width:100%;height:100%;object-fit:cover;border-radius:11px")
+     : `<span class="jos-idcard-initial">${escapeHTML((u.name||"U").trim().charAt(0).toUpperCase())}</span>`;
+ }
+ const id=String(u.userId||"JOS-USER").trim();$("josIdCardCode").textContent=id;
+ const barcode=$("josUserBarcode");
+ if(barcode){
+   barcode.innerHTML="";
+   if(window.JsBarcode){
+     try{JsBarcode(barcode,id,{format:"CODE128",lineColor:"#102f43",background:"#ffffff",width:2,height:54,displayValue:false,margin:8});}
+     catch(err){barcode.outerHTML='<div id="josUserBarcode" class="jos-barcode-error">Barcode তৈরি করা যায়নি</div>';}
+   }else{barcode.outerHTML='<div id="josUserBarcode" class="jos-barcode-error">Barcode library load হয়নি</div>';showToast("Barcode library load হয়নি। Internet connection পরীক্ষা করুন।","error");}
+ }
+ const overlay=$("userIdCardOverlay");overlay.classList.add("active");overlay.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
 }
 function closeUserIdCard(){const el=$("userIdCardOverlay");if(!el)return;el.classList.remove("active");el.setAttribute("aria-hidden","true");document.body.style.overflow="";}
 function printUserIdCard(){if(currentUser)window.print();}
@@ -7895,6 +7662,7 @@ async function refreshUserStatus(){
   currentUser =
     result.user;
 
+  renderUserRealPhoto();
 
   sessionStorage.setItem(
     "jos_user",
@@ -8084,9 +7852,10 @@ function renderAdminUsers(){
             </td>
 
             <td>
-              ${escapeHTML(
-                user.name
-              )}
+              <div class="jos-admin-user">
+                ${getUserAvatarMarkup(user)}
+                <span>${escapeHTML(user.name || "")}</span>
+              </div>
             </td>
 
             <td>${escapeHTML(user.mobile || "")}</td>
@@ -8208,6 +7977,99 @@ function exportAdminUsers(format){
   }
 </style>
 
+
+<style id="jos-profile-photo-qr-final-fix">
+/* Keep the registered profile photo perfectly circular */
+#profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+  width:92px !important;
+  height:92px !important;
+  min-width:92px !important;
+  min-height:92px !important;
+  flex:0 0 92px !important;
+  aspect-ratio:1 / 1 !important;
+  box-sizing:border-box !important;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  display:block !important;
+  background:#e8f2f5 !important;
+  border:4px solid #fff !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.18) !important;
+}
+#profileContent #josProfileMainPhoto,
+#profileContent .jos-profile-photo-large,
+#profileContent .jos-profile-photo-initial{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:none !important;
+  max-height:none !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  overflow:hidden !important;
+}
+#profileContent .jos-profile-photo-initial{
+  display:grid !important;
+  place-items:center !important;
+}
+/* Remove the stray outline/empty rectangle around and below the QR */
+#profileContent .jos-profile-qr-panel{
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  background:rgba(255,255,255,.12) !important;
+  overflow:visible !important;
+}
+#profileContent .jos-profile-qr{
+  width:124px !important;
+  height:124px !important;
+  min-height:124px !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  padding:4px !important;
+  margin:5px auto !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  border-radius:8px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#profileContent .jos-profile-qr img,
+#profileContent .jos-profile-qr canvas{
+  display:block !important;
+  position:static !important;
+  width:116px !important;
+  height:116px !important;
+  max-width:116px !important;
+  max-height:116px !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  margin:0 !important;
+}
+@media(max-width:560px){
+  #profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+    width:74px !important;height:74px !important;
+    min-width:74px !important;min-height:74px !important;
+    flex-basis:74px !important;
+  }
+  #profileContent .jos-profile-qr{
+    width:92px !important;height:92px !important;min-height:92px !important;
+  }
+  #profileContent .jos-profile-qr img,
+  #profileContent .jos-profile-qr canvas{
+    width:84px !important;height:84px !important;
+    max-width:84px !important;max-height:84px !important;
+  }
+}
+</style>
+
 </body></html>`;
     downloadAdminBlob("\uFEFF"+html,`JOS-Users-${stamp}.xls`,"application/vnd.ms-excel;charset=utf-8;");
     showToast("Excel-compatible ফাইল তৈরি হয়েছে।","success");return;
@@ -8306,6 +8168,99 @@ html{min-height:100%;scroll-behavior:smooth} body{min-height:100%;background:var
   .admin-page, #adminPage {
     background: linear-gradient(135deg, #d4e4ec 0%, #e0eaf1 52%, #ccdee8 100%) !important;
   }
+</style>
+
+
+<style id="jos-profile-photo-qr-final-fix">
+/* Keep the registered profile photo perfectly circular */
+#profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+  width:92px !important;
+  height:92px !important;
+  min-width:92px !important;
+  min-height:92px !important;
+  flex:0 0 92px !important;
+  aspect-ratio:1 / 1 !important;
+  box-sizing:border-box !important;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  display:block !important;
+  background:#e8f2f5 !important;
+  border:4px solid #fff !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.18) !important;
+}
+#profileContent #josProfileMainPhoto,
+#profileContent .jos-profile-photo-large,
+#profileContent .jos-profile-photo-initial{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:none !important;
+  max-height:none !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  overflow:hidden !important;
+}
+#profileContent .jos-profile-photo-initial{
+  display:grid !important;
+  place-items:center !important;
+}
+/* Remove the stray outline/empty rectangle around and below the QR */
+#profileContent .jos-profile-qr-panel{
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  background:rgba(255,255,255,.12) !important;
+  overflow:visible !important;
+}
+#profileContent .jos-profile-qr{
+  width:124px !important;
+  height:124px !important;
+  min-height:124px !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  padding:4px !important;
+  margin:5px auto !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  border-radius:8px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#profileContent .jos-profile-qr img,
+#profileContent .jos-profile-qr canvas{
+  display:block !important;
+  position:static !important;
+  width:116px !important;
+  height:116px !important;
+  max-width:116px !important;
+  max-height:116px !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  margin:0 !important;
+}
+@media(max-width:560px){
+  #profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+    width:74px !important;height:74px !important;
+    min-width:74px !important;min-height:74px !important;
+    flex-basis:74px !important;
+  }
+  #profileContent .jos-profile-qr{
+    width:92px !important;height:92px !important;min-height:92px !important;
+  }
+  #profileContent .jos-profile-qr img,
+  #profileContent .jos-profile-qr canvas{
+    width:84px !important;height:84px !important;
+    max-width:84px !important;max-height:84px !important;
+  }
+}
 </style>
 
 </body></html>`);
@@ -10258,7 +10213,7 @@ if ("serviceWorker" in navigator) {
 document.addEventListener("DOMContentLoaded", function () {
 
     const userBtn = document.getElementById("userLoginBtn");
-    const adminBtn = null; // Admin entry removed from public UI.
+    const adminBtn = document.getElementById("adminLoginBtn");
     const loginType = document.getElementById("loginType");
 
     const loginId = document.getElementById("loginId");
@@ -10285,14 +10240,25 @@ document.addEventListener("DOMContentLoaded", function () {
     ================================================= */
 
     function setLoginType(type) {
-        const loginType = document.getElementById("loginType");
-        if (loginType) loginType.value = "user";
-        const userBtn = document.getElementById("userLoginBtn");
-        if (userBtn) userBtn.classList.add("active");
-        const adminBtn = document.getElementById("adminLoginBtn");
-        if (adminBtn) adminBtn.classList.remove("active");
-        const loginId = document.getElementById("loginId");
-        if (loginId) loginId.placeholder = "আপনার User ID / Mobile দিন";
+        const selectedType = "user";
+        if (loginType) loginType.value = selectedType;
+        if (userBtn) userBtn.classList.toggle("active", selectedType === "user");
+        if (adminBtn) adminBtn.classList.toggle("active", selectedType === "admin");
+        if (loginId) {
+            loginId.placeholder = selectedType === "admin"
+                ? "আপনার Admin ID দিন"
+                : "আপনার User Profile ID দিন";
+        }
+        const idLabel = document.querySelector('label[for="loginId"]');
+        if (idLabel) {
+            const icon = idLabel.querySelector("i");
+            idLabel.textContent = selectedType === "admin" ? " Admin ID" : " Profile ID / User ID";
+            if (icon) idLabel.prepend(icon);
+        }
+        const title = document.getElementById("loginTitle");
+        const subtitle = document.getElementById("loginSubtitle");
+        if (title) title.textContent = selectedType === "admin" ? "Administrator Login" : "Welcome Back";
+        if (subtitle) subtitle.textContent = selectedType === "admin" ? "Admin Panel-এ প্রবেশ করুন" : "আপনার Account-এ Login করুন";
     }
 
 
@@ -10316,6 +10282,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     }
+
+    // Admin login is disabled on this page; always use the User account type.
+    if (loginType) loginType.value = "user";
+    setLoginType("user");
 
 
     /* =================================================
@@ -11041,6 +11011,124 @@ document.addEventListener("keydown", function(event) {
   .admin-page, #adminPage {
     background: linear-gradient(135deg, #d4e4ec 0%, #e0eaf1 52%, #ccdee8 100%) !important;
   }
+
+/* JOS PROFILE PHOTO UPLOAD + AVATARS */
+.jos-photo-upload{display:flex;align-items:center;gap:15px;padding:14px;border:1px dashed #9eb4cf;border-radius:16px;background:linear-gradient(135deg,#f8fbff,#eef5ff)}
+.jos-photo-upload img{width:82px;height:82px;flex:0 0 82px;object-fit:cover;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 16px #1e3a5f20}
+.jos-photo-upload-info{display:flex;flex-direction:column;gap:5px;min-width:0}
+.jos-photo-upload-info strong{font-size:13px;color:#183153}
+.jos-photo-upload-info small{font-size:11px;color:#64748b}
+.jos-photo-upload-info input{max-width:100%;font-size:12px}
+.jos-user-avatar{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;border-radius:50%;background:#e8eef7;color:#24527a;font-weight:800;border:2px solid #fff;vertical-align:middle;object-fit:cover}
+.jos-profile-photo-large{width:96px;height:96px;object-fit:cover;border-radius:50%;border:4px solid #fff;box-shadow:0 8px 24px #0f172a20}
+.jos-admin-user{display:flex;align-items:center;gap:9px;min-width:150px}
+@media(max-width:480px){.jos-photo-upload{align-items:flex-start;padding:10px;gap:10px}.jos-photo-upload img{width:68px;height:68px;flex-basis:68px}}
+
+
+/* Profile photo + adjacent QR layout */
+.jos-profile-hero-grid{display:grid;grid-template-columns:92px minmax(0,1fr) 150px;align-items:center;gap:15px}
+.jos-profile-hero-grid .jos-profile-photo-ring{width:92px;height:92px;flex:none;overflow:hidden;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8f2f5;border:4px solid #fff}
+.jos-profile-hero-grid .jos-profile-photo-large{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%}
+.jos-profile-photo-initial{font-size:34px;font-weight:800;color:#087f8c}
+.jos-profile-qr-panel{background:#fff;color:#173b4b;border-radius:12px;padding:8px 6px;text-align:center;min-width:0}
+.jos-profile-qr-panel b{font-size:9px;letter-spacing:.7px}
+.jos-profile-qr{width:124px;height:124px;margin:5px auto;display:grid;place-items:center;background:#fff;padding:4px}
+.jos-profile-qr img,.jos-profile-qr canvas{width:116px!important;height:116px!important;max-width:100%}
+.jos-profile-qr-panel small{font-size:8px;letter-spacing:.5px}
+@media(max-width:560px){.jos-profile-hero-grid{grid-template-columns:74px minmax(0,1fr);gap:10px;padding:13px}.jos-profile-hero-grid .jos-profile-photo-ring{width:74px;height:74px}.jos-profile-hero-grid .jos-profile-qr-panel{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:12px}.jos-profile-hero-grid .jos-profile-qr{width:92px;height:92px;margin:0}.jos-profile-hero-grid .jos-profile-qr img,.jos-profile-hero-grid .jos-profile-qr canvas{width:84px!important;height:84px!important}.jos-profile-hero-text h3{font-size:16px;overflow-wrap:anywhere}}
+</style>
+
+
+<style id="jos-profile-photo-qr-final-fix">
+/* Keep the registered profile photo perfectly circular */
+#profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+  width:92px !important;
+  height:92px !important;
+  min-width:92px !important;
+  min-height:92px !important;
+  flex:0 0 92px !important;
+  aspect-ratio:1 / 1 !important;
+  box-sizing:border-box !important;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  display:block !important;
+  background:#e8f2f5 !important;
+  border:4px solid #fff !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.18) !important;
+}
+#profileContent #josProfileMainPhoto,
+#profileContent .jos-profile-photo-large,
+#profileContent .jos-profile-photo-initial{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:none !important;
+  max-height:none !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  overflow:hidden !important;
+}
+#profileContent .jos-profile-photo-initial{
+  display:grid !important;
+  place-items:center !important;
+}
+/* Remove the stray outline/empty rectangle around and below the QR */
+#profileContent .jos-profile-qr-panel{
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  background:rgba(255,255,255,.12) !important;
+  overflow:visible !important;
+}
+#profileContent .jos-profile-qr{
+  width:124px !important;
+  height:124px !important;
+  min-height:124px !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  padding:4px !important;
+  margin:5px auto !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  border-radius:8px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#profileContent .jos-profile-qr img,
+#profileContent .jos-profile-qr canvas{
+  display:block !important;
+  position:static !important;
+  width:116px !important;
+  height:116px !important;
+  max-width:116px !important;
+  max-height:116px !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  margin:0 !important;
+}
+@media(max-width:560px){
+  #profileContent .jos-profile-hero-grid .jos-profile-photo-ring{
+    width:74px !important;height:74px !important;
+    min-width:74px !important;min-height:74px !important;
+    flex-basis:74px !important;
+  }
+  #profileContent .jos-profile-qr{
+    width:92px !important;height:92px !important;min-height:92px !important;
+  }
+  #profileContent .jos-profile-qr img,
+  #profileContent .jos-profile-qr canvas{
+    width:84px !important;height:84px !important;
+    max-width:84px !important;max-height:84px !important;
+  }
+}
 </style>
 
 </body>
