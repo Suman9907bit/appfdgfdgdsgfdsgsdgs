@@ -5332,6 +5332,45 @@ img, picture, svg {
     </span>
   </button>
 
+  <!-- PHOTO CROP & PRINT -->
+  <button type="button" class="jos-action-card photo-card"
+    onclick="openMyIframePage('photo')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-crop-simple"></i>
+    </span>
+    <strong>Photo Crop &amp; Print</strong>
+    <small>Crop, resize &amp; print photos</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
+  </button>
+
+  <!-- IMAGE COMPOSER -->
+  <button type="button" class="jos-action-card composer-card"
+    onclick="openMyIframePage('composer')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-images"></i>
+    </span>
+    <strong>Image Composer</strong>
+    <small>Create &amp; combine images</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
+  </button>
+
+  <!-- MONEY CALCULATION -->
+  <button type="button" class="jos-action-card money-card"
+    onclick="openMyIframePage('money')">
+    <span class="jos-action-icon">
+      <i class="fa-solid fa-calculator"></i>
+    </span>
+    <strong>Money Calculation</strong>
+    <small>Quick money calculations</small>
+    <span class="jos-action-arrow">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </span>
+  </button>
+
 </div>
 
 
@@ -5438,6 +5477,39 @@ img, picture, svg {
 }
 .shopping-card .jos-action-arrow {color:#059669;}
 
+/* PURPLE - PHOTO CROP & PRINT */
+.photo-card {
+  background:linear-gradient(145deg,#f5f3ff,#ffffff);
+  border-color:#ddd6fe;
+}
+.photo-card .jos-action-icon {
+  background:#ede9fe;
+  color:#7c3aed;
+}
+.photo-card .jos-action-arrow {color:#7c3aed;}
+
+/* ORANGE - IMAGE COMPOSER */
+.composer-card {
+  background:linear-gradient(145deg,#fff7ed,#ffffff);
+  border-color:#fed7aa;
+}
+.composer-card .jos-action-icon {
+  background:#ffedd5;
+  color:#ea580c;
+}
+.composer-card .jos-action-arrow {color:#ea580c;}
+
+/* TEAL - MONEY CALCULATION */
+.money-card {
+  background:linear-gradient(145deg,#ecfeff,#ffffff);
+  border-color:#a5f3fc;
+}
+.money-card .jos-action-icon {
+  background:#cffafe;
+  color:#0891b2;
+}
+.money-card .jos-action-arrow {color:#0891b2;}
+
 @media(max-width:380px) {
   .jos-action-grid {gap:7px;}
   .jos-action-card {
@@ -5530,7 +5602,12 @@ img, picture, svg {
       "https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/",
 
     shopping:
-      "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/"
+      "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/",
+
+    /* নিচের তিনটি জায়গায় আপনার নতুন পেজের URL বসাবেন */
+    photo: "https://suman9907bit.github.io/photocrop-djkhfjdhfjdjg/",
+    composer: "https://suman9907bit.github.io/image-compose/",
+    money: "https://suman9907bit.github.io/Manycalculator/"
   };
 
 
@@ -10757,7 +10834,12 @@ function openMyIframePage(option) {
   const pageLinks = {
     service: "https://suman9907bit.github.io/updateservice-fjdgjfdsjgkjfgkjfkdgk/",
     typing: "https://suman9907bit.github.io/typingtestkdljufgijdhighjdfsjgijdgifdj/",
-    shopping: "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/"
+    shopping: "https://suman9907bit.github.io/ecomlivefgfgfgdgfvvxcchfgfty/",
+
+    /* নতুন পেজের URL এখানে বসাবেন */
+    photo: "https://suman9907bit.github.io/photocrop-djkhfjdhfjdjg/",
+    composer: "https://suman9907bit.github.io/image-compose/",
+    money: "https://suman9907bit.github.io/Manycalculator/"
   };
 
   const pageURL = pageLinks[option];
@@ -10765,6 +10847,11 @@ function openMyIframePage(option) {
   if (!pageURL) {
     console.error("Invalid iframe option:", option);
     alert("সঠিক পেজ নির্বাচন করা হয়নি!");
+    return;
+  }
+
+  if (pageURL.startsWith("PASTE_")) {
+    alert("এই Option-এর Page URL এখনও বসানো হয়নি। কোডের pageLinks অংশে URL দিন।");
     return;
   }
 
