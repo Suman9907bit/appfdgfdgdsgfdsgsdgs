@@ -4538,6 +4538,122 @@ img, picture, svg {
 @media(prefers-reduced-motion:reduce){#userNotificationOverlay,#userNotificationOverlay .jos-notification-panel{transition:none!important}}
 </style>
 
+
+<style id="jos-notification-premium-cards">
+/* JOS Update Center — individual notification cards; visual-only enhancement */
+#userNotificationOverlay .jos-notification-list{
+  background:linear-gradient(180deg,#f7fbfc 0%,#f1f6f8 100%)!important;
+  padding:16px 17px 20px!important;
+  gap:0;
+}
+#userNotificationOverlay .jos-notification-item{
+  --card-bg:#eff8ff;--card-border:#cfe5f5;--card-accent:#2782b8;--card-icon:#d9efff;
+  position:relative!important;isolation:isolate;
+  display:block!important;width:100%!important;box-sizing:border-box!important;
+  margin:10px 0!important;padding:16px 16px 13px 18px!important;
+  overflow:hidden!important;border:1px solid var(--card-border)!important;
+  border-radius:18px!important;background:var(--card-bg)!important;
+  box-shadow:0 5px 16px rgba(24,55,72,.07)!important;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important;
+}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+1){--card-bg:#eef7ff;--card-border:#cfe4fa;--card-accent:#2878bd;--card-icon:#dceeff}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+2){--card-bg:#f2f0ff;--card-border:#ded7ff;--card-accent:#7057bd;--card-icon:#e6e0ff}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+3){--card-bg:#edfbf5;--card-border:#c9eedc;--card-accent:#21865b;--card-icon:#d9f5e7}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+4){--card-bg:#fff6e9;--card-border:#f4dfbd;--card-accent:#b97820;--card-icon:#ffebc9}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+5){--card-bg:#fff0f3;--card-border:#f5d1dc;--card-accent:#c34f70;--card-icon:#ffdee7}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+6){--card-bg:#eafafa;--card-border:#c6e9e8;--card-accent:#16858a;--card-icon:#d3f2f0}
+#userNotificationOverlay .jos-notification-item:nth-child(8n+7){--card-bg:#f5f7e9;--card-border:#e4e9c5;--card-accent:#78852d;--card-icon:#eaf0cf}
+#userNotificationOverlay .jos-notification-item:nth-child(8n){--card-bg:#f1f4f8;--card-border:#d9e0e9;--card-accent:#526b88;--card-icon:#e0e8f1}
+#userNotificationOverlay .jos-notification-item::before{
+  content:"";position:absolute!important;left:0!important;top:13px!important;bottom:13px!important;
+  width:4px!important;border-radius:0 8px 8px 0!important;background:var(--card-accent)!important;
+}
+#userNotificationOverlay .jos-notification-item:hover{
+  transform:translateY(-2px)!important;box-shadow:0 10px 23px rgba(24,55,72,.12)!important;
+  border-color:var(--card-accent)!important;
+}
+#userNotificationOverlay .jos-notification-item.unread{
+  border-color:var(--card-accent)!important;
+  box-shadow:0 5px 18px rgba(24,55,72,.10)!important;
+}
+#userNotificationOverlay .jos-notification-item-top{
+  display:flex!important;align-items:flex-start!important;justify-content:space-between!important;
+  gap:10px!important;margin-bottom:9px!important;
+}
+#userNotificationOverlay .jos-notification-title-wrap{
+  display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;
+}
+#userNotificationOverlay .jos-notification-card-icon{
+  flex:0 0 34px!important;width:34px!important;height:34px!important;
+  display:grid!important;place-items:center!important;border-radius:11px!important;
+  background:var(--card-icon)!important;color:var(--card-accent)!important;font-size:14px!important;
+}
+#userNotificationOverlay .jos-notification-item h3{
+  margin:0!important;color:#18394d!important;font-size:14px!important;font-weight:850!important;
+  line-height:1.5!important;overflow-wrap:anywhere!important;
+}
+#userNotificationOverlay .jos-notification-item p{
+  margin:0!important;padding:1px 0 3px!important;color:#405968!important;
+  font-size:13px!important;line-height:1.75!important;white-space:pre-wrap!important;
+  overflow-wrap:anywhere!important;
+}
+#userNotificationOverlay .jos-notification-new-label,
+#userNotificationOverlay .jos-notification-read-label{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  flex:0 0 auto!important;padding:6px 9px!important;border-radius:30px!important;
+  font-size:9px!important;font-weight:900!important;letter-spacing:.35px!important;
+}
+#userNotificationOverlay .jos-notification-new-label{background:#fff!important;color:#c43d54!important;border:1px solid #f6cbd3!important}
+#userNotificationOverlay .jos-notification-new-label i{font-size:6px!important}
+#userNotificationOverlay .jos-notification-read-label{background:#e8fff1!important;color:#167849!important;border:1px solid #bfe9ce!important}
+#userNotificationOverlay .jos-notification-meta{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  flex-wrap:wrap!important;gap:8px!important;margin-top:12px!important;padding-top:10px!important;
+  border-top:1px dashed color-mix(in srgb,var(--card-accent) 28%,transparent)!important;
+  color:#627887!important;font-size:10px!important;
+}
+#userNotificationOverlay .jos-notification-tag{
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  padding:6px 9px!important;border-radius:9px!important;
+  background:var(--card-icon)!important;color:var(--card-accent)!important;
+  font-size:10px!important;font-weight:850!important;
+}
+#userNotificationOverlay .jos-notification-date{
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  padding:5px 8px!important;border-radius:8px!important;background:rgba(255,255,255,.72)!important;
+  color:#536b79!important;font-size:10px!important;line-height:1.5!important;
+}
+#userNotificationOverlay .jos-notification-date i{color:var(--card-accent)!important}
+#userNotificationOverlay .jos-notification-item-actions{
+  display:flex!important;justify-content:flex-end!important;align-items:center!important;margin-top:11px!important;
+}
+#userNotificationOverlay .jos-notification-read-btn{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+  min-height:36px!important;padding:0 14px!important;border:1px solid var(--card-accent)!important;
+  border-radius:11px!important;background:var(--card-accent)!important;color:#fff!important;
+  font-size:11px!important;font-weight:850!important;cursor:pointer!important;
+  box-shadow:0 4px 10px color-mix(in srgb,var(--card-accent) 22%,transparent)!important;
+  transition:transform .18s ease,filter .18s ease!important;
+}
+#userNotificationOverlay .jos-notification-read-btn:hover{filter:brightness(.94)!important;transform:translateY(-1px)!important}
+#userNotificationOverlay .jos-notification-read-confirm{
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  color:#278052!important;font-size:10px!important;font-weight:750!important;
+}
+@media(max-width:600px){
+  #userNotificationOverlay .jos-notification-list{padding:11px 10px 15px!important}
+  #userNotificationOverlay .jos-notification-item{padding:13px 12px 12px 15px!important;border-radius:16px!important;margin:8px 0!important}
+  #userNotificationOverlay .jos-notification-item h3{font-size:13px!important}
+  #userNotificationOverlay .jos-notification-item p{font-size:12px!important;line-height:1.7!important}
+  #userNotificationOverlay .jos-notification-meta{align-items:flex-start!important;flex-direction:column!important}
+  #userNotificationOverlay .jos-notification-date{max-width:100%!important;flex-wrap:wrap!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #userNotificationOverlay .jos-notification-item,
+  #userNotificationOverlay .jos-notification-read-btn{transition:none!important}
+}
+</style>
+
 </head>
 
 
@@ -5988,7 +6104,10 @@ img, picture, svg {
 <div class="jos-idcard-toolbar"><div><strong><i class="fa-solid fa-id-card"></i> User Identity Card</strong><small>Generated from your JOS account information</small></div><button type="button" class="jos-idcard-close" onclick="closeUserIdCard()">×</button></div>
 <div class="jos-idcard" id="josPrintableIdCard"><div class="jos-idcard-head"><div class="jos-idcard-logo">JOS</div><div><h2>JANA ONLINE SERVICE</h2><p>DIGITAL SERVICE IDENTITY CARD</p></div><div class="jos-idcard-chip">USER</div></div>
 <div class="jos-idcard-main"><div class="jos-idcard-avatar" id="josIdCardAvatar"><i class="fa-solid fa-user"></i></div><div class="jos-idcard-details" id="josIdCardDetails"></div></div>
-<div class="jos-idcard-barcode-wrap"><svg id="josUserBarcode" aria-label="JOS member ID barcode"></svg><div class="jos-idcard-code" id="josIdCardCode"></div><small class="jos-qr-caption">JOS MEMBER ID · CODE 128</small></div><div class="jos-idcard-foot"><span>User Identity</span><span>Jana Online Service</span></div></div>
+<div class="jos-idcard-barcode-wrap">
+  <svg id="josIdCardBarcode" role="img" aria-label="JOS member ID barcode"></svg>
+  <div class="jos-idcard-code" id="josIdCardCode"></div>
+</div><div class="jos-idcard-foot"><span>User Identity</span><span>Jana Online Service</span></div></div>
 <div class="jos-idcard-actions"><button type="button" class="btn btn-light" onclick="closeUserIdCard()">Close</button><button type="button" class="btn btn-primary" onclick="printUserIdCard()"><i class="fa-solid fa-print"></i> Print ID Card</button></div>
 </div></div>
 <style>
@@ -5996,7 +6115,7 @@ img, picture, svg {
 .jos-idcard-overlay{display:none;position:fixed;inset:0;z-index:12000;background:#081927b8;backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:16px;overflow:auto}.jos-idcard-overlay.active{display:flex}.jos-idcard-shell{width:min(100%,620px);max-height:96vh;overflow:auto;background:#fff;border-radius:20px;padding:18px;box-shadow:0 25px 80px #001b2b55}.jos-idcard-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;color:#183746}.jos-idcard-toolbar strong{display:block;font-size:17px}.jos-idcard-toolbar small{display:block;color:#71818b;margin-top:4px;font-size:11px}.jos-idcard-close{border:0;background:#fff0f0;color:#c62828;width:38px;height:38px;border-radius:50%;font-size:25px}
 .jos-idcard{width:100%;max-width:520px;margin:auto;border:1px solid #d9e3e8;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,#fff,#f2fafc);color:#183746}.jos-idcard-head{display:flex;align-items:center;gap:12px;padding:17px 19px;background:linear-gradient(115deg,#073b59,#087f8c);color:#fff}.jos-idcard-logo{width:48px;height:48px;border-radius:13px;background:#fff;color:#087f8c;display:grid;place-items:center;font-weight:900;font-size:18px}.jos-idcard-head h2{font-size:17px}.jos-idcard-head p{font-size:9px;letter-spacing:1.2px;margin-top:4px}.jos-idcard-chip{margin-left:auto;border:1px solid #ffffff66;border-radius:20px;padding:5px 10px;font-size:10px;font-weight:800}.jos-idcard-main{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:18px 18px 10px}.jos-idcard-avatar{width:78px;height:88px;border-radius:12px;background:#e3f2f5;color:#087f8c;display:grid;place-items:center;font-size:34px;border:1px solid #cde4e8}.jos-idcard-details{display:grid;grid-template-columns:1fr 1fr;gap:9px 13px;align-content:start}.jos-id-field{min-width:0}.jos-id-field small{display:block;color:#71818b;font-size:9px;text-transform:uppercase;margin-bottom:3px}.jos-id-field strong{display:block;font-size:12px;overflow-wrap:anywhere}.jos-id-field.wide{grid-column:1/-1}.jos-idcard-barcode-wrap{margin:6px 18px 12px;padding:8px 10px 5px;border-top:1px dashed #cbd9df;text-align:center}.jos-idcard-barcode-wrap svg{width:100%;max-width:340px;height:65px}.jos-idcard-code{font-size:11px;letter-spacing:2px;font-weight:800}.jos-idcard-foot{display:flex;justify-content:space-between;padding:10px 18px;background:#eaf5f7;color:#53717d;font-size:9px;font-weight:700;text-transform:uppercase}.jos-idcard-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 @media(max-width:480px){.jos-idcard-shell{padding:12px}.jos-idcard-head{padding:13px;gap:9px}.jos-idcard-logo{width:40px;height:40px}.jos-idcard-head h2{font-size:13px}.jos-idcard-main{grid-template-columns:65px 1fr;padding:14px 11px 9px;gap:9px}.jos-idcard-avatar{width:62px;height:72px;font-size:27px}.jos-id-field strong{font-size:10px}.jos-idcard-foot{padding:9px 11px}.jos-idcard-actions .btn{flex:1}}
-.jos-profile-hero{display:flex;align-items:center;gap:18px;padding:20px;border-radius:18px;background:linear-gradient(120deg,#073b59,#087f8c);color:#fff;margin-bottom:20px}.jos-profile-photo-ring{width:104px;height:104px;flex:0 0 104px;border:4px solid #ffffffb8;border-radius:50%;overflow:hidden;background:#e8f2f5;display:grid;place-items:center}.jos-profile-photo-large{width:100%;height:100%;object-fit:cover;border-radius:50%}.jos-profile-hero-text h3{margin:5px 0;font-size:21px}.jos-profile-hero-text p{margin:0 0 9px;color:#d5edf1;font-size:13px}.jos-profile-kicker{font-size:9px;letter-spacing:1.8px;font-weight:800;color:#b9e9e9}.jos-profile-id-pill{display:inline-flex;gap:6px;align-items:center;background:#ffffff20;border:1px solid #ffffff55;border-radius:20px;padding:5px 10px;font-size:11px}.jos-profile-section-title{font-weight:800;color:#173b4b;margin:16px 0 12px;display:flex;gap:9px;align-items:center}.jos-profile-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.jos-profile-detail{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e1eaf0;background:linear-gradient(135deg,#fff,#f7fafc);border-radius:12px;min-width:0}.jos-profile-detail-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:10px;background:#e5f3f5;color:#087f8c}.jos-profile-detail small{display:block;color:#71818b;font-size:10px;margin-bottom:3px}.jos-profile-detail strong{display:block;color:#203b49;font-size:12px;overflow-wrap:anywhere}.jos-profile-bottom{display:flex;gap:8px;align-items:center;justify-content:center;color:#66808b;font-size:10px;padding:16px 5px 3px}.jos-user-qr{width:122px;height:122px;padding:5px;background:#fff;border:1px solid #d8e4e8;border-radius:10px;margin:auto;display:grid;place-items:center}.jos-user-qr img,.jos-user-qr canvas{max-width:112px;max-height:112px}.jos-qr-caption{display:block;color:#607985;font-size:8px;letter-spacing:1.4px;margin-top:5px}.jos-idcard-barcode-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+.jos-profile-hero{display:flex;align-items:center;gap:18px;padding:20px;border-radius:18px;background:linear-gradient(120deg,#073b59,#087f8c);color:#fff;margin-bottom:20px}.jos-profile-photo-ring{width:104px;height:104px;flex:0 0 104px;border:4px solid #ffffffb8;border-radius:50%;overflow:hidden;background:#e8f2f5;display:grid;place-items:center}.jos-profile-photo-large{width:100%;height:100%;object-fit:cover;border-radius:50%}.jos-profile-hero-text h3{margin:5px 0;font-size:21px}.jos-profile-hero-text p{margin:0 0 9px;color:#d5edf1;font-size:13px}.jos-profile-kicker{font-size:9px;letter-spacing:1.8px;font-weight:800;color:#b9e9e9}.jos-profile-id-pill{display:inline-flex;gap:6px;align-items:center;background:#ffffff20;border:1px solid #ffffff55;border-radius:20px;padding:5px 10px;font-size:11px}.jos-profile-section-title{font-weight:800;color:#173b4b;margin:16px 0 12px;display:flex;gap:9px;align-items:center}.jos-profile-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.jos-profile-detail{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e1eaf0;background:linear-gradient(135deg,#fff,#f7fafc);border-radius:12px;min-width:0}.jos-profile-detail-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:10px;background:#e5f3f5;color:#087f8c}.jos-profile-detail small{display:block;color:#71818b;font-size:10px;margin-bottom:3px}.jos-profile-detail strong{display:block;color:#203b49;font-size:12px;overflow-wrap:anywhere}.jos-profile-bottom{display:flex;gap:8px;align-items:center;justify-content:center;color:#66808b;font-size:10px;padding:16px 5px 3px}.jos-idcard-barcode-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
 @media(max-width:480px){.jos-profile-hero{padding:14px;gap:12px}.jos-profile-photo-ring{width:78px;height:78px;flex-basis:78px}.jos-profile-hero-text h3{font-size:17px}.jos-profile-details-grid{grid-template-columns:1fr}.jos-profile-detail{padding:10px}}
 
 /* Profile photo + QR: aligned in one professional header panel */
@@ -6053,6 +6172,225 @@ img, picture, svg {
  .jos-profile-qr-panel{width:92px!important;flex-basis:92px!important}
  .jos-profile-qr{width:78px!important;height:78px!important}
  .jos-profile-qr img,.jos-profile-qr canvas{width:72px!important;height:72px!important;max-width:72px!important;max-height:72px!important}
+}
+</style>
+
+
+<style id="jos-idcard-premium-graphics">
+/* Premium JOS ID card visual refresh - screen and print */
+#userIdCardOverlay .jos-idcard-shell{
+  width:min(100%,720px)!important;
+  max-height:96vh!important;
+  padding:20px!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,#ffffff,#f1f8fa)!important;
+}
+#userIdCardOverlay .jos-idcard-toolbar strong{
+  color:#073b59!important;letter-spacing:.2px!important;
+}
+#userIdCardOverlay .jos-idcard{
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  max-width:590px!important;
+  min-height:330px!important;
+  margin:0 auto!important;
+  border:1px solid #b9dce0!important;
+  border-radius:19px!important;
+  overflow:hidden!important;
+  color:#12384a!important;
+  background:
+    radial-gradient(circle at 94% 12%,rgba(31,190,183,.17) 0 48px,transparent 49px),
+    radial-gradient(circle at 4% 100%,rgba(10,125,143,.10) 0 76px,transparent 77px),
+    linear-gradient(135deg,#ffffff 0%,#f5fbfc 54%,#eaf7f8 100%)!important;
+  box-shadow:0 14px 36px rgba(4,55,75,.16)!important;
+}
+#userIdCardOverlay .jos-idcard:before{
+  content:"";position:absolute;z-index:-1;top:-72px;right:-56px;
+  width:220px;height:150px;border:18px solid rgba(18,172,169,.12);
+  border-radius:48%;transform:rotate(-24deg);pointer-events:none;
+}
+#userIdCardOverlay .jos-idcard:after{
+  content:"";position:absolute;z-index:-1;bottom:-84px;left:34%;
+  width:280px;height:130px;border-radius:50%;
+  background:linear-gradient(90deg,rgba(7,59,89,.04),rgba(14,165,166,.10));
+  transform:rotate(-9deg);pointer-events:none;
+}
+#userIdCardOverlay .jos-idcard-head{
+  position:relative!important;
+  min-height:82px!important;
+  padding:15px 20px!important;
+  gap:13px!important;
+  background:linear-gradient(112deg,#063650 0%,#075b70 48%,#0c9d9c 100%)!important;
+  overflow:hidden!important;
+}
+#userIdCardOverlay .jos-idcard-head:after{
+  content:"";position:absolute;right:82px;top:-48px;width:150px;height:150px;
+  border:1px solid rgba(255,255,255,.17);border-radius:50%;
+  box-shadow:0 0 0 14px rgba(255,255,255,.045),0 0 0 29px rgba(255,255,255,.035);
+  pointer-events:none;
+}
+#userIdCardOverlay .jos-idcard-logo{
+  position:relative;z-index:1;width:52px!important;height:52px!important;
+  flex:0 0 52px;border-radius:15px!important;
+  color:#087d8b!important;background:linear-gradient(145deg,#fff,#dff8f5)!important;
+  box-shadow:0 5px 15px rgba(0,0,0,.16)!important;
+  border:2px solid rgba(255,255,255,.75)!important;
+  font-size:19px!important;font-weight:950!important;letter-spacing:-.8px!important;
+}
+#userIdCardOverlay .jos-idcard-head h2{
+  position:relative;z-index:1;font-size:18px!important;
+  font-weight:950!important;letter-spacing:.55px!important;
+}
+#userIdCardOverlay .jos-idcard-head p{
+  position:relative;z-index:1;font-size:8px!important;
+  letter-spacing:1.65px!important;color:#c9f5f1!important;font-weight:800!important;
+}
+#userIdCardOverlay .jos-idcard-chip{
+  position:relative;z-index:1;margin-left:auto!important;
+  border:1px solid rgba(255,255,255,.48)!important;
+  background:rgba(255,255,255,.13)!important;
+  color:#fff!important;padding:6px 12px!important;
+  letter-spacing:1.1px!important;font-size:9px!important;
+}
+#userIdCardOverlay .jos-idcard-main{
+  position:relative!important;
+  grid-template-columns:102px minmax(0,1fr)!important;
+  gap:17px!important;padding:19px 20px 14px!important;
+}
+#userIdCardOverlay .jos-idcard-avatar{
+  width:96px!important;height:112px!important;
+  border-radius:14px!important;overflow:hidden!important;
+  border:4px solid #fff!important;
+  background:linear-gradient(145deg,#d9f4f2,#e8f1f5)!important;
+  box-shadow:0 5px 17px rgba(7,75,91,.19)!important;
+  outline:1px solid #b9dce0!important;
+}
+#userIdCardOverlay .jos-idcard-avatar img{
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
+}
+#userIdCardOverlay .jos-idcard-initial{
+  display:grid!important;place-items:center!important;width:100%!important;height:100%!important;
+  color:#087d8b!important;font-size:40px!important;font-weight:950!important;
+}
+#userIdCardOverlay .jos-idcard-details{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px 15px!important;align-content:start!important;
+  padding:2px 0!important;
+}
+#userIdCardOverlay .jos-id-field{
+  min-width:0!important;padding:0 0 5px!important;
+  border-bottom:1px solid rgba(12,107,124,.13)!important;
+}
+#userIdCardOverlay .jos-id-field small{
+  color:#16818a!important;font-size:8px!important;
+  font-weight:900!important;letter-spacing:1px!important;
+  margin-bottom:3px!important;
+}
+#userIdCardOverlay .jos-id-field strong{
+  color:#173c4e!important;font-size:10px!important;
+  font-weight:850!important;line-height:1.25!important;
+  overflow-wrap:anywhere!important;
+}
+#userIdCardOverlay .jos-idcard-code{
+  position:relative!important;margin:0 20px 12px!important;
+  padding:9px 12px!important;border-radius:9px!important;
+  border:1px dashed #7abfc1!important;
+  background:linear-gradient(90deg,#e9f7f6,#f5fbfc)!important;
+  color:#07576b!important;font-size:10px!important;
+  letter-spacing:1.7px!important;text-align:center!important;
+}
+#userIdCardOverlay .jos-idcard-foot{
+  position:relative!important;min-height:34px!important;
+  padding:10px 20px!important;
+  background:linear-gradient(100deg,#073b59,#087f8c)!important;
+  color:#e3ffff!important;font-size:8px!important;
+  letter-spacing:1px!important;
+}
+#userIdCardOverlay .jos-idcard-actions{margin-top:17px!important}
+#userIdCardOverlay .jos-idcard-actions .btn-primary{
+  background:linear-gradient(110deg,#07536c,#0b9c9b)!important;
+  border:0!important;box-shadow:0 5px 14px rgba(8,119,133,.2)!important;
+}
+@media(max-width:560px){
+  #userIdCardOverlay .jos-idcard-shell{padding:12px!important}
+  #userIdCardOverlay .jos-idcard{min-height:0!important}
+  #userIdCardOverlay .jos-idcard-head{padding:12px!important;min-height:70px!important}
+  #userIdCardOverlay .jos-idcard-head h2{font-size:13px!important}
+  #userIdCardOverlay .jos-idcard-head p{font-size:7px!important;letter-spacing:1px!important}
+  #userIdCardOverlay .jos-idcard-logo{width:42px!important;height:42px!important;flex-basis:42px!important}
+  #userIdCardOverlay .jos-idcard-main{grid-template-columns:74px minmax(0,1fr)!important;gap:10px!important;padding:13px 11px 10px!important}
+  #userIdCardOverlay .jos-idcard-avatar{width:70px!important;height:84px!important}
+  #userIdCardOverlay .jos-idcard-details{gap:8px 9px!important}
+  #userIdCardOverlay .jos-id-field small{font-size:7px!important}
+  #userIdCardOverlay .jos-id-field strong{font-size:9px!important}
+  #userIdCardOverlay .jos-idcard-code{margin:0 11px 9px!important}
+  #userIdCardOverlay .jos-idcard-foot{padding:9px 11px!important}
+}
+/* High-quality ID-card print: landscape card, not a full A4 sheet */
+@media print{
+  @page{size:90mm 65mm;margin:0}
+  html,body{width:90mm!important;height:65mm!important;margin:0!important;padding:0!important;background:#fff!important}
+  body *{visibility:hidden!important}
+  #userIdCardOverlay,#userIdCardOverlay *{visibility:visible!important}
+  #userIdCardOverlay{
+    display:block!important;position:absolute!important;left:0!important;top:0!important;
+    width:90mm!important;height:65mm!important;min-height:65mm!important;
+    padding:2mm!important;margin:0!important;overflow:hidden!important;
+    background:#fff!important;backdrop-filter:none!important;
+  }
+  #userIdCardOverlay .jos-idcard-shell{
+    display:block!important;width:86mm!important;height:61mm!important;
+    max-width:86mm!important;max-height:61mm!important;min-height:0!important;
+    margin:0!important;padding:0!important;overflow:hidden!important;
+    border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;
+  }
+  #userIdCardOverlay .jos-idcard-toolbar,
+  #userIdCardOverlay .jos-idcard-actions{display:none!important}
+  #userIdCardOverlay .jos-idcard{
+    display:block!important;width:86mm!important;height:61mm!important;
+    max-width:86mm!important;min-height:61mm!important;max-height:61mm!important;
+    margin:0!important;border-radius:3mm!important;overflow:hidden!important;
+    border:.25mm solid #a9cfd3!important;box-shadow:none!important;
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+    background:linear-gradient(135deg,#fff 0%,#f4fbfc 55%,#eaf7f8 100%)!important;
+  }
+  #userIdCardOverlay .jos-idcard-head{
+    height:14mm!important;min-height:14mm!important;padding:2.5mm 3mm!important;
+    gap:2.5mm!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  #userIdCardOverlay .jos-idcard-logo{
+    width:9mm!important;height:9mm!important;flex:0 0 9mm!important;
+    border-radius:2mm!important;font-size:11pt!important;
+  }
+  #userIdCardOverlay .jos-idcard-head h2{font-size:9pt!important}
+  #userIdCardOverlay .jos-idcard-head p{font-size:5pt!important;letter-spacing:.8px!important}
+  #userIdCardOverlay .jos-idcard-chip{font-size:5pt!important;padding:1mm 2mm!important}
+  #userIdCardOverlay .jos-idcard-main{
+    display:grid!important;grid-template-columns:19mm minmax(0,1fr)!important;
+    gap:2.5mm!important;padding:3mm 3mm 1.5mm!important;
+  }
+  #userIdCardOverlay .jos-idcard-avatar{
+    width:18mm!important;height:22mm!important;border-radius:2mm!important;
+    border:1mm solid #fff!important;box-shadow:0 1mm 2mm #164b5b22!important;
+  }
+  #userIdCardOverlay .jos-idcard-details{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:1.2mm 2mm!important;padding:0!important;
+  }
+  #userIdCardOverlay .jos-id-field{padding:0 0 .7mm!important;border-bottom:.2mm solid #cfe4e6!important}
+  #userIdCardOverlay .jos-id-field small{font-size:4.2pt!important;margin-bottom:.3mm!important}
+  #userIdCardOverlay .jos-id-field strong{font-size:5.4pt!important;line-height:1.1!important}
+  #userIdCardOverlay .jos-idcard-code{
+    margin:1mm 3mm 1.5mm!important;padding:1.5mm!important;
+    font-size:5.5pt!important;letter-spacing:1px!important;
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  #userIdCardOverlay .jos-idcard-foot{
+    min-height:6mm!important;padding:2mm 3mm!important;font-size:4.5pt!important;
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
 }
 </style>
 
@@ -7562,7 +7900,21 @@ async function loadUserNotifications(){
       const message=escapeHTML(n.message||"");
       const type=escapeHTML(n.type||"General");
       const date=n.createdAt?new Date(n.createdAt).toLocaleString("en-IN"):"";
-      return `<article class="jos-notification-item ${n.isRead?"":"unread"}"><div class="jos-notification-item-top"><h3>${title}</h3>${n.isRead?'<span class="jos-notification-read-label"><i class="fa-solid fa-check"></i> Read</span>':'<span class="jos-notification-new-label">NEW</span>'}</div><p>${message}</p><div class="jos-notification-meta"><span class="jos-notification-tag">${type}</span><span><i class="fa-regular fa-clock"></i> ${escapeHTML(date)}</span></div>${n.isRead?'':`<div class="jos-notification-item-actions"><button type="button" class="jos-notification-read-btn" onclick="markUserNotificationRead('${id}')"><i class="fa-solid fa-check"></i> পড়েছি</button></div>`}</article>`;
+      return `<article class="jos-notification-item ${n.isRead?"read":"unread"}">
+        <div class="jos-notification-item-top">
+          <div class="jos-notification-title-wrap">
+            <span class="jos-notification-card-icon"><i class="fa-solid fa-bell"></i></span>
+            <h3>${title}</h3>
+          </div>
+          ${n.isRead?'<span class="jos-notification-read-label"><i class="fa-solid fa-check"></i> Read</span>':'<span class="jos-notification-new-label"><i class="fa-solid fa-circle"></i> NEW</span>'}
+        </div>
+        <p>${message}</p>
+        <div class="jos-notification-meta">
+          <span class="jos-notification-tag"><i class="fa-solid fa-tag"></i> ${type}</span>
+          <span class="jos-notification-date"><i class="fa-regular fa-calendar"></i><span>${escapeHTML(date)}</span></span>
+        </div>
+        ${n.isRead?'<div class="jos-notification-item-actions"><span class="jos-notification-read-confirm"><i class="fa-solid fa-shield-check"></i> আপনি এই বার্তাটি পড়েছেন</span></div>':`<div class="jos-notification-item-actions"><button type="button" class="jos-notification-read-btn" onclick="markUserNotificationRead('${id}')"><i class="fa-solid fa-check-double"></i> পড়েছি</button></div>`}
+      </article>`;
     }).join("");
   }catch(error){
     console.error("JOS notification load error:",error);
@@ -7771,40 +8123,148 @@ function closeServiceViewer(){
 ============================================================ */
 
 function buildJOSUserVCard(u){
-  const clean=v=>String(v||'').replace(/[\\;,]/g,' ').replace(/\r?\n/g,' ').trim();
+  const clean = v => String(v == null || String(v).trim() === "" ? "-" : v)
+    .replace(/[\r\n]+/g, " ").trim();
   return [
-    'BEGIN:VCARD','VERSION:3.0',
-    'FN:'+clean(u.name||'JOS Member'),
-    'ORG:Jana Online Service',
-    'TITLE:'+clean(u.designation||'Registered Member'),
-    'TEL;TYPE=CELL:'+clean(u.mobile),
-    'EMAIL:'+clean(u.email),
-    'NOTE:'+clean('JOS User ID: '+(u.userId||'')+' | Office: '+(u.officeName||'')+' | Address: '+(u.officeAddress||'')+' | District: '+(u.district||'')+' | State: '+(u.state||'')),
-    'END:VCARD'
-  ].join('\n');
+    "Jana Online Service (JOS)",
+    "Member Name: " + clean(u.name),
+    "User ID: " + clean(u.userId),
+    "Mobile Number: " + clean(u.mobile),
+    "Email: " + clean(u.email),
+    "Office Name: " + clean(u.officeName),
+    "Office Address: " + clean(u.officeAddress),
+    "Account Status: " + clean(u.status)
+  ].join("\n");
 }
 
 function renderJOSProfileQR(u){
-  const box=$('josProfileQr'); if(!box) return;
-  box.innerHTML='';
-  if(window.QRCode){
-    new QRCode(box,{text:buildJOSUserVCard(u),width:132,height:132,colorDark:'#102f43',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-  }else{
-    box.innerHTML='<span class="jos-qr-error">QR load হয়নি</span>';
+  const box = $("josProfileQr");
+  if(!box) return;
+
+  // Clear any previous QR nodes before generating a fresh one.
+  box.replaceChildren();
+
+  if(!window.QRCode){
+    box.textContent = "QR library load হয়নি";
+    return;
+  }
+
+  try{
+    // Generate into a temporary holder, then keep only ONE canvas element.
+    const holder = document.createElement("div");
+    new QRCode(holder, {
+      text: buildJOSUserVCard(u),
+      width: 144,
+      height: 144,
+      colorDark: "#10384a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    const canvas = holder.querySelector("canvas");
+    if(!canvas){
+      box.textContent = "QR তৈরি করা যায়নি";
+      return;
+    }
+
+    const singleCanvas = document.createElement("canvas");
+    singleCanvas.width = 144;
+    singleCanvas.height = 144;
+    singleCanvas.className = "jos-single-profile-qr";
+    singleCanvas.getContext("2d").drawImage(canvas, 0, 0, 144, 144);
+    box.replaceChildren(singleCanvas);
+  }catch(error){
+    console.error("JOS profile QR error:", error);
+    box.textContent = "QR তৈরি করা যায়নি";
   }
 }
 
 function openUserProfile(){
   if(!currentUser) return;
-  const u=currentUser, urls=getProfilePhotoCandidates(u);
-  const initial=escapeHTML((String(u.name||"U").trim().charAt(0)||"U").toUpperCase());
-  const photo=urls.length ? `<img id="josProfileMainPhoto" class="jos-profile-photo-large" src="${escapeHTML(urls[0])}" alt="Profile photo" referrerpolicy="no-referrer">` : `<span class="jos-profile-photo-initial">${initial}</span>`;
-  const fields=[["User ID",u.userId,"fa-id-badge"],["Full Name",u.name,"fa-user"],["Designation",u.designation,"fa-briefcase"],["Mobile",u.mobile,"fa-phone"],["Email",u.email,"fa-envelope"],["Office Name",u.officeName,"fa-building"],["Office Type",u.officeType,"fa-layer-group"],["Office Address",u.officeAddress,"fa-location-dot"],["District",u.district,"fa-map"],["State",u.state,"fa-flag"],["Pincode",u.pincode,"fa-map-pin"],["Promo Code",u.promoCode||u.gst,"fa-ticket"],["Account Status",u.status,"fa-circle-check"]];
-  $("profileContent").innerHTML=`<section class="jos-profile-hero jos-profile-hero-v2"><div class="jos-profile-person"><div class="jos-profile-photo-ring">${photo}</div><div class="jos-profile-hero-text"><span class="jos-profile-kicker">JOS MEMBER PROFILE</span><h3>${escapeHTML(u.name||"User")}</h3><p>${escapeHTML(u.designation||"Registered Member")}</p><span class="jos-profile-id-pill"><i class="fa-solid fa-id-card"></i> ${escapeHTML(u.userId||"-")}</span><div class="jos-profile-photo-status">Registered member photo</div></div></div><aside class="jos-profile-qr-panel"><div class="jos-profile-qr-title">JOS DIGITAL PROFILE</div><div id="josProfileQr" class="jos-profile-qr"></div><small>SCAN TO SAVE CONTACT</small></aside></section><div class="jos-profile-section-title"><i class="fa-solid fa-address-card"></i> Personal & Office Information</div><div class="jos-profile-details-grid">${fields.map(([l,v,i])=>`<div class="jos-profile-detail"><span class="jos-profile-detail-icon"><i class="fa-solid ${i}"></i></span><div><small>${escapeHTML(l)}</small><strong>${escapeHTML(v||"-")}</strong></div></div>`).join("")}</div><div class="jos-profile-bottom"><i class="fa-solid fa-shield-halved"></i><span>Jana Online Service · Registration record</span></div>`;
-  const img=$("josProfileMainPhoto");
-  if(img){let n=0;img.onerror=function(){n++;if(n<urls.length)img.src=urls[n];else img.parentElement.innerHTML=`<span class="jos-profile-photo-initial">${initial}</span>`;};}
-   renderJOSProfileQR(u);
 
+  const u = currentUser;
+  const urls = getProfilePhotoCandidates(u);
+  const initial = escapeHTML((String(u.name || "U").trim().charAt(0) || "U").toUpperCase());
+  const photo = urls.length
+    ? `<img id="josProfileMainPhoto" class="jos-profile-card-photo" src="${escapeHTML(urls[0])}" alt="Member photo" referrerpolicy="no-referrer">`
+    : `<span class="jos-profile-card-initial">${initial}</span>`;
+
+  const statusText = String(u.status || "Unknown");
+  const isActive = statusText.toLowerCase() === "active";
+
+  $("profileContent").innerHTML = `
+    <article class="jos-member-profile-card">
+      <header class="jos-member-card-header">
+        <div class="jos-member-brand">
+          <span class="jos-member-brand-mark">JOS</span>
+          <span><strong>Jana Online Service</strong><small>OFFICIAL MEMBER PROFILE</small></span>
+        </div>
+        <span class="jos-member-card-chip"><i class="fa-solid fa-id-card"></i> MEMBER CARD</span>
+      </header>
+
+      <div class="jos-member-card-body">
+        <section class="jos-member-identity">
+          <div class="jos-member-photo-frame">${photo}</div>
+          <h2>${escapeHTML(u.name || "Member Name")}</h2>
+          <span class="jos-member-userid"><i class="fa-solid fa-fingerprint"></i> ${escapeHTML(u.userId || "-")}</span>
+          <span class="jos-member-status ${isActive ? "is-active" : "is-inactive"}">
+            <span class="jos-member-status-dot"></span>${escapeHTML(statusText)}
+          </span>
+          <p class="jos-member-card-caption">Verified member identity</p>
+        </section>
+
+        <section class="jos-member-contact">
+          <div class="jos-member-card-section-title">MEMBER INFORMATION</div>
+          <div class="jos-member-info-row">
+            <span class="jos-member-info-icon"><i class="fa-solid fa-phone"></i></span>
+            <span><small>Mobile Number</small><strong>${escapeHTML(u.mobile || "-")}</strong></span>
+          </div>
+          <div class="jos-member-info-row">
+            <span class="jos-member-info-icon"><i class="fa-solid fa-envelope"></i></span>
+            <span><small>Email Address</small><strong>${escapeHTML(u.email || "-")}</strong></span>
+          </div>
+          <div class="jos-member-info-row">
+            <span class="jos-member-info-icon"><i class="fa-solid fa-building"></i></span>
+            <span><small>Office Name</small><strong>${escapeHTML(u.officeName || "-")}</strong></span>
+          </div>
+          <div class="jos-member-info-row">
+            <span class="jos-member-info-icon"><i class="fa-solid fa-location-dot"></i></span>
+            <span><small>Office Address</small><strong>${escapeHTML(u.officeAddress || "-")}</strong></span>
+          </div>
+        </section>
+
+        <aside class="jos-member-qr-area">
+          <div class="jos-member-qr-heading"><i class="fa-solid fa-qrcode"></i> DIGITAL PROFILE QR</div>
+          <div id="josProfileQr" class="jos-member-qr"></div>
+          <p>Scan to view member details</p>
+          <span class="jos-member-qr-note">JOS SECURE MEMBER ID</span>
+        </aside>
+      </div>
+
+      <footer class="jos-member-card-footer">
+        <span><i class="fa-solid fa-shield-halved"></i> Jana Online Service</span>
+        <span>MEMBER ID · ${escapeHTML(u.userId || "-")}</span>
+      </footer>
+    </article>
+  `;
+
+  const img = $("josProfileMainPhoto");
+  if(img){
+    let n = 0;
+    img.onerror = function(){
+      n++;
+      if(n < urls.length){
+        img.src = urls[n];
+      }else{
+        img.replaceWith(Object.assign(document.createElement("span"), {
+          className: "jos-profile-card-initial",
+          textContent: (String(u.name || "U").trim().charAt(0) || "U").toUpperCase()
+        }));
+      }
+    };
+  }
+
+  renderJOSProfileQR(u);
   openModal("profileModal");
 }
 
@@ -7845,14 +8305,30 @@ function generateUserIdCard(){
      ? getProfilePhotoImageMarkup(u,"jos-idcard-real-photo","width:100%;height:100%;object-fit:cover;border-radius:11px")
      : `<span class="jos-idcard-initial">${escapeHTML((u.name||"U").trim().charAt(0).toUpperCase())}</span>`;
  }
- const id=String(u.userId||"JOS-USER").trim();$("josIdCardCode").textContent=id;
- const barcode=$("josUserBarcode");
+ const id=String(u.userId||"JOS-USER").trim();
+ const codeText=$("josIdCardCode");
+ if(codeText) codeText.textContent="JOS MEMBER ID · "+id;
+ const barcode=$("josIdCardBarcode");
  if(barcode){
    barcode.innerHTML="";
    if(window.JsBarcode){
-     try{JsBarcode(barcode,id,{format:"CODE128",lineColor:"#102f43",background:"#ffffff",width:2,height:54,displayValue:false,margin:8});}
-     catch(err){barcode.outerHTML='<div id="josUserBarcode" class="jos-barcode-error">Barcode তৈরি করা যায়নি</div>';}
-   }else{barcode.outerHTML='<div id="josUserBarcode" class="jos-barcode-error">Barcode library load হয়নি</div>';showToast("Barcode library load হয়নি। Internet connection পরীক্ষা করুন।","error");}
+     try{
+       JsBarcode(barcode,id,{
+         format:"CODE128",
+         lineColor:"#10384a",
+         background:"#ffffff",
+         width:2,
+         height:48,
+         margin:2,
+         displayValue:false
+       });
+     }catch(err){
+       console.error("JOS ID barcode error:",err);
+       barcode.outerHTML='<div class="jos-barcode-fallback">BARCODE · '+escapeHTML(id)+'</div>';
+     }
+   }else{
+     barcode.outerHTML='<div class="jos-barcode-fallback">BARCODE · '+escapeHTML(id)+'</div>';
+   }
  }
  const overlay=$("userIdCardOverlay");overlay.classList.add("active");overlay.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
 }
@@ -8658,6 +9134,42 @@ function exportAdminUsers(format){
   }
 </style>
 
+
+<style id="jos-idcard-barcode-final">
+#userIdCardOverlay .jos-idcard-barcode-wrap{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:3px!important;
+  margin:3px 20px 10px!important;padding:7px 12px 5px!important;
+  border-top:1px dashed #9bc9cd!important;
+  border-radius:0 0 9px 9px!important;
+  background:linear-gradient(90deg,rgba(224,246,244,.45),rgba(244,251,252,.85))!important;
+  overflow:hidden!important;
+}
+#userIdCardOverlay .jos-idcard-barcode-wrap svg{
+  display:block!important;width:100%!important;max-width:330px!important;
+  height:48px!important;max-height:48px!important;
+}
+#userIdCardOverlay .jos-idcard-code{
+  color:#31586a!important;font-size:8px!important;line-height:1.2!important;
+  letter-spacing:1.6px!important;text-align:center!important;
+}
+#userIdCardOverlay .jos-barcode-fallback{
+  color:#10384a;font-family:monospace;font-weight:900;font-size:12px;
+  letter-spacing:2px;text-align:center;padding:12px;
+}
+@media print{
+  #userIdCardOverlay .jos-idcard-barcode-wrap{
+    margin:1mm 3mm 1mm!important;padding:1mm 2mm!important;
+    gap:.5mm!important;background:#f4fbfc!important;
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  #userIdCardOverlay .jos-idcard-barcode-wrap svg{
+    width:72mm!important;max-width:72mm!important;height:9mm!important;max-height:9mm!important;
+  }
+  #userIdCardOverlay .jos-idcard-code{font-size:4.5pt!important;letter-spacing:.8px!important}
+}
+</style>
+
 </body></html>`;
     downloadAdminBlob("\uFEFF"+html,`JOS-Users-${stamp}.xls`,"application/vnd.ms-excel;charset=utf-8;");
     showToast("Excel-compatible ফাইল তৈরি হয়েছে।","success");return;
@@ -8745,6 +9257,9 @@ html{min-height:100%;scroll-behavior:smooth} body{min-height:100%;background:var
 @media(max-width:380px){#landing .brand-features{grid-template-columns:1fr}#userDashboard .service-grid{grid-template-columns:1fr}#userDashboard .user-logout-quick span{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
+
+
+
 
 </head><body><div class="paper"><div class="hero"><h1>JANA ONLINE SERVICE</h1><div class="sub">USER MANAGEMENT REPORT · Confidential administrative record</div></div>
     <div class="summary"><div class="chip"><b>Total records:</b> ${rows.length}</div><div class="chip"><b>Active:</b> ${rows.filter(u=>String(u.status).toLowerCase()==="active").length}</div><div class="chip"><b>Inactive:</b> ${rows.filter(u=>String(u.status).toLowerCase()!=="active").length}</div><div class="chip"><b>Generated:</b> ${new Date().toLocaleString()}</div></div>${table}
@@ -12155,3 +12670,164 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
+
+<style id="jos-professional-member-profile-card">
+/* Professional JOS member profile card */
+#profileModal .modal-box{
+  width:min(920px,94vw)!important;
+  max-width:920px!important;
+  border-radius:24px!important;
+}
+#profileModal .modal-body{
+  padding:clamp(12px,3vw,28px)!important;
+  background:#f2f7f9!important;
+}
+#profileContent{width:100%!important}
+.jos-member-profile-card{
+  width:100%;
+  overflow:hidden;
+  border:1px solid #d8e7eb;
+  border-radius:22px;
+  background:#fff;
+  color:#173b4b;
+  box-shadow:0 18px 48px rgba(7,54,75,.12);
+}
+.jos-member-card-header{
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px 24px;
+  color:#fff;
+  background:linear-gradient(112deg,#073b59 0%,#087f8c 62%,#13a6a0 100%);
+}
+.jos-member-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.jos-member-brand-mark{
+  width:48px;height:48px;flex:0 0 48px;
+  display:grid;place-items:center;
+  border-radius:14px;background:#fff;color:#087f8c;
+  font-size:17px;font-weight:900;letter-spacing:-.5px;
+  box-shadow:0 5px 16px #002a3c40;
+}
+.jos-member-brand strong{display:block;font-size:17px;font-weight:800;letter-spacing:.1px}
+.jos-member-brand small{display:block;margin-top:4px;color:#c7f5f0;font-size:9px;font-weight:800;letter-spacing:1.7px}
+.jos-member-card-chip{
+  white-space:nowrap;padding:8px 12px;border:1px solid #ffffff65;
+  border-radius:30px;background:#ffffff18;font-size:10px;font-weight:800;letter-spacing:.8px;
+}
+.jos-member-card-body{
+  display:grid;
+  grid-template-columns:minmax(175px,.82fr) minmax(240px,1.2fr) 190px;
+  gap:22px;align-items:center;padding:26px;
+}
+.jos-member-identity{
+  min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:4px 14px 4px 0;border-right:1px solid #e2edf0;
+}
+.jos-member-photo-frame{
+  width:116px;height:116px;display:grid;place-items:center;overflow:hidden;
+  border-radius:24px;padding:4px;background:linear-gradient(145deg,#0c8993,#a8e7df);
+  box-shadow:0 8px 22px #0b788522;
+}
+.jos-profile-card-photo,.jos-profile-card-initial{
+  width:100%;height:100%;display:grid;place-items:center;
+  border:3px solid #fff;border-radius:20px;object-fit:cover;
+  background:#e9f6f6;color:#087f8c;font-size:42px;font-weight:900;
+}
+.jos-member-identity h2{
+  max-width:100%;margin:16px 0 8px;color:#123b4d;font-size:20px;
+  line-height:1.25;font-weight:850;overflow-wrap:anywhere;
+}
+.jos-member-userid{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 11px;
+  border-radius:9px;background:#eaf6f7;color:#087987;
+  font-size:12px;font-weight:800;overflow-wrap:anywhere;
+}
+.jos-member-status{
+  display:inline-flex;align-items:center;gap:7px;margin-top:12px;
+  padding:7px 13px;border-radius:30px;font-size:11px;font-weight:800;text-transform:uppercase;
+}
+.jos-member-status-dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.jos-member-status.is-active{background:#e8f8ef;color:#16834d}
+.jos-member-status.is-inactive{background:#fff1e9;color:#c56a28}
+.jos-member-card-caption{margin:10px 0 0;color:#91a3aa;font-size:10px}
+.jos-member-contact{min-width:0}
+.jos-member-card-section-title{
+  margin-bottom:15px;color:#0a7d89;font-size:10px;font-weight:900;letter-spacing:1.6px;
+}
+.jos-member-info-row{
+  display:flex;align-items:center;gap:11px;min-width:0;margin:0 0 14px;
+}
+.jos-member-info-icon{
+  width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;
+  border-radius:11px;background:#eaf5f6;color:#087f8c;font-size:13px;
+}
+.jos-member-info-row span:last-child{min-width:0}
+.jos-member-info-row small{display:block;margin-bottom:3px;color:#82949c;font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+.jos-member-info-row strong{display:block;color:#203f4d;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+
+.jos-member-qr-area{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:190px;min-width:190px;max-width:190px;
+  min-height:220px;box-sizing:border-box;
+  padding:12px 10px;border:1px solid #dcebed;border-radius:17px;
+  background:linear-gradient(160deg,#f7fcfc,#edf7f8);
+  overflow:hidden;
+}
+.jos-member-qr-heading{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  color:#0a7581;font-size:9px;font-weight:900;letter-spacing:.8px;
+  white-space:nowrap;
+}
+.jos-member-qr{
+  width:156px;height:156px;min-width:156px;min-height:156px;
+  box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+  flex:0 0 156px;margin:9px auto 7px;padding:5px;
+  border:1px solid #e1eaed;border-radius:10px;background:#fff;
+  overflow:hidden;box-shadow:0 5px 17px #0a4b5a12;
+}
+/* QRCode.js creates both canvas and img; show ONLY canvas to prevent a double QR. */
+.jos-member-qr canvas{
+  display:block!important;width:144px!important;height:144px!important;
+  min-width:144px!important;min-height:144px!important;
+  max-width:144px!important;max-height:144px!important;
+  position:static!important;margin:0!important;padding:0!important;
+}
+.jos-member-qr img{display:none!important}
+.jos-member-qr-area p{margin:0;color:#365b68;font-size:10px;font-weight:700;text-align:center}
+.jos-member-qr-note{margin-top:6px;color:#91a5ab;font-size:8px;font-weight:900;letter-spacing:1px}
+.jos-member-card-footer{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:13px 24px;background:#f1f7f8;border-top:1px solid #e0ecef;
+  color:#6b858e;font-size:9px;font-weight:800;letter-spacing:.65px;
+}
+.jos-member-card-footer i{margin-right:5px;color:#07848d}
+@media(max-width:760px){
+  #profileModal{padding:10px!important}
+  #profileModal .modal-box{width:min(600px,96vw)!important;max-height:94dvh!important;border-radius:18px!important}
+  #profileModal .modal-body{max-height:calc(94dvh - 65px)!important}
+  .jos-member-card-header{padding:14px 16px;min-height:70px}
+  .jos-member-brand-mark{width:42px;height:42px;flex-basis:42px}
+  .jos-member-brand strong{font-size:14px}
+  .jos-member-card-chip{font-size:8px;padding:7px 9px}
+  .jos-member-card-body{grid-template-columns:1fr 1fr;gap:18px;padding:18px}
+  .jos-member-identity{grid-column:1/-1;border-right:0;border-bottom:1px solid #e2edf0;padding:0 0 17px}
+  .jos-member-photo-frame{width:100px;height:100px}
+  .jos-member-identity h2{margin:12px 0 7px;font-size:19px}
+  .jos-member-contact{grid-column:1;grid-row:2}
+  .jos-member-qr-area{grid-column:2;grid-row:2;padding:12px 7px}
+  .jos-member-qr-area{width:190px;min-width:190px;max-width:190px;min-height:210px;padding:10px 7px}.jos-member-qr{width:156px;height:156px;min-width:156px;min-height:156px}.jos-member-qr canvas{width:144px!important;height:144px!important;min-width:144px!important;min-height:144px!important;max-width:144px!important;max-height:144px!important}.jos-member-qr img{display:none!important}
+  .jos-member-qr-heading{font-size:8px}
+  .jos-member-card-footer{padding:11px 15px;font-size:8px}
+}
+@media(max-width:430px){
+  .jos-member-card-body{grid-template-columns:1fr;padding:15px;gap:15px}
+  .jos-member-contact,.jos-member-qr-area{grid-column:1;grid-row:auto}
+  .jos-member-contact{padding:0 4px}
+  .jos-member-qr-area{width:100%;min-width:0;max-width:100%;min-height:0;padding:12px}.jos-member-qr{width:156px;height:156px;min-width:156px;min-height:156px}.jos-member-qr canvas{width:144px!important;height:144px!important;min-width:144px!important;min-height:144px!important;max-width:144px!important;max-height:144px!important}.jos-member-qr img{display:none!important}
+  .jos-member-card-footer{align-items:flex-start;flex-direction:column;gap:6px}
+}
+</style>
+
