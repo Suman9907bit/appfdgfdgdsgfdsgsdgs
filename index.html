@@ -4513,6 +4513,31 @@ img, picture, svg {
 }
 </style>
 
+
+<style id="jos-notification-visibility-fix">
+/* Notification panel must stay hidden until the user taps the bell. */
+#userDashboard #userNotificationOverlay { display: none !important; position: fixed !important; inset: 0 !important; z-index: 10050 !important; }
+#userDashboard #userNotificationOverlay.active { display: flex !important; }
+#userDashboard #userNotificationOverlay .jos-notification-panel { box-sizing: border-box; }
+</style>
+
+<style id="jos-notification-modal-final-fix">
+/* Final notification modal: rendered above the complete dashboard, never in page flow. */
+#userNotificationOverlay{display:none!important;position:fixed!important;inset:0!important;z-index:2147483000!important;width:100vw!important;height:100dvh!important;box-sizing:border-box!important;padding:18px!important;background:rgba(7,22,34,.62)!important;backdrop-filter:blur(7px)!important;-webkit-backdrop-filter:blur(7px)!important;align-items:center!important;justify-content:center!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,visibility .22s ease!important}
+#userNotificationOverlay.active{display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+#userNotificationOverlay .jos-notification-panel{position:relative!important;display:flex!important;flex-direction:column!important;width:min(520px,100%)!important;max-height:min( min(760px, calc(100dvh - 36px)), 92dvh)!important;margin:auto!important;overflow:hidden!important;box-sizing:border-box!important;background:#fff!important;border:1px solid #dce9ed!important;border-radius:24px!important;box-shadow:0 28px 90px rgba(0,20,35,.38)!important;transform:translateY(18px) scale(.97);transition:transform .24s cubic-bezier(.2,.8,.2,1)!important}
+#userNotificationOverlay.active .jos-notification-panel{transform:translateY(0) scale(1)!important}
+#userNotificationOverlay .jos-notification-panel-head{flex:0 0 auto!important;padding:22px 20px 18px!important;background:linear-gradient(135deg,#eafafb 0%,#fff 75%)!important;border-bottom:1px solid #e8eff1!important}
+#userNotificationOverlay .jos-notification-panel-head h2{font-size:24px!important;color:#12394b!important;margin:5px 0 4px!important}
+#userNotificationOverlay .jos-notification-panel-head p{font-size:12px!important;color:#647987!important}
+#userNotificationOverlay .jos-notification-close{width:38px!important;height:38px!important;flex:0 0 38px!important;border-radius:13px!important;background:#fff!important;border:1px solid #dce8eb!important;font-size:25px!important;box-shadow:0 4px 12px rgba(0,40,55,.08)!important}
+#userNotificationOverlay .jos-notification-list{flex:1 1 auto!important;min-height:160px!important;overflow-y:auto!important;padding:14px 16px 18px!important;background:#fbfdfd!important}
+#userNotificationOverlay .jos-notification-state{min-height:230px!important}
+#userNotificationOverlay .jos-notification-panel-foot{flex:0 0 auto!important;padding:13px 16px!important;background:#fff!important;border-top:1px solid #e9eff1!important}
+@media(max-width:600px){#userNotificationOverlay{padding:14px!important}#userNotificationOverlay .jos-notification-panel{width:100%!important;max-height:calc(100dvh - 28px)!important;border-radius:22px!important}#userNotificationOverlay .jos-notification-panel-head{padding:19px 17px 15px!important}#userNotificationOverlay .jos-notification-list{padding:12px!important}}
+@media(prefers-reduced-motion:reduce){#userNotificationOverlay,#userNotificationOverlay .jos-notification-panel{transition:none!important}}
+</style>
+
 </head>
 
 
@@ -5118,6 +5143,17 @@ img, picture, svg {
   class="dashboard hidden"
 >
 
+  <!-- USER NOTIFICATION CENTER -->
+  <div class="jos-notification-overlay" id="userNotificationOverlay" aria-hidden="true">
+    <section class="jos-notification-panel" role="dialog" aria-modal="true" aria-labelledby="josNotificationHeading">
+      <header class="jos-notification-panel-head">
+        <div><span class="jos-notification-kicker">JOS UPDATE CENTER</span><h2 id="josNotificationHeading">Notifications</h2><p>Admin-এর পাঠানো গুরুত্বপূর্ণ বার্তা</p></div>
+        <button type="button" class="jos-notification-close" onclick="closeUserNotifications()" aria-label="Close">×</button>
+      </header>
+      <div id="userNotificationsList" class="jos-notification-list"><div class="jos-notification-empty">Notification loading...</div></div>
+      <footer class="jos-notification-panel-foot"><span>Jana Online Service</span><button type="button" class="btn btn-light" onclick="loadUserNotifications()">↻ Refresh</button></footer>
+    </section>
+  </div>
 
   <!-- PROFESSIONAL USER TOP BAR + MENU -->
 
@@ -5141,6 +5177,9 @@ img, picture, svg {
     </nav>
 
     <div class="top-actions">
+      <button type="button" class="jos-notification-bell" id="userNotificationBtn" title="Notifications" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i><span class="jos-notification-count" id="userNotificationCount" hidden>0</span>
+      </button>
       <button class="btn btn-light user-status-quick" id="idCardQuickBtn" title="ID Card"><i class="fa-solid fa-id-card"></i><span>ID Card</span></button>
       <button type="button" class="profile-btn" id="userProfileBtn" title="My Profile" aria-label="My Profile"><span class="profile-avatar-fallback">U</span></button>
       <button class="btn btn-danger user-logout-quick" id="userLogoutBtn"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
@@ -5826,6 +5865,19 @@ img, picture, svg {
 
     </div>
 
+
+    <!-- NOTIFICATION MANAGEMENT -->
+    <div class="admin-section jos-admin-notification-section">
+      <div class="section-head"><div><h2><i class="fa-solid fa-bell"></i> Notification Management</h2><p class="admin-muted">সব User অথবা নির্দিষ্ট User ID-তে Notification পাঠান।</p></div></div>
+      <form id="adminNotificationForm" class="jos-admin-notification-form">
+        <label>Notification Title<input id="adminNotificationTitle" type="text" maxlength="100" placeholder="যেমন: Important Update" required></label>
+        <label>Notification Type<select id="adminNotificationType"><option value="General">General</option><option value="Important">Important</option><option value="Update">Update</option><option value="Alert">Alert</option></select></label>
+        <label>Send To<select id="adminNotificationTarget"><option value="all">All Users</option><option value="specific">Specific User ID</option></select></label>
+        <label id="adminNotificationUserWrap" class="hidden">User ID<input id="adminNotificationUserId" type="text" maxlength="60" placeholder="Enter exact User ID"></label>
+        <label class="jos-notification-message-field">Message<textarea id="adminNotificationMessage" rows="4" maxlength="1500" placeholder="Notification message লিখুন..." required></textarea></label>
+        <div class="jos-notification-form-actions"><span id="adminNotificationStatus">Notification পাঠানোর আগে তথ্য যাচাই করুন।</span><button class="btn btn-primary" id="adminSendNotificationBtn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Notification</button></div>
+      </form>
+    </div>
 
     <!-- STATS -->
 
@@ -6759,7 +6811,7 @@ img, picture, svg {
 ============================================================ */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzKD11-oisGpL2a40X2BF_iiKtouN462TxuROq3zv9tNons2qw8Y24cIIJ5npGTm_aK/exec";
+"https://script.google.com/macros/s/AKfycbwKtCPxdQtttx7A6TEL6qE-7cWRqzR2ak50TfDS8IKFFH8WViYSLQ8FR8PiZzMRy6Ek/exec";
 
 
 /* ============================================================
@@ -6934,6 +6986,7 @@ function handleUserNavigation(key){closeUserMenu();if(key==="home"){setUserNavAc
 ============================================================ */
 
 function bindEvents(){
+  initJosNotificationSystem();
   $("regPhoto")?.addEventListener("change", handleRegistrationPhotoPreview);
   $("adminUserSearch")?.addEventListener("input",renderAdminUsers);
   $("adminUserStatusFilter")?.addEventListener("change",renderAdminUsers);
@@ -7445,9 +7498,120 @@ function showUserDashboard(){
       currentUser.designation;
 
   renderUserRealPhoto();
+  loadUserNotifications();
 
 }
 
+
+/* ============================================================
+   JOS NOTIFICATION CENTER
+============================================================ */
+let josUserNotifications = [];
+
+function openUserNotifications(){
+  const overlay=$("userNotificationOverlay");
+  if(overlay){
+    // Move the modal to BODY so dashboard transforms/overflow cannot turn it into inline content.
+    if(overlay.parentElement !== document.body) document.body.appendChild(overlay);
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden","false");
+    document.body.classList.add("jos-notification-open");
+  }
+  loadUserNotifications();
+}
+
+function closeUserNotifications(){
+  const overlay=$("userNotificationOverlay");
+  if(overlay){overlay.classList.remove("active");overlay.setAttribute("aria-hidden","true");}
+  document.body.classList.remove("jos-notification-open");
+}
+
+function updateUserNotificationBadge(){
+  const badge=$("userNotificationCount");
+  if(!badge)return;
+  const unread=josUserNotifications.filter(n=>!n.isRead).length;
+  badge.textContent=unread>99?"99+":String(unread);
+  badge.hidden=unread===0;
+}
+
+async function loadUserNotifications(){
+  const list=$("userNotificationsList");
+  if(!list)return;
+  if(!currentUser||!currentUser.userId){
+    list.innerHTML='<div class="jos-notification-state jos-notification-error"><span class="jos-notification-state-icon"><i class="fa-solid fa-user-lock"></i></span><h3>অ্যাকাউন্ট পাওয়া যায়নি</h3><p>আবার Login করে Notification দেখতে চেষ্টা করুন।</p></div>';
+    return;
+  }
+  list.innerHTML='<div class="jos-notification-state jos-notification-loading"><span class="jos-notification-spinner"></span><h3>বার্তা খোঁজা হচ্ছে</h3><p>আপনার Notification লোড হচ্ছে। একটু অপেক্ষা করুন...</p></div>';
+  try{
+    const result=await api("getUserNotifications",{userId:currentUser.userId});
+    if(!result || !result.success){
+      const rawReason=String((result&&result.message)||"");
+      const actionMismatch=/invalid action|unknown action|unsupported action/i.test(rawReason);
+      const helpText=actionMismatch
+        ?"Notification চালু করতে Apps Script-এ Notification-এর প্রয়োজনীয় Action যোগ করে নতুন Version Deploy করতে হবে।"
+        :"ইন্টারনেট বা সার্ভারের সংযোগে সাময়িক সমস্যা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।";
+      list.innerHTML=`<div class="jos-notification-state jos-notification-error"><span class="jos-notification-state-icon"><i class="fa-solid fa-cloud-arrow-down"></i></span><span class="jos-notification-error-kicker">JOS UPDATE CENTER</span><h3>${actionMismatch?"Notification Service সংযুক্ত হয়নি":"সংযোগ করা যাচ্ছে না"}</h3><p>${helpText}</p><button type="button" class="jos-notification-retry" onclick="loadUserNotifications()"><i class="fa-solid fa-rotate-right"></i> আবার চেষ্টা করুন</button></div>`;
+      return;
+    }
+    josUserNotifications=Array.isArray(result.notifications)?result.notifications:[];
+    updateUserNotificationBadge();
+    if(!josUserNotifications.length){list.innerHTML='<div class="jos-notification-state jos-notification-empty"><span class="jos-notification-state-icon"><i class="fa-regular fa-bell-slash"></i></span><h3>নতুন কোনো বার্তা নেই</h3><p>Admin কোনো Notification পাঠালে সেটি এখানে দেখা যাবে।</p></div>';return;}
+    list.innerHTML=josUserNotifications.map(n=>{
+      const id=escapeHTML(n.notificationId||"");
+      const title=escapeHTML(n.title||"JOS Notification");
+      const message=escapeHTML(n.message||"");
+      const type=escapeHTML(n.type||"General");
+      const date=n.createdAt?new Date(n.createdAt).toLocaleString("en-IN"):"";
+      return `<article class="jos-notification-item ${n.isRead?"":"unread"}"><div class="jos-notification-item-top"><h3>${title}</h3>${n.isRead?'<span class="jos-notification-read-label"><i class="fa-solid fa-check"></i> Read</span>':'<span class="jos-notification-new-label">NEW</span>'}</div><p>${message}</p><div class="jos-notification-meta"><span class="jos-notification-tag">${type}</span><span><i class="fa-regular fa-clock"></i> ${escapeHTML(date)}</span></div>${n.isRead?'':`<div class="jos-notification-item-actions"><button type="button" class="jos-notification-read-btn" onclick="markUserNotificationRead('${id}')"><i class="fa-solid fa-check"></i> পড়েছি</button></div>`}</article>`;
+    }).join("");
+  }catch(error){
+    console.error("JOS notification load error:",error);
+    list.innerHTML='<div class="jos-notification-state jos-notification-error"><span class="jos-notification-state-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><h3>সংযোগ করা যাচ্ছে না</h3><p>সাময়িক সমস্যা হয়েছে। Internet পরীক্ষা করে আবার চেষ্টা করুন।</p><button type="button" class="jos-notification-retry" onclick="loadUserNotifications()"><i class="fa-solid fa-rotate-right"></i> আবার চেষ্টা করুন</button></div>';
+  }
+}
+
+async function markUserNotificationRead(notificationId){
+  if(!currentUser||!notificationId)return;
+  const result=await api("markNotificationRead",{notificationId,userId:currentUser.userId});
+  if(!result.success){showToast(result.message||"Read status update হয়নি।","error");return;}
+  const item=josUserNotifications.find(n=>String(n.notificationId)===String(notificationId));
+  if(item)item.isRead=true;
+  updateUserNotificationBadge();
+  loadUserNotifications();
+}
+
+async function sendAdminNotification(event){
+  event.preventDefault();
+  const title=$("adminNotificationTitle").value.trim();
+  const message=$("adminNotificationMessage").value.trim();
+  const type=$("adminNotificationType").value;
+  const target=$("adminNotificationTarget").value;
+  const userId=$("adminNotificationUserId").value.trim();
+  if(!title||!message){showToast("Title ও Message লিখুন।","error");return;}
+  if(target==="specific"&&!userId){showToast("নির্দিষ্ট User ID লিখুন।","error");return;}
+  const btn=$("adminSendNotificationBtn");
+  btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+  const result=await api("sendNotification",{title,message,type,targetUserId:target==="all"?"ALL":userId,adminId:(currentAdmin&&currentAdmin.adminId)||"ADMIN"});
+  btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Send Notification';
+  if(!result.success){showToast(result.message||"Notification পাঠানো যায়নি।","error");$("adminNotificationStatus").textContent="Send failed. Apps Script update পরীক্ষা করুন।";return;}
+  $("adminNotificationForm").reset();
+  $("adminNotificationUserWrap").classList.add("hidden");
+  $("adminNotificationStatus").textContent="Notification সফলভাবে পাঠানো হয়েছে।";
+  showToast("Notification পাঠানো হয়েছে।","success");
+}
+
+function initJosNotificationSystem(){
+  const noticeOverlay=$("userNotificationOverlay");
+  if(noticeOverlay){
+    noticeOverlay.classList.remove("active");
+    noticeOverlay.setAttribute("aria-hidden","true");
+    if(noticeOverlay.parentElement !== document.body) document.body.appendChild(noticeOverlay);
+  }
+  $("userNotificationBtn")?.addEventListener("click",openUserNotifications);
+  $("userNotificationOverlay")?.addEventListener("click",function(e){if(e.target===this)closeUserNotifications();});
+  $("adminNotificationForm")?.addEventListener("submit",sendAdminNotification);
+  $("adminNotificationTarget")?.addEventListener("change",function(){const wrap=$("adminNotificationUserWrap");if(wrap)wrap.classList.toggle("hidden",this.value!=="specific");});
+}
 
 /* ============================================================
    ASSIGNED USER SERVICES
@@ -8147,6 +8311,353 @@ function exportAdminUsers(format){
 }
 </style>
 
+
+<style id="jos-notification-system-styles">
+.jos-notification-bell{position:relative;width:42px;height:42px;border:1px solid rgba(255,255,255,.5);border-radius:12px;background:#ffffff;color:#087f8c;display:grid;place-items:center;font-size:17px;cursor:pointer;box-shadow:0 4px 12px #003e5018}
+.jos-notification-count{position:absolute;right:-5px;top:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:#e11d48;color:#fff;font-size:10px;font-weight:900;display:grid;place-items:center;border:2px solid #fff}
+.jos-notification-count[hidden]{display:none}
+.jos-notification-overlay{position:fixed;inset:0;z-index:10050;background:rgba(8,25,38,.48);display:none;align-items:flex-start;justify-content:flex-end;padding:82px 22px 22px;backdrop-filter:blur(3px)}
+.jos-notification-overlay.active{display:flex}
+.jos-notification-panel{width:min(470px,100%);max-height:min(720px,calc(100vh - 105px));overflow:hidden;background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 24px 70px #001b2b45;display:flex;flex-direction:column}
+.jos-notification-panel-head{padding:20px 21px 16px;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #edf1f5;background:linear-gradient(135deg,#fff,#f4fbfc)}
+.jos-notification-kicker{font-size:10px;font-weight:900;letter-spacing:1.2px;color:#0891a1}.jos-notification-panel-head h2{margin:5px 0;color:#173548;font-size:23px}.jos-notification-panel-head p{margin:0;color:#647789;font-size:12px}
+.jos-notification-close{width:34px;height:34px;border:0;border-radius:10px;background:#edf5f7;color:#29475a;font-size:25px;cursor:pointer;line-height:1}
+.jos-notification-list{padding:12px 15px;overflow:auto;min-height:150px}.jos-notification-item{padding:14px;margin:7px 0;border:1px solid #e5edf1;border-radius:14px;background:#fff;position:relative}.jos-notification-item.unread{border-color:#9bdde1;background:#f3fcfc}.jos-notification-item.unread:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:5px;background:#0891a1}.jos-notification-item h3{font-size:14px;margin:0 0 6px;color:#18394d}.jos-notification-item p{font-size:12px;line-height:1.6;color:#506678;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.jos-notification-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;color:#8192a0;font-size:10px}.jos-notification-tag{padding:4px 8px;border-radius:20px;background:#e8f5f7;color:#087f8c;font-weight:800}.jos-notification-empty{text-align:center;padding:35px 12px;color:#718394;font-size:13px}.jos-notification-panel-foot{padding:12px 16px;border-top:1px solid #edf1f5;display:flex;align-items:center;justify-content:space-between;color:#80909d;font-size:11px}
+.jos-admin-notification-section .section-head{margin-bottom:16px}.jos-admin-notification-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.jos-admin-notification-form label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:800;color:#385366}.jos-admin-notification-form input,.jos-admin-notification-form select,.jos-admin-notification-form textarea{width:100%;box-sizing:border-box;border:1px solid #d8e5eb;border-radius:10px;padding:11px 12px;background:#fff;color:#173548;font:inherit;font-weight:500;outline:none}.jos-admin-notification-form input:focus,.jos-admin-notification-form select:focus,.jos-admin-notification-form textarea:focus{border-color:#0796a4;box-shadow:0 0 0 3px #0891a115}.jos-notification-message-field,.jos-notification-form-actions{grid-column:1/-1}.jos-notification-form-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.jos-notification-form-actions span{font-size:11px;color:#718394}.jos-notification-form-actions .btn{min-height:42px}
+@media(max-width:600px){.jos-notification-overlay{padding:70px 9px 12px;justify-content:center}.jos-notification-panel{max-height:calc(100vh - 85px);border-radius:17px}.jos-admin-notification-form{grid-template-columns:1fr}.jos-notification-message-field,.jos-notification-form-actions{grid-column:auto}.jos-notification-form-actions{align-items:stretch;flex-direction:column}.jos-notification-form-actions .btn{width:100%}.jos-notification-bell{width:39px;height:39px}}
+/* JOS notification polish: compact app-style bell, animated sheet and calm states */
+#userDashboard .jos-notification-bell{width:44px;height:44px;border:1px solid #dcebed;border-radius:15px;background:linear-gradient(145deg,#fff,#effafb);color:#087f8c;font-size:18px;box-shadow:0 5px 15px rgba(4,83,94,.12);transition:transform .2s,box-shadow .2s,background .2s}
+#userDashboard .jos-notification-bell:hover{transform:translateY(-2px);background:#fff;box-shadow:0 9px 20px rgba(4,83,94,.18)}
+#userDashboard .jos-notification-bell:active{transform:scale(.95)}
+#userDashboard .jos-notification-bell i{filter:drop-shadow(0 2px 2px #087f8c22)}
+#userDashboard .jos-notification-count{right:-4px;top:-5px;min-width:20px;height:20px;background:linear-gradient(135deg,#ef4444,#be123c);font-size:10px;box-shadow:0 2px 7px #be123c55}
+#userDashboard .jos-notification-overlay{padding:76px 16px 18px;align-items:flex-start;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,visibility .22s ease}
+#userDashboard .jos-notification-overlay.active{opacity:1;visibility:visible;pointer-events:auto}
+#userDashboard .jos-notification-panel{width:min(460px,100%);max-height:min(690px,calc(100dvh - 94px));border:1px solid #dcebed;border-radius:22px;box-shadow:0 26px 75px rgba(5,35,48,.28);transform:translateY(-10px) scale(.985);transition:transform .24s ease}
+#userDashboard .jos-notification-overlay.active .jos-notification-panel{transform:translateY(0) scale(1)}
+#userDashboard .jos-notification-panel-head{padding:19px 20px 16px;background:linear-gradient(135deg,#f1fbfc 0%,#fff 72%)}
+#userDashboard .jos-notification-panel-head h2{font-size:22px;font-weight:850;letter-spacing:-.5px}
+#userDashboard .jos-notification-close{flex:0 0 36px;width:36px;height:36px;border:1px solid #e0ebee;background:#fff;color:#45616d;box-shadow:0 3px 9px #1232440d}
+#userDashboard .jos-notification-list{padding:12px 14px 16px;min-height:190px;overscroll-behavior:contain}
+#userDashboard .jos-notification-item{padding:15px 15px 13px;margin:8px 0;border:1px solid #e5edef;border-radius:16px;box-shadow:0 3px 12px rgba(20,65,78,.045);transition:border-color .2s,transform .2s}
+#userDashboard .jos-notification-item.unread{border-color:#b7e5e7;background:linear-gradient(135deg,#f1fcfc,#fff 85%)}
+#userDashboard .jos-notification-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#userDashboard .jos-notification-item h3{font-size:14px;font-weight:800;line-height:1.5}
+#userDashboard .jos-notification-item p{font-size:13px;line-height:1.75;margin-top:3px;color:#4b6471}
+#userDashboard .jos-notification-meta{font-size:10px;margin-top:12px}
+#userDashboard .jos-notification-new-label,#userDashboard .jos-notification-read-label{white-space:nowrap;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:900}
+#userDashboard .jos-notification-new-label{background:#fff0f0;color:#d13b4b}
+#userDashboard .jos-notification-read-label{background:#eaf8ef;color:#16834a}
+#userDashboard .jos-notification-item-actions{display:flex;justify-content:flex-end;margin-top:12px}
+#userDashboard .jos-notification-read-btn{border:1px solid #b8e2e4;border-radius:10px;padding:8px 12px;background:#effafa;color:#087f8c;font-size:11px;font-weight:800;cursor:pointer}
+#userDashboard .jos-notification-read-btn:active,#userDashboard .jos-notification-retry:active{transform:scale(.97)}
+#userDashboard .jos-notification-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:235px;padding:28px 18px;box-sizing:border-box}
+#userDashboard .jos-notification-state-icon{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;margin-bottom:14px;background:#edf8f9;color:#0b8792;font-size:25px}
+#userDashboard .jos-notification-state h3{margin:0 0 7px;color:#18394a;font-size:15px;font-weight:850}
+#userDashboard .jos-notification-state p{max-width:290px;margin:0;color:#718391;font-size:12px;line-height:1.75}
+#userDashboard .jos-notification-error .jos-notification-state-icon{background:#fff5ed;color:#d97706}
+#userDashboard .jos-notification-error-detail{display:block;max-width:100%;margin-top:10px;padding:6px 9px;border-radius:8px;background:#f7f9fa;color:#96a3aa;font-size:9px;overflow-wrap:anywhere}
+#userDashboard .jos-notification-retry{margin-top:17px;border:0;border-radius:11px;padding:10px 16px;background:linear-gradient(110deg,#087f8c,#0da5a6);color:#fff;font-size:12px;font-weight:800;box-shadow:0 6px 14px #087f8c30;cursor:pointer}
+#userDashboard .jos-notification-spinner{width:30px;height:30px;border:3px solid #d9eeee;border-top-color:#078b96;border-radius:50%;animation:josNoticeSpin .8s linear infinite;margin-bottom:15px}
+@keyframes josNoticeSpin{to{transform:rotate(360deg)}}
+#userDashboard .jos-notification-panel-foot{background:#fbfdfd;padding:12px 16px}
+@media(max-width:600px){#userDashboard .jos-notification-overlay{padding:65px 10px 12px}#userDashboard .jos-notification-panel{max-height:calc(100dvh - 80px);border-radius:19px}#userDashboard .jos-notification-state{min-height:210px}}
+@media(prefers-reduced-motion:reduce){#userDashboard .jos-notification-overlay,#userDashboard .jos-notification-panel,#userDashboard .jos-notification-bell{transition:none!important}#userDashboard .jos-notification-spinner{animation:none!important}}
+</style>
+
+
+<style id="jos-notification-responsive-final">
+/* Global modal styles: overlay is moved to BODY, so never scope these to #userDashboard. */
+#userNotificationOverlay{
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  display:none!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100dvh!important;box-sizing:border-box!important;
+  padding:clamp(12px,3vw,28px)!important;overflow:hidden!important;
+  background:rgba(5,22,34,.66)!important;
+  -webkit-backdrop-filter:blur(9px)!important;backdrop-filter:blur(9px)!important;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease!important;
+}
+#userNotificationOverlay.active{
+  display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+}
+#userNotificationOverlay .jos-notification-panel{
+  display:flex!important;flex-direction:column!important;position:relative!important;
+  width:min(500px,100%)!important;max-width:500px!important;
+  max-height:min(780px,calc(100dvh - 32px))!important;height:auto!important;
+  min-height:0!important;margin:auto!important;overflow:hidden!important;
+  border:1px solid #dce9ed!important;border-radius:25px!important;
+  background:#fff!important;box-shadow:0 30px 90px rgba(0,18,32,.34)!important;
+  transform:translateY(14px) scale(.985);transition:transform .24s ease!important;
+}
+#userNotificationOverlay.active .jos-notification-panel{transform:translateY(0) scale(1)!important}
+#userNotificationOverlay .jos-notification-panel-head{
+  display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+  justify-content:space-between!important;gap:14px!important;flex:0 0 auto!important;
+  width:100%!important;box-sizing:border-box!important;padding:22px 22px 18px!important;
+  background:linear-gradient(135deg,#e9f9fa 0%,#fff 78%)!important;
+  border-bottom:1px solid #e8eff1!important;
+}
+#userNotificationOverlay .jos-notification-panel-head>div{flex:1 1 auto!important;min-width:0!important}
+#userNotificationOverlay .jos-notification-kicker{display:block!important;font-size:10px!important;letter-spacing:1.25px!important;font-weight:900!important;color:#078795!important}
+#userNotificationOverlay .jos-notification-panel-head h2{margin:5px 0 5px!important;font-size:25px!important;line-height:1.2!important;font-weight:850!important;color:#14394a!important}
+#userNotificationOverlay .jos-notification-panel-head p{margin:0!important;font-size:12px!important;line-height:1.6!important;color:#687d89!important}
+#userNotificationOverlay .jos-notification-close{
+  display:grid!important;place-items:center!important;flex:0 0 40px!important;
+  width:40px!important;height:40px!important;margin:0!important;padding:0!important;
+  border:1px solid #dce9ed!important;border-radius:13px!important;background:#fff!important;
+  color:#244858!important;font-size:25px!important;line-height:1!important;
+  box-shadow:0 4px 13px rgba(0,40,55,.08)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-list{
+  display:block!important;flex:1 1 auto!important;min-height:0!important;
+  max-height:55dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;
+  box-sizing:border-box!important;padding:16px!important;background:#f8fbfc!important;
+}
+#userNotificationOverlay .jos-notification-state{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:0!important;min-height:260px!important;
+  height:auto!important;box-sizing:border-box!important;padding:28px 18px!important;
+  text-align:center!important;border:1px dashed #dce8eb!important;
+  border-radius:19px!important;background:linear-gradient(180deg,#fff,#f8fcfd)!important;
+}
+#userNotificationOverlay .jos-notification-state-icon{
+  display:grid!important;place-items:center!important;width:66px!important;height:66px!important;
+  margin:0 0 15px!important;border-radius:22px!important;background:#eaf7f8!important;
+  color:#078895!important;font-size:27px!important;
+}
+#userNotificationOverlay .jos-notification-error .jos-notification-state-icon{background:#fff3e9!important;color:#d97706!important}
+#userNotificationOverlay .jos-notification-error-kicker{margin:0 0 6px!important;color:#0b8792!important;font-size:9px!important;font-weight:900!important;letter-spacing:1.4px!important}
+#userNotificationOverlay .jos-notification-state h3{margin:0 0 8px!important;color:#18394a!important;font-size:17px!important;line-height:1.4!important;font-weight:850!important}
+#userNotificationOverlay .jos-notification-state p{max-width:340px!important;margin:0!important;color:#667b88!important;font-size:13px!important;line-height:1.8!important}
+#userNotificationOverlay .jos-notification-retry{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  min-height:44px!important;margin:19px 0 0!important;padding:0 20px!important;
+  border:0!important;border-radius:13px!important;background:linear-gradient(135deg,#087f8c,#0da5a6)!important;
+  color:#fff!important;font-size:13px!important;font-weight:800!important;
+  box-shadow:0 7px 18px rgba(8,127,140,.22)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-error-detail{display:none!important}
+#userNotificationOverlay .jos-notification-panel-foot{
+  display:flex!important;flex:0 0 auto!important;align-items:center!important;
+  justify-content:space-between!important;gap:12px!important;box-sizing:border-box!important;
+  padding:13px 18px!important;background:#fff!important;border-top:1px solid #e9eff1!important;
+  color:#71838e!important;font-size:11px!important;
+}
+#userNotificationOverlay .jos-notification-panel-foot .btn{
+  min-height:40px!important;padding:0 16px!important;border-radius:12px!important;
+  font-size:12px!important;font-weight:800!important;
+}
+#userNotificationOverlay .jos-notification-item{width:100%!important;box-sizing:border-box!important}
+@media(max-width:600px){
+  #userNotificationOverlay{padding:12px!important}
+  #userNotificationOverlay .jos-notification-panel{
+    width:100%!important;max-width:440px!important;max-height:calc(100dvh - 24px)!important;
+    border-radius:22px!important;
+  }
+  #userNotificationOverlay .jos-notification-panel-head{padding:18px 17px 15px!important}
+  #userNotificationOverlay .jos-notification-panel-head h2{font-size:22px!important}
+  #userNotificationOverlay .jos-notification-close{flex-basis:38px!important;width:38px!important;height:38px!important}
+  #userNotificationOverlay .jos-notification-list{max-height:52dvh!important;padding:12px!important}
+  #userNotificationOverlay .jos-notification-state{min-height:230px!important;padding:23px 15px!important}
+  #userNotificationOverlay .jos-notification-state p{font-size:12px!important}
+  #userNotificationOverlay .jos-notification-panel-foot{padding:11px 14px!important}
+}
+@media(max-height:620px){
+  #userNotificationOverlay .jos-notification-panel{max-height:calc(100dvh - 18px)!important}
+  #userNotificationOverlay .jos-notification-list{max-height:42dvh!important}
+  #userNotificationOverlay .jos-notification-state{min-height:190px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #userNotificationOverlay,#userNotificationOverlay .jos-notification-panel{transition:none!important}
+}
+</style>
+
+
+
+<!-- JOS NOTIFICATION BUTTON: FINAL PROFESSIONAL STYLE -->
+<style id="jos-notification-button-final-style">
+  #userDashboard .top-actions .jos-notification-bell,
+  #userDashboard .jos-notification-bell {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 48px !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    padding: 0 !important;
+    margin: 0 2px !important;
+    border: 1px solid rgba(255,255,255,.72) !important;
+    border-radius: 16px !important;
+    background: linear-gradient(145deg,#ffffff 0%,#e8fbfc 100%) !important;
+    color: #087f8c !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    box-shadow: 0 4px 12px rgba(0,48,60,.16), inset 0 1px 0 rgba(255,255,255,.95) !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important;
+  }
+  #userDashboard .jos-notification-bell i {
+    display: block !important;
+    color: #087f8c !important;
+    font-size: 20px !important;
+    filter: none !important;
+  }
+  #userDashboard .jos-notification-bell:hover {
+    background: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 7px 17px rgba(0,48,60,.22) !important;
+  }
+  #userDashboard .jos-notification-bell:active { transform: scale(.94) !important; }
+  #userDashboard .jos-notification-bell:focus-visible {
+    outline: 3px solid #ffe082 !important;
+    outline-offset: 3px !important;
+  }
+  #userDashboard .jos-notification-bell .jos-notification-count {
+    position: absolute !important;
+    top: -6px !important;
+    right: -6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 19px !important;
+    height: 19px !important;
+    padding: 0 5px !important;
+    border: 2px solid #0797a1 !important;
+    border-radius: 999px !important;
+    background: #e53935 !important;
+    color: #ffffff !important;
+    font: 800 10px/1 Arial,sans-serif !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2) !important;
+  }
+  #userDashboard .jos-notification-bell .jos-notification-count[hidden] { display: none !important; }
+  @media (max-width:600px) {
+    #userDashboard .top-actions .jos-notification-bell,
+    #userDashboard .jos-notification-bell {
+      flex-basis: 46px !important; width: 46px !important; min-width: 46px !important;
+      height: 46px !important; min-height: 46px !important; border-radius: 15px !important;
+      font-size: 19px !important;
+    }
+    #userDashboard .jos-notification-bell i { font-size: 19px !important; }
+  }
+  @media (max-width:360px) {
+    #userDashboard .top-actions .jos-notification-bell,
+    #userDashboard .jos-notification-bell {
+      flex-basis: 42px !important; width: 42px !important; min-width: 42px !important;
+      height: 42px !important; min-height: 42px !important; border-radius: 13px !important;
+    }
+  }
+  @media (prefers-reduced-motion:reduce) { #userDashboard .jos-notification-bell { transition:none !important; } }
+</style>
+
+
+
+<!-- JOS NOTIFICATION BELL: LARGE, CLEAR, MODERN MOBILE BUTTON -->
+<style id="jos-notification-bell-modern-override">
+  /* Use the ID selector so this remains effective even if the header is outside #userDashboard. */
+  #userNotificationBtn {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 54px !important;
+    width: 54px !important;
+    min-width: 54px !important;
+    max-width: 54px !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    padding: 0 !important;
+    margin: 0 5px !important;
+    overflow: visible !important;
+    border: 1px solid rgba(255,255,255,.9) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg,#ffffff 0%,#e8fbfc 55%,#d4f3f4 100%) !important;
+    color: #087f8c !important;
+    box-shadow: 0 5px 15px rgba(0,45,58,.20), inset 0 1px 0 #ffffff !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+  }
+  #userNotificationBtn > i {
+    display: inline-block !important;
+    font-family: "Font Awesome 6 Free","Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    font-size: 25px !important;
+    line-height: 1 !important;
+    color: #087f8c !important;
+    text-shadow: 0 2px 3px rgba(8,127,140,.15) !important;
+  }
+  #userNotificationBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 19px rgba(0,45,58,.24) !important;
+    filter: saturate(1.08) !important;
+  }
+  #userNotificationBtn:active {
+    transform: scale(.94) !important;
+  }
+  #userNotificationBtn:focus-visible {
+    outline: 3px solid #ffe082 !important;
+    outline-offset: 3px !important;
+  }
+  #userNotificationBtn .jos-notification-count {
+    position: absolute !important;
+    top: -7px !important;
+    right: -7px !important;
+    z-index: 5 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    padding: 0 5px !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg,#ff5252,#d7193f) !important;
+    color: #ffffff !important;
+    font: 800 11px/1 Arial,sans-serif !important;
+    box-shadow: 0 3px 8px rgba(150,0,25,.25) !important;
+  }
+  #userNotificationBtn .jos-notification-count[hidden] {
+    display: none !important;
+  }
+  @media (max-width:600px) {
+    #userNotificationBtn {
+      flex-basis: 52px !important;
+      width: 52px !important;
+      min-width: 52px !important;
+      max-width: 52px !important;
+      height: 52px !important;
+      min-height: 52px !important;
+      max-height: 52px !important;
+      border-radius: 17px !important;
+    }
+    #userNotificationBtn > i { font-size: 24px !important; }
+  }
+  @media (max-width:360px) {
+    #userNotificationBtn {
+      flex-basis: 48px !important;
+      width: 48px !important;
+      min-width: 48px !important;
+      max-width: 48px !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      border-radius: 15px !important;
+      margin-left: 2px !important;
+      margin-right: 2px !important;
+    }
+    #userNotificationBtn > i { font-size: 22px !important; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #userNotificationBtn { transition: none !important; }
+  }
+</style>
+
 </body></html>`;
     downloadAdminBlob("\uFEFF"+html,`JOS-Users-${stamp}.xls`,"application/vnd.ms-excel;charset=utf-8;");
     showToast("Excel-compatible ফাইল তৈরি হয়েছে।","success");return;
@@ -8338,6 +8849,218 @@ html{min-height:100%;scroll-behavior:smooth} body{min-height:100%;background:var
     max-width:84px !important;max-height:84px !important;
   }
 }
+</style>
+
+
+<style id="jos-notification-responsive-final">
+/* Global modal styles: overlay is moved to BODY, so never scope these to #userDashboard. */
+#userNotificationOverlay{
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  display:none!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100dvh!important;box-sizing:border-box!important;
+  padding:clamp(12px,3vw,28px)!important;overflow:hidden!important;
+  background:rgba(5,22,34,.66)!important;
+  -webkit-backdrop-filter:blur(9px)!important;backdrop-filter:blur(9px)!important;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease!important;
+}
+#userNotificationOverlay.active{
+  display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+}
+#userNotificationOverlay .jos-notification-panel{
+  display:flex!important;flex-direction:column!important;position:relative!important;
+  width:min(500px,100%)!important;max-width:500px!important;
+  max-height:min(780px,calc(100dvh - 32px))!important;height:auto!important;
+  min-height:0!important;margin:auto!important;overflow:hidden!important;
+  border:1px solid #dce9ed!important;border-radius:25px!important;
+  background:#fff!important;box-shadow:0 30px 90px rgba(0,18,32,.34)!important;
+  transform:translateY(14px) scale(.985);transition:transform .24s ease!important;
+}
+#userNotificationOverlay.active .jos-notification-panel{transform:translateY(0) scale(1)!important}
+#userNotificationOverlay .jos-notification-panel-head{
+  display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+  justify-content:space-between!important;gap:14px!important;flex:0 0 auto!important;
+  width:100%!important;box-sizing:border-box!important;padding:22px 22px 18px!important;
+  background:linear-gradient(135deg,#e9f9fa 0%,#fff 78%)!important;
+  border-bottom:1px solid #e8eff1!important;
+}
+#userNotificationOverlay .jos-notification-panel-head>div{flex:1 1 auto!important;min-width:0!important}
+#userNotificationOverlay .jos-notification-kicker{display:block!important;font-size:10px!important;letter-spacing:1.25px!important;font-weight:900!important;color:#078795!important}
+#userNotificationOverlay .jos-notification-panel-head h2{margin:5px 0 5px!important;font-size:25px!important;line-height:1.2!important;font-weight:850!important;color:#14394a!important}
+#userNotificationOverlay .jos-notification-panel-head p{margin:0!important;font-size:12px!important;line-height:1.6!important;color:#687d89!important}
+#userNotificationOverlay .jos-notification-close{
+  display:grid!important;place-items:center!important;flex:0 0 40px!important;
+  width:40px!important;height:40px!important;margin:0!important;padding:0!important;
+  border:1px solid #dce9ed!important;border-radius:13px!important;background:#fff!important;
+  color:#244858!important;font-size:25px!important;line-height:1!important;
+  box-shadow:0 4px 13px rgba(0,40,55,.08)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-list{
+  display:block!important;flex:1 1 auto!important;min-height:0!important;
+  max-height:55dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;
+  box-sizing:border-box!important;padding:16px!important;background:#f8fbfc!important;
+}
+#userNotificationOverlay .jos-notification-state{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:0!important;min-height:260px!important;
+  height:auto!important;box-sizing:border-box!important;padding:28px 18px!important;
+  text-align:center!important;border:1px dashed #dce8eb!important;
+  border-radius:19px!important;background:linear-gradient(180deg,#fff,#f8fcfd)!important;
+}
+#userNotificationOverlay .jos-notification-state-icon{
+  display:grid!important;place-items:center!important;width:66px!important;height:66px!important;
+  margin:0 0 15px!important;border-radius:22px!important;background:#eaf7f8!important;
+  color:#078895!important;font-size:27px!important;
+}
+#userNotificationOverlay .jos-notification-error .jos-notification-state-icon{background:#fff3e9!important;color:#d97706!important}
+#userNotificationOverlay .jos-notification-error-kicker{margin:0 0 6px!important;color:#0b8792!important;font-size:9px!important;font-weight:900!important;letter-spacing:1.4px!important}
+#userNotificationOverlay .jos-notification-state h3{margin:0 0 8px!important;color:#18394a!important;font-size:17px!important;line-height:1.4!important;font-weight:850!important}
+#userNotificationOverlay .jos-notification-state p{max-width:340px!important;margin:0!important;color:#667b88!important;font-size:13px!important;line-height:1.8!important}
+#userNotificationOverlay .jos-notification-retry{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  min-height:44px!important;margin:19px 0 0!important;padding:0 20px!important;
+  border:0!important;border-radius:13px!important;background:linear-gradient(135deg,#087f8c,#0da5a6)!important;
+  color:#fff!important;font-size:13px!important;font-weight:800!important;
+  box-shadow:0 7px 18px rgba(8,127,140,.22)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-error-detail{display:none!important}
+#userNotificationOverlay .jos-notification-panel-foot{
+  display:flex!important;flex:0 0 auto!important;align-items:center!important;
+  justify-content:space-between!important;gap:12px!important;box-sizing:border-box!important;
+  padding:13px 18px!important;background:#fff!important;border-top:1px solid #e9eff1!important;
+  color:#71838e!important;font-size:11px!important;
+}
+#userNotificationOverlay .jos-notification-panel-foot .btn{
+  min-height:40px!important;padding:0 16px!important;border-radius:12px!important;
+  font-size:12px!important;font-weight:800!important;
+}
+#userNotificationOverlay .jos-notification-item{width:100%!important;box-sizing:border-box!important}
+@media(max-width:600px){
+  #userNotificationOverlay{padding:12px!important}
+  #userNotificationOverlay .jos-notification-panel{
+    width:100%!important;max-width:440px!important;max-height:calc(100dvh - 24px)!important;
+    border-radius:22px!important;
+  }
+  #userNotificationOverlay .jos-notification-panel-head{padding:18px 17px 15px!important}
+  #userNotificationOverlay .jos-notification-panel-head h2{font-size:22px!important}
+  #userNotificationOverlay .jos-notification-close{flex-basis:38px!important;width:38px!important;height:38px!important}
+  #userNotificationOverlay .jos-notification-list{max-height:52dvh!important;padding:12px!important}
+  #userNotificationOverlay .jos-notification-state{min-height:230px!important;padding:23px 15px!important}
+  #userNotificationOverlay .jos-notification-state p{font-size:12px!important}
+  #userNotificationOverlay .jos-notification-panel-foot{padding:11px 14px!important}
+}
+@media(max-height:620px){
+  #userNotificationOverlay .jos-notification-panel{max-height:calc(100dvh - 18px)!important}
+  #userNotificationOverlay .jos-notification-list{max-height:42dvh!important}
+  #userNotificationOverlay .jos-notification-state{min-height:190px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #userNotificationOverlay,#userNotificationOverlay .jos-notification-panel{transition:none!important}
+}
+</style>
+
+
+
+<!-- JOS NOTIFICATION BELL: LARGE, CLEAR, MODERN MOBILE BUTTON -->
+<style id="jos-notification-bell-modern-override">
+  /* Use the ID selector so this remains effective even if the header is outside #userDashboard. */
+  #userNotificationBtn {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 54px !important;
+    width: 54px !important;
+    min-width: 54px !important;
+    max-width: 54px !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    padding: 0 !important;
+    margin: 0 5px !important;
+    overflow: visible !important;
+    border: 1px solid rgba(255,255,255,.9) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg,#ffffff 0%,#e8fbfc 55%,#d4f3f4 100%) !important;
+    color: #087f8c !important;
+    box-shadow: 0 5px 15px rgba(0,45,58,.20), inset 0 1px 0 #ffffff !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+  }
+  #userNotificationBtn > i {
+    display: inline-block !important;
+    font-family: "Font Awesome 6 Free","Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    font-size: 25px !important;
+    line-height: 1 !important;
+    color: #087f8c !important;
+    text-shadow: 0 2px 3px rgba(8,127,140,.15) !important;
+  }
+  #userNotificationBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 19px rgba(0,45,58,.24) !important;
+    filter: saturate(1.08) !important;
+  }
+  #userNotificationBtn:active {
+    transform: scale(.94) !important;
+  }
+  #userNotificationBtn:focus-visible {
+    outline: 3px solid #ffe082 !important;
+    outline-offset: 3px !important;
+  }
+  #userNotificationBtn .jos-notification-count {
+    position: absolute !important;
+    top: -7px !important;
+    right: -7px !important;
+    z-index: 5 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    padding: 0 5px !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg,#ff5252,#d7193f) !important;
+    color: #ffffff !important;
+    font: 800 11px/1 Arial,sans-serif !important;
+    box-shadow: 0 3px 8px rgba(150,0,25,.25) !important;
+  }
+  #userNotificationBtn .jos-notification-count[hidden] {
+    display: none !important;
+  }
+  @media (max-width:600px) {
+    #userNotificationBtn {
+      flex-basis: 52px !important;
+      width: 52px !important;
+      min-width: 52px !important;
+      max-width: 52px !important;
+      height: 52px !important;
+      min-height: 52px !important;
+      max-height: 52px !important;
+      border-radius: 17px !important;
+    }
+    #userNotificationBtn > i { font-size: 24px !important; }
+  }
+  @media (max-width:360px) {
+    #userNotificationBtn {
+      flex-basis: 48px !important;
+      width: 48px !important;
+      min-width: 48px !important;
+      max-width: 48px !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      border-radius: 15px !important;
+      margin-left: 2px !important;
+      margin-right: 2px !important;
+    }
+    #userNotificationBtn > i { font-size: 22px !important; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #userNotificationBtn { transition: none !important; }
+  }
 </style>
 
 </body></html>`);
@@ -11216,6 +11939,218 @@ document.addEventListener("keydown", function(event) {
     max-width:84px !important;max-height:84px !important;
   }
 }
+</style>
+
+
+<style id="jos-notification-responsive-final">
+/* Global modal styles: overlay is moved to BODY, so never scope these to #userDashboard. */
+#userNotificationOverlay{
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  display:none!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100dvh!important;box-sizing:border-box!important;
+  padding:clamp(12px,3vw,28px)!important;overflow:hidden!important;
+  background:rgba(5,22,34,.66)!important;
+  -webkit-backdrop-filter:blur(9px)!important;backdrop-filter:blur(9px)!important;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease!important;
+}
+#userNotificationOverlay.active{
+  display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+}
+#userNotificationOverlay .jos-notification-panel{
+  display:flex!important;flex-direction:column!important;position:relative!important;
+  width:min(500px,100%)!important;max-width:500px!important;
+  max-height:min(780px,calc(100dvh - 32px))!important;height:auto!important;
+  min-height:0!important;margin:auto!important;overflow:hidden!important;
+  border:1px solid #dce9ed!important;border-radius:25px!important;
+  background:#fff!important;box-shadow:0 30px 90px rgba(0,18,32,.34)!important;
+  transform:translateY(14px) scale(.985);transition:transform .24s ease!important;
+}
+#userNotificationOverlay.active .jos-notification-panel{transform:translateY(0) scale(1)!important}
+#userNotificationOverlay .jos-notification-panel-head{
+  display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+  justify-content:space-between!important;gap:14px!important;flex:0 0 auto!important;
+  width:100%!important;box-sizing:border-box!important;padding:22px 22px 18px!important;
+  background:linear-gradient(135deg,#e9f9fa 0%,#fff 78%)!important;
+  border-bottom:1px solid #e8eff1!important;
+}
+#userNotificationOverlay .jos-notification-panel-head>div{flex:1 1 auto!important;min-width:0!important}
+#userNotificationOverlay .jos-notification-kicker{display:block!important;font-size:10px!important;letter-spacing:1.25px!important;font-weight:900!important;color:#078795!important}
+#userNotificationOverlay .jos-notification-panel-head h2{margin:5px 0 5px!important;font-size:25px!important;line-height:1.2!important;font-weight:850!important;color:#14394a!important}
+#userNotificationOverlay .jos-notification-panel-head p{margin:0!important;font-size:12px!important;line-height:1.6!important;color:#687d89!important}
+#userNotificationOverlay .jos-notification-close{
+  display:grid!important;place-items:center!important;flex:0 0 40px!important;
+  width:40px!important;height:40px!important;margin:0!important;padding:0!important;
+  border:1px solid #dce9ed!important;border-radius:13px!important;background:#fff!important;
+  color:#244858!important;font-size:25px!important;line-height:1!important;
+  box-shadow:0 4px 13px rgba(0,40,55,.08)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-list{
+  display:block!important;flex:1 1 auto!important;min-height:0!important;
+  max-height:55dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;
+  box-sizing:border-box!important;padding:16px!important;background:#f8fbfc!important;
+}
+#userNotificationOverlay .jos-notification-state{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:0!important;min-height:260px!important;
+  height:auto!important;box-sizing:border-box!important;padding:28px 18px!important;
+  text-align:center!important;border:1px dashed #dce8eb!important;
+  border-radius:19px!important;background:linear-gradient(180deg,#fff,#f8fcfd)!important;
+}
+#userNotificationOverlay .jos-notification-state-icon{
+  display:grid!important;place-items:center!important;width:66px!important;height:66px!important;
+  margin:0 0 15px!important;border-radius:22px!important;background:#eaf7f8!important;
+  color:#078895!important;font-size:27px!important;
+}
+#userNotificationOverlay .jos-notification-error .jos-notification-state-icon{background:#fff3e9!important;color:#d97706!important}
+#userNotificationOverlay .jos-notification-error-kicker{margin:0 0 6px!important;color:#0b8792!important;font-size:9px!important;font-weight:900!important;letter-spacing:1.4px!important}
+#userNotificationOverlay .jos-notification-state h3{margin:0 0 8px!important;color:#18394a!important;font-size:17px!important;line-height:1.4!important;font-weight:850!important}
+#userNotificationOverlay .jos-notification-state p{max-width:340px!important;margin:0!important;color:#667b88!important;font-size:13px!important;line-height:1.8!important}
+#userNotificationOverlay .jos-notification-retry{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  min-height:44px!important;margin:19px 0 0!important;padding:0 20px!important;
+  border:0!important;border-radius:13px!important;background:linear-gradient(135deg,#087f8c,#0da5a6)!important;
+  color:#fff!important;font-size:13px!important;font-weight:800!important;
+  box-shadow:0 7px 18px rgba(8,127,140,.22)!important;cursor:pointer!important;
+}
+#userNotificationOverlay .jos-notification-error-detail{display:none!important}
+#userNotificationOverlay .jos-notification-panel-foot{
+  display:flex!important;flex:0 0 auto!important;align-items:center!important;
+  justify-content:space-between!important;gap:12px!important;box-sizing:border-box!important;
+  padding:13px 18px!important;background:#fff!important;border-top:1px solid #e9eff1!important;
+  color:#71838e!important;font-size:11px!important;
+}
+#userNotificationOverlay .jos-notification-panel-foot .btn{
+  min-height:40px!important;padding:0 16px!important;border-radius:12px!important;
+  font-size:12px!important;font-weight:800!important;
+}
+#userNotificationOverlay .jos-notification-item{width:100%!important;box-sizing:border-box!important}
+@media(max-width:600px){
+  #userNotificationOverlay{padding:12px!important}
+  #userNotificationOverlay .jos-notification-panel{
+    width:100%!important;max-width:440px!important;max-height:calc(100dvh - 24px)!important;
+    border-radius:22px!important;
+  }
+  #userNotificationOverlay .jos-notification-panel-head{padding:18px 17px 15px!important}
+  #userNotificationOverlay .jos-notification-panel-head h2{font-size:22px!important}
+  #userNotificationOverlay .jos-notification-close{flex-basis:38px!important;width:38px!important;height:38px!important}
+  #userNotificationOverlay .jos-notification-list{max-height:52dvh!important;padding:12px!important}
+  #userNotificationOverlay .jos-notification-state{min-height:230px!important;padding:23px 15px!important}
+  #userNotificationOverlay .jos-notification-state p{font-size:12px!important}
+  #userNotificationOverlay .jos-notification-panel-foot{padding:11px 14px!important}
+}
+@media(max-height:620px){
+  #userNotificationOverlay .jos-notification-panel{max-height:calc(100dvh - 18px)!important}
+  #userNotificationOverlay .jos-notification-list{max-height:42dvh!important}
+  #userNotificationOverlay .jos-notification-state{min-height:190px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #userNotificationOverlay,#userNotificationOverlay .jos-notification-panel{transition:none!important}
+}
+</style>
+
+
+
+<!-- JOS NOTIFICATION BELL: LARGE, CLEAR, MODERN MOBILE BUTTON -->
+<style id="jos-notification-bell-modern-override">
+  /* Use the ID selector so this remains effective even if the header is outside #userDashboard. */
+  #userNotificationBtn {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 54px !important;
+    width: 54px !important;
+    min-width: 54px !important;
+    max-width: 54px !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    padding: 0 !important;
+    margin: 0 5px !important;
+    overflow: visible !important;
+    border: 1px solid rgba(255,255,255,.9) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg,#ffffff 0%,#e8fbfc 55%,#d4f3f4 100%) !important;
+    color: #087f8c !important;
+    box-shadow: 0 5px 15px rgba(0,45,58,.20), inset 0 1px 0 #ffffff !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+  }
+  #userNotificationBtn > i {
+    display: inline-block !important;
+    font-family: "Font Awesome 6 Free","Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    font-size: 25px !important;
+    line-height: 1 !important;
+    color: #087f8c !important;
+    text-shadow: 0 2px 3px rgba(8,127,140,.15) !important;
+  }
+  #userNotificationBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 19px rgba(0,45,58,.24) !important;
+    filter: saturate(1.08) !important;
+  }
+  #userNotificationBtn:active {
+    transform: scale(.94) !important;
+  }
+  #userNotificationBtn:focus-visible {
+    outline: 3px solid #ffe082 !important;
+    outline-offset: 3px !important;
+  }
+  #userNotificationBtn .jos-notification-count {
+    position: absolute !important;
+    top: -7px !important;
+    right: -7px !important;
+    z-index: 5 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    padding: 0 5px !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg,#ff5252,#d7193f) !important;
+    color: #ffffff !important;
+    font: 800 11px/1 Arial,sans-serif !important;
+    box-shadow: 0 3px 8px rgba(150,0,25,.25) !important;
+  }
+  #userNotificationBtn .jos-notification-count[hidden] {
+    display: none !important;
+  }
+  @media (max-width:600px) {
+    #userNotificationBtn {
+      flex-basis: 52px !important;
+      width: 52px !important;
+      min-width: 52px !important;
+      max-width: 52px !important;
+      height: 52px !important;
+      min-height: 52px !important;
+      max-height: 52px !important;
+      border-radius: 17px !important;
+    }
+    #userNotificationBtn > i { font-size: 24px !important; }
+  }
+  @media (max-width:360px) {
+    #userNotificationBtn {
+      flex-basis: 48px !important;
+      width: 48px !important;
+      min-width: 48px !important;
+      max-width: 48px !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      border-radius: 15px !important;
+      margin-left: 2px !important;
+      margin-right: 2px !important;
+    }
+    #userNotificationBtn > i { font-size: 22px !important; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #userNotificationBtn { transition: none !important; }
+  }
 </style>
 
 </body>
